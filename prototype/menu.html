@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Menu</title>
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/bootstrap.min.css.map">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK:300,400,500,700,900&display=swap" rel="stylesheet"> 
@@ -13,7 +13,7 @@
 <body style="font-family: Noto Sans HK, sans-serif">
     <nav id="altura-nav" style="background-image: linear-gradient(to bottom, #e7d915 , #f3bc2f);" class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <img style="height: 70px;" src="static/img/logo-titulo branco.png" alt="">
+                <img style="height: 80px;" src="static/img/logo-titulo branco.png" alt="">
             <button style="background: #7e4732" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,80 +28,100 @@
                     <li class="nav-item active">
                         <a style="color: #7e4732;" class="nav-link" href="#">Contato</a>
                     </li>  
+                    <li class="nav-item active">
+                        <a style="color: #7e4732" class="nav-link" href="">Usuário</a>
+                    </li>
                 </ul>
             </div>
-        </nav>
-        <nav id="altura-nav" class="mt-4 navbar navbar-expand-lg navbar-dark">
-                <div class="container">
-                    <ul class="navbar-nav m-auto">
-                        <li class="mx-5 my-2 nav-item active">
-                            <button style="width: 200px;" class="btn btn-warning"><a style="color: #7e4732;" class=" nav-link" href="#">Pets</a></button>
-                        </li>
-                        <li class="mx-5 my-2 nav-item active">
-                            <button style="width: 200px;" class="btn btn-warning"><a style="color: #7e4732;" class=" nav-link" href="#">Cadastrar Pets</a></button>
-                        </li>
-                        <li class="mx-5 my-2 nav-item active">
-                            <button style="width: 200px;" class="btn btn-warning"><a style="color: #7e4732;" class=" nav-link" href="#">Perfil</a></button>
-                        </li>  
-                    </ul>
-                </div>
-            </nav>
-            <div class="container my-4">
-    <div class="card">
-        <div class="card-header">
-            <div class="row">
-                <div class="col-sm-12 col-md-9">
-                    <h5>Seus pets cadastrados e suas informações</h5>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <div  id="dataTable_filter" class="dataTables_filter">
-                    <input class="form-control-sm form-control" type="text" name="" id="" placeholder="Buscar">
-                </div>
-                </div>  
-            </div>        
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-6 text-center text-sm-right">
+                <img src="static/img/cat.png" alt="">
+            </div>
+            <div class="col-sm-6 text-center text-sm-left pl-0 mt-3">
+                <h1>Pets</h1>
+            </div>
         </div>
-        <div class="card-body">
-            <div>
-                <div class="row">
-                    <div class="col">
-                        <p style="font-size: 10px;">Escolha um pet para ver o seu RG</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12 m-0">
-                        <table id="data-table" class="table table-bordered dataTable" role="grid" style="width: 100%" cellspacing="0">
-                            <thead>
-                                <tr role="row" style="font-size: 18px">
-                                    <th><strong>Nome</strong></th>
-                                    <th>Animal</th>
-                                    <th>Raça</th>
-                                    <th>Sexo</th>
-                                </tr>
-                            </thead>
-                            <tbody style="font-size: 15px">
-                                <tr data-toggle="modal" data-target="#rg1" role="row">
-                                    <th>Ralf</th>
-                                    <th>Cachorro</th>
-                                    <th>Dálmata</th>
-                                    <th>Macho</th>
-                                </tr>
-                                <tr data-toggle="modal" data-target="#rg2" role="row">
-                                    <th>Lisa</th>
-                                    <th>Gato</th>
-                                    <th>Raça</th>
-                                    <th>Fêmea</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="row mt-4">
+            <div class="col-lg-9 m-auto">
+                <ul style="list-style: none">
+                    <li>
+                        <div class="card">
+                            <img class="card-img-top" src="static/img/ralf.jpg" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">Ralf</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">Beagle</h6>
+                                <p class="card-text">Alguma frase?</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Idade:</strong> 2 anos</li>
+                                <li class="list-group-item"><strong>Sexo:</strong> Macho</li>
+                            </ul>
+                            <div class="card-footer text-muted">
+                                <ul class="p-0">
+                                    <li class="d-inline-block">
+                                        <a data-toggle="modal" data-target="#rg1" class="card-link" href="">
+                                            <ul class="p-0">
+                                                <li class="d-inline"><img class="m-0 p-0" src="static/img/rg.png" alt=""></li>
+                                                <li class="d-inline">RG</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="card-link" href="">
+                                            <ul class="p-0">
+                                                <li class="d-inline"><img style="width: 43px" class="m-0 p-0" src="static/img/pen.png" alt=""></li>
+                                                <li class="d-inline">Editar</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="mt-4">
+                        <div class="card">
+                            <img class="card-img-top" src="static/img/lisa.jpg" alt="">
+                            <div class="card-body">
+                                <h4 class="card-title">Lisa</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">Persa</h6>
+                                <p class="card-text">Alguma frase?</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Idade: 4 anos</li>
+                                <li class="list-group-item">Sexo: Fêmea</li>
+                            </ul>
+                            <div class="card-footer text-muted">
+                                <ul class="p-0">
+                                    <li class="d-inline-block">
+                                        <a data-toggle="modal" data-target="#rg2" class="card-link" href="">
+                                            <ul class="p-0">
+                                                <li class="d-inline"><img class="m-0 p-0" src="static/img/rg.png" alt=""></li>
+                                                <li class="d-inline">RG</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="d-inline-block">
+                                        <a class="card-link" href="">
+                                            <ul class="p-0">
+                                                <li class="d-inline"><img style="width: 43px" class="m-0 p-0" src="static/img/pen.png" alt=""></li>
+                                                <li class="d-inline">Editar</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-            </div>
+
     <!-- Modal -->
     <div class="modal fade" id="rg1" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Lorem ipsum dolor</h5>
@@ -112,27 +132,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
-                            <h5>Mauris dignissim</h5>
-                            <p class="modal-text">Mauris dignissim purus felis. Praesent eu lectus sed ante pulvinar consequat. Integer ut velit turpis. Sed maximus blandit velit, eget imperdiet ante tristique tempor. Aenean rutrum sagittis enim at facilisis. Vestibulum imperdiet, augue eu varius fringilla, mi nibh viverra tortor, nec bibendum massa purus a eros. Vivamus in purus vel sem tincidunt posuere nec quis tortor. </p>
-                        </div>
-                        <div class="col-6">
-                            <h5>Nulla posuere</h5>
-                            <p class="modal-text">Nulla posuere, lacus et congue dictum, nisl erat congue neque, sit amet dapibus elit libero at neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse scelerisque non massa vel hendrerit. Integer vulputate sodales dolor eu malesuada. Mauris luctus molestie ante at tempor. Sed scelerisque dapibus leo. Integer dapibus leo est, vel tincidunt justo lobortis a. Donec interdum velit id commodo tristique. </p>
+                        <div class="col text-center">
+                            <img src="static/img/rg1.jpg" alt="">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal fade" id="rg2" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Lorem ipsum dolor</h5>
+                    <h5 class="modal-title"></h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <!-- <span>x</span> -->
                         <span>&times;</span>
@@ -140,18 +152,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-6">
-                            <h5>Mauris dignissim</h5>
-                            <p class="modal-text">Mauris dignissim purus felis. Praesent eu lectus sed ante pulvinar consequat. Integer ut velit turpis. Sed maximus blandit velit, eget imperdiet ante tristique tempor. Aenean rutrum sagittis enim at facilisis. Vestibulum imperdiet, augue eu varius fringilla, mi nibh viverra tortor, nec bibendum massa purus a eros. Vivamus in purus vel sem tincidunt posuere nec quis tortor. </p>
-                        </div>
-                        <div class="col-6">
-                            <h5>Nulla posuere</h5>
-                            <p class="modal-text">Nulla posuere, lacus et congue dictum, nisl erat congue neque, sit amet dapibus elit libero at neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse scelerisque non massa vel hendrerit. Integer vulputate sodales dolor eu malesuada. Mauris luctus molestie ante at tempor. Sed scelerisque dapibus leo. Integer dapibus leo est, vel tincidunt justo lobortis a. Donec interdum velit id commodo tristique. </p>
+                        <div class="col text-center">
+                            <img src="static/img/rg2.jpg" alt="">
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
