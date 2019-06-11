@@ -1,6 +1,6 @@
 import { MenuTemplate } from '../templates/menu-template.js'
 
-const Menu = Vue.component ('menu', {
+const Menu = Vue.component ('menuPrincipal', {
     template: MenuTemplate,
 })
 

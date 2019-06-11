@@ -1,7 +1,7 @@
-import { LoginTemplate } from '../templates/login-template.js'
+import { PrincipalTemplate } from '../templates/principal-template.js'
 
-const Login = Vue.component ('login', {
-    template: LoginTemplate,
+const Principal = Vue.component ('principal', {
+    template: PrincipalTemplate,
     mounted () {
         let alturaNav = document.getElementById('altura-nav').offsetHeight;
         let alturaTela = window.innerHeight;
@@ -13,4 +13,4 @@ const Login = Vue.component ('login', {
 })
 
 
-export { Login }
+export { Principal }

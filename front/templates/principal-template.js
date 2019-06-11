@@ -1,44 +1,37 @@
-const LoginTemplate = `
+const PrincipalTemplate = `
     <div>
-        <navbar></navbar>
+    <navbar></navbar>
         <div class="row m-0">
-            <div class="col-lg-4 mt-3">
-                <div class="card m-auto" style="width: 80%; background: #fdc536">
-                    <h5 style="color: #7e4732; font-weight: 700" class="card-title text-center mt-4">Faça seu login e conheça nossos produtos</h5>
-                    <div style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);" class="card-body m-auto">
-                        <form action="">
-                            <div class="form-group">
-                                <label style="color: #7e4732" for="pin">PIN</label>
-                                <input type="text" class="form-control" id="pin" required>
-                            </div>
-                            <div class="form-group">
-                                <label style="color: #7e4732" for="senha">Senha</label>
-                                <input type="password" class="form-control" id="senha" required>
-                                <a style="font-size: 13px" class="card-link" href="">Esqueceu a senha?</a>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label style="color: #7e4732" class="form-check-label mb-0" for="exampleCheck1">Lembrar o PIN</label>
-                            </div>
-                            <div class="text-center">
-                                <button style="color: #7e4732; width: 120px" type="submit" class="btn btn-light" hre><a href="">Entrar</a></button>
-                            </div>
-                        </form>
+            <div class="col-lg-4 mt-4">
+                <div>
+                    <h1 style="color: #fdc536">Sintonia Pet - O melhor site para o seu melhor amigo</h1>
+                    <div class="row mt-5 ">
+                        <div class="col-sm-6">
+                           <h4 style="color: #585858">Faça <a class="card-link" href="">login</a> e gerencie seus pets, fique por dentro das novidades e muito mais!</h4>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            <img src="public/img/cachorro-esquerda.png" alt="">
+                        </div>
                     </div>
-                    <div style="background: white" class="card-footer text-muted p-1 pl-2">
-                        <p style="color: #7e4732" class="m-0">É novo por aqui? <a href="#/cadastro">Crie sua conta</a> informando seu PIN</p>
+                    <div class="row d-none d-sm-flex">
+                        <div class="col-sm-6 text-center">
+                            <img src="public/img/gato-cinza-sentado.png" alt="">
+                        </div>
+                        <div class="col-sm-6">
+                                <p style="font-size: 18px; color: #f3bc32">É novo por aqui? Se <a class="card-link" href="">cadastre</a> e conheça um pouco dos nossos serviços!</p>
+                        </div>
                     </div>
                 </div>
-                <div class="mt-4">
+                <!--<div class="mt-4">
                     <ul style="list-style: none" class="m-0">
                         <li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/facebook.png" alt=""></li>
                         <li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/gmail.png" alt=""></li>
                         <li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/instagram.png" alt=""></li>
                         <li class="d-inline-block mx-1 text-right" style="color: #7e4732; font-size: 14px"><span>&copy; Sintonia Pet 2019</span> </li>
                     </ul>
-                </div>
+                </div>-->
             </div>
-            <div class="col-lg-8 p-0">
+            <div class="col-lg-8 p-0 d-none d-sm-flex">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -63,7 +56,8 @@ const LoginTemplate = `
                 </div>
             </div>
         </div>
+        <contato></contato>
     </div>
 `
 
-export { LoginTemplate }
+export { PrincipalTemplate }

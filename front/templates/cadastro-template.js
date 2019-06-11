@@ -18,7 +18,7 @@ const CadastroTemplate = `
                             <input style="height: 50px" type="text" class="form-control" id="nome" placeholder="Nome Completo" required>
                         </div>
                         <div class="form-group">
-                            <input style="height: 50px" type="text" class="form-control" id="pin" placeholder="PIN" required>
+                            <input style="height: 50px" type="text" class="form-control" id="pin" placeholder="Login" required>
                         </div>
                         <div class="form-group">
                             <input style="height: 50px" type="password" class="form-control" id="email" placeholder="Email" required>

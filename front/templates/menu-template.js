@@ -1,6 +1,6 @@
 const MenuTemplate = `
     <div>
-        <navbar></navbar>
+        <navbarLogin></navbarLogin>
         <menuPets></menuPets>
     </div>
 

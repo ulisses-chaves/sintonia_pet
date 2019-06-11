@@ -1,17 +1,21 @@
 import Vue from './public/js/vue.js'
 import { Navbar } from './components/navbar.js'
-import { Login } from './components/login.js'
+import { Principal } from './components/principal.js'
 import { Cadastro } from './components/cadastro.js';
 import { Menu } from './components/menu.js';
 import { MenuPets } from './components/menu-pets.js';
+import { NavbarLogin } from './components/navbar-login.js';
+import { MenuPerfil } from './components/menu-perfil.js';
+import { Contato } from './components/contato.js'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter ({
     routes: [
-        { path: '/', component: Login },
+        { path: '/', component: Principal },
         { path: '/cadastro', component: Cadastro },
-        { path: '/menu', component: Menu }
+        { path: '/menuPrincipal', component: Menu },
+        { path: '/contato', component: Contato }
     ]
 })
 
@@ -20,6 +24,9 @@ new Vue ({
     router,
     components: {
         'navbar': Navbar,
-        'menuPets': MenuPets
+        'navbarLogin': NavbarLogin,
+        'menuPets': MenuPets,
+        'menuPerfil': MenuPerfil,
+        'contato': Contato
     },
 })
