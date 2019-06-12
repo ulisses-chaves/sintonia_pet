@@ -1,48 +1,160 @@
 const CadastroTemplate = `
-    <div style="height: 100vh; background: url(public/img/dogg60.jpg) no-repeat center top fixed; background-size: cover">
+    <div style="background-image: linear-gradient(to bottom, #ffffff, #dddcdc);">
+        <navbar></navbar>
         <div class="container">
-            <div class="row">
-                <div class="col text-center mt-4">
-                    <img style="height: 100px;" src="public/img/logo-titulo.png" alt="">
+        <div class="my-5 text-center">
+            <h1>Estamos ansiosos para receber você no <a href="#/" class="card-link color-warning">Sintonia Pet</a></h1>
+            <h2 class="color-brown">Preencha os campos abaixo para se cadastrar!</h2>
+        </div>
+        <form action="">
+            <div class="row mt-5">
+                <div class="col-sm-6">
+                    <h4 class="mb-4">Suas informações pessoais</h4>
+                    <div class="form-group row">
+                        <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nome" placeholder="Primeiro Nome">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="telefone" placeholder="DDD + Telefone">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="celular" class="col-sm-2 col-form-label">Celular</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="celular" placeholder="DDD + Celular">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputSexo" class="col-sm-2 col-form-label">Sexo</label>
+                        <div class="col-sm-10">
+                            <select id="inputSexo" class="form-control">
+                                <option selected>Escolher...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                            <label for="imputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
+                            <div class="col-sm-10">
+                                <select id="inputEstadoCivil" class="form-control">
+                                    <option selected>Escolher...</option>
+                                    <option value="solteiro">Solteiro(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                </select>
+                            </div>
+                        </div>
                 </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-lg-6 text-center text-md-left mt-4">
-                    <h1 style="font-size: 50px; color: #ffc107">Os melhores produtos</h1>
-                    <p style="font-size: 50px; color: #ffc107">para os seus pets!</p>
-                    <h2 class="pt-3" style="font-size: 25px; color: #c9c9c9">Se cadastre e fique por dentro das novidades.</h2>
-                </div>
-                <div class="col-lg-6">
-                    <form action="" class="mt-4 text-center">
-                        <div class="form-group">
-                            <input style="height: 50px" type="text" class="form-control" id="nome" placeholder="Nome Completo" required>
+                <div class="col-sm-6">
+                    <div class="row mt-5">
+                        <div class="col-sm-7 mt-sm-5 text-center text-sm-right">
+                            <h3>Aqui você poderá cadastrar seus pets, gerenciá-los e muito mais!</h3>
+                            <hr style="width: 40%; background-color: #8b513a" class="pt-1 mr-0">
                         </div>
-                        <div class="form-group">
-                            <input style="height: 50px" type="text" class="form-control" id="pin" placeholder="Login" required>
+                        <div class="col-sm-5 mt-5">
+                            <img style="width: 220px" src="public/img/cachorro-marrom-esquerda.png" alt="">
                         </div>
-                        <div class="form-group">
-                            <input style="height: 50px" type="password" class="form-control" id="email" placeholder="Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input style="height: 50px" type="password" class="form-control" id="senha" placeholder="Senha" required>
-                        </div>
-                        <p style="color: white; font-size: 11px">
-                            Clicando em “Criar conta”, você aceita nossos <a class="card-link" href="">Termos de Serviço </a> e <a class="card-link ml-0" href=""> Declaração de Privacidade</a>.
-                        </p>
-                        <button style="width: 250px; height: 50px;" type="submit" class="mt-1 btn btn-warning">Criar conta</button> <!--entrar com google/face?-->
-                        <a  href="#/" style="width: 250px; height: 50px; padding-top: 2%;"  class="mt-1 btn btn-warning " >Voltar</a>
-                    </form>
-                    <div class="text-center">
-                        <button style="width: 255px; height: 45px; background-color: #3b5998; color: white" type="submit" class="mt-3 btn btn-warning">
-                            <img style="width: 37px" src="public/img/facebook.png" alt=""> Entrar com o Facebook
-                        </button>
-                        <button style="width: 255px; height: 45px; background-color: #DD4B39; color: white" type="submit" class="mt-3 btn btn-warning">
-                            <img style="width: 37px" src="public/img/google-plus.png" alt=""> Entrar com a conta Google
-                        </button>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="row mt-5">
+                <div class="col-sm-6">
+                    <div class="row mt-5">
+                        <div class="col-sm-5 text-center text-sm-left">
+                            <img style="width: 180px" src="public/img/pássaro-vermelho-direita.png" alt="">
+                        </div>
+                        <div class="col-sm-7 mt-5">
+                            <h5>Informando sua localização em breve você poderá fazer compras no <a href="#/" class="card-link color-warning">Sintonia Pet</a>!</h5>
+                            <hr style="width: 40%;" class="pt-1 bg-warning ml-0">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="mb-4">Sua localização</h4>
+                    <div class="form-group row">
+                        <label for="inputCEP" class="col-sm-2 col-form-label">CEP</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPais" class="col-sm-2 col-form-label">País</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputPais" placeholder="País">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputCidade" class="col-sm-2 col-form-label">Cidade</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputBairro" class="col-sm-2 col-form-label">Bairro</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputRua" class="col-sm-2 col-form-label">Rua</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputRua" placeholder="Rua">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-3 my-5 text-center text-sm-left ">
+                    <img style="width: 150px" class="mt-sm-5" src="public/img/gato-laranja-direita.png" alt="">
+                </div>
+                <div class="col-sm-6">
+                    <h4 class="mb-4">Só faltam os dados para login</h4>
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputSenha" class="col-sm-2 col-form-label">Senha</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputConSenha" class="col-sm-2 col-form-label">Repita a senha</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-warning"> Finalizar o Cadastro</button>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt-5">
+                    <img style="width: 180px" class="mt-sm-4 ml-sm-5" src="public/img/cachorro-laranja-esquerda.png" alt="">
+                </div>
+            </div>
+        </form>
+    </div>
+    <rodape></rodape>
     </div>
 `
 

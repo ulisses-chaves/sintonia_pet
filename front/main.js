@@ -7,6 +7,8 @@ import { MenuPets } from './components/menu-pets.js';
 import { NavbarLogin } from './components/navbar-login.js';
 import { MenuPerfil } from './components/menu-perfil.js';
 import { Contato } from './components/contato.js'
+import { Login } from './components/login.js';
+import { Footer } from './components/footer.js'
 
 Vue.use(VueRouter)
 
@@ -15,7 +17,7 @@ const router = new VueRouter ({
         { path: '/', component: Principal },
         { path: '/cadastro', component: Cadastro },
         { path: '/menuPrincipal', component: Menu },
-        { path: '/contato', component: Contato }
+        { path: '/login', component: Login }
     ]
 })
 
@@ -27,6 +29,7 @@ new Vue ({
         'navbarLogin': NavbarLogin,
         'menuPets': MenuPets,
         'menuPerfil': MenuPerfil,
-        'contato': Contato
+        'contato': Contato,
+        'rodape': Footer
     },
 })
