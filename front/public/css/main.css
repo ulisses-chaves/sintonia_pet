@@ -8,3 +8,7 @@ body {
 .color-brown {
     color: #7e4732;
 }
+
+.link:hover {
+    color: #fdbe00;
+}

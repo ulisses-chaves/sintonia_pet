@@ -1,5 +1,5 @@
 const PrincipalTemplate = `
-    <div style="background-image: linear-gradient(to bottom, #dddcdc, #ffffff);">
+    <div> <!--style="background-image: linear-gradient(to bottom, #ffffff, #dddcdc);"-->
         <navbar></navbar>
             <div class="row m-0">
                 <div class="col-lg-4 mt-4">
@@ -20,10 +20,10 @@ const PrincipalTemplate = `
                     </div>
                     <h3 class="color-brown mt-3">O melhor site de gerenciamento de pets que você poderá encontrar!</h3>
                     <h4 class="mt-5 text-right">
-                        Faça <a class="card-link" href="#/login">login</a> e usufrua dos nossos serviços gratuitos. Caso não seja não tenha conta, <a class="card-link m-0" href="#/cadastro">cadastre-se</a> agora mesmo!
+                        Faça <a class="card-link" href="#/login">login</a> e usufrua dos nossos serviços gratuitos. Caso não tenha conta, <a class="card-link m-0" href="#/cadastro">cadastre-se</a> agora mesmo!
                     </h4>
                 </div>
-                <div class="col-lg-8 p-0 d-none d-sm-flex h-100">
+                <div class="col-lg-8 p-0 d-none d-sm-flex h-100 mb-5">
                     <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -48,6 +48,9 @@ const PrincipalTemplate = `
                     </div>
                 </div>
             </div>
+            <hr class="container">
+            <comoUsar></comoUsar>
+            <hr class="container">
             <contato></contato>
             <rodape></rodape>
         </div>

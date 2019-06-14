@@ -13,7 +13,7 @@ const MenuPetsTemplate = `
             <div class="col-lg-9 m-auto">
                 <ul style="list-style: none">
                     <li class="mb-3">
-                        <a style="color: black" href="">
+                        <a v-on:click.stop.prevent="emitClick('telaCadastroPets')" style="color: black" href="">
                             <img style="width: 25px" src="public/img/plus.png" alt="">
                             <span style="vertical-align: middle">Adicionar Pet</span>
                         </a>
@@ -73,7 +73,7 @@ const MenuPetsTemplate = `
                                     <li class="d-inline-block">
                                         <a data-toggle="modal" data-target="#rg" class="card-link" href="">
                                             <ul class="p-0">
-                                                <li class="d-inline"><img class="m-0 p-0" src="public/img/rg.png" alt=""></li>
+                                                <li class="d-inline"><img class="m-0 p-0" style="width: 64px" src="public/img/rg.png" alt=""></li>
                                                 <li class="d-inline">RG</li>
                                             </ul>
                                         </a>
@@ -91,7 +91,7 @@ const MenuPetsTemplate = `
                         </div>
                     </li>
                     <li class="mt-5 text-center">
-                        <a href="" class="card-link">
+                        <a v-on:click.stop.prevent="emitClick('telaCadastroPets')" href="" class="card-link">
                             <img style="width: 128px" src="public/img/plus.png" alt="">
                             <p style="font-size: 30px; color: black" class="my-2">Adicionar Pet</p>
                         </a>
@@ -122,7 +122,7 @@ const MenuPetsTemplate = `
             </div>
         </div>
     </div>
-    <div id="edit" class="modal" tabindex="-1" role="dialog">
+    <div id="edit" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">

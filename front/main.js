@@ -9,6 +9,8 @@ import { MenuPerfil } from './components/menu-perfil.js';
 import { Contato } from './components/contato.js'
 import { Login } from './components/login.js';
 import { Footer } from './components/footer.js'
+import { ComoUsar } from './components/como-usar.js';
+import { CadastroPet } from './components/cadastro-pet.js';
 
 Vue.use(VueRouter)
 
@@ -16,8 +18,9 @@ const router = new VueRouter ({
     routes: [
         { path: '/', component: Principal },
         { path: '/cadastro', component: Cadastro },
-        { path: '/menuPrincipal', component: Menu },
-        { path: '/login', component: Login }
+        { path: '/menuPrincipal', component: Menu }, //precisa tá logado | add as 3 paginas que também precisam tá logado pra acessar
+        { path: '/login', component: Login },
+        { path: '/cadastroPet', component: CadastroPet}
     ]
 })
 
@@ -30,6 +33,7 @@ new Vue ({
         'menuPets': MenuPets,
         'menuPerfil': MenuPerfil,
         'contato': Contato,
-        'rodape': Footer
+        'rodape': Footer,
+        'comoUsar': ComoUsar,
     },
 })

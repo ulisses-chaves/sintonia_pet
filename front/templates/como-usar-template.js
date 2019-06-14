@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="./public/css/normalize.css">
-        <link rel="stylesheet" href="./public/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./public/css/bootstrap.min.css.map">
-        <link rel="stylesheet" href="./public/css/main.css">
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+HK:300,400,500,700,900&display=swap" rel="stylesheet">
-        <link rel="shortcut icon" href="public/img/logo.png" >
-</head>
-<body>
+const ComoUsarTemplate = `
     <div class="container">
-        <hr style="width: 40%; background-color: #7e4732" class="pt-1 mr-0 mt-5">
-        <h2 class="text-center h1">Como usar</h2>
-        <hr style="width: 40%;" class="pt-1 bg-warning mr-0 ml-0 mb-5">
+        <h2 class="my-5 text-center h1">Como usar</h2>
         <div class="row" style="color: white">
             <div class="col-lg-3 my-3">
                 <div class="card m-auto" style="height: 383px; width: 16rem; background-image: linear-gradient(to bottom, #fe6567 , #fc3636)">
@@ -96,10 +80,6 @@
             </div>
         </div>
     </div>
-    <script type="module" src="./public/js/vue.js"></script>
-    <script src="./public/js/vue-router.js"></script>
-    <script src="./public/js/jquery.min.js"></script>
-    <script src="./public/js/bootstrap.min.js"></script>
-    <script type="module" src="./main.js"></script>
-</body>
-</html>
+`
+
+export { ComoUsarTemplate }

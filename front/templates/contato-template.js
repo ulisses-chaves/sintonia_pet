@@ -1,6 +1,5 @@
 const ContatoTemplate = `
     <div class="container">
-        <hr class="mt-5"> 
         <div class="row mt-5">
             <div class="col-lg-5">
                 <div class="card p-3 mb-3">
@@ -32,7 +31,7 @@ const ContatoTemplate = `
                 </div>
             </div>
             <div class="col-lg-7">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7902.876456188433!2d-34.847720896359014!3d-7.953583311003207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1560227250682!5m2!1spt-BR!2sbr" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    <iframe class="w-100" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7902.876456188433!2d-34.847720896359014!3d-7.953583311003207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1560227250682!5m2!1spt-BR!2sbr" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
         </div>
     </div>

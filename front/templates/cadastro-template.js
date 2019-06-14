@@ -3,7 +3,7 @@ const CadastroTemplate = `
         <navbar></navbar>
         <div class="container">
         <div class="my-5 text-center">
-            <h1>Estamos ansiosos para receber você no <a href="#/" class="card-link color-warning">Sintonia Pet</a></h1>
+            <h1>Estamos ansiosos para receber você no <a href="#/" class="link color-warning">Sintonia Pet</a></h1>
             <h2 class="color-brown">Preencha os campos abaixo para se cadastrar!</h2>
         </div>
         <form action="">
@@ -62,7 +62,7 @@ const CadastroTemplate = `
                             <h3>Aqui você poderá cadastrar seus pets, gerenciá-los e muito mais!</h3>
                             <hr style="width: 40%; background-color: #8b513a" class="pt-1 mr-0">
                         </div>
-                        <div class="col-sm-5 mt-5">
+                        <div class="col-sm-5 mt-5 text-center text-sm-right">
                             <img style="width: 220px" src="public/img/cachorro-marrom-esquerda.png" alt="">
                         </div>
                     </div>
@@ -71,11 +71,11 @@ const CadastroTemplate = `
             <div class="row mt-5">
                 <div class="col-sm-6">
                     <div class="row mt-5">
-                        <div class="col-sm-5 text-center text-sm-left">
+                        <div class="col-sm-5 d-none d-sm-block">
                             <img style="width: 180px" src="public/img/pássaro-vermelho-direita.png" alt="">
                         </div>
                         <div class="col-sm-7 mt-5">
-                            <h5>Informando sua localização em breve você poderá fazer compras no <a href="#/" class="card-link color-warning">Sintonia Pet</a>!</h5>
+                            <h5>Informando sua localização em breve você poderá fazer compras no <a href="#/" class="link color-warning">Sintonia Pet</a>!</h5>
                             <hr style="width: 40%;" class="pt-1 bg-warning ml-0">
                         </div>
                     </div>
@@ -148,7 +148,7 @@ const CadastroTemplate = `
                         <button class="btn btn-warning"> Finalizar o Cadastro</button>
                     </div>
                 </div>
-                <div class="col-sm-3 mt-5">
+                <div class="col-sm-3 mt-5 d-none d-sm-block">
                     <img style="width: 180px" class="mt-sm-4 ml-sm-5" src="public/img/cachorro-laranja-esquerda.png" alt="">
                 </div>
             </div>

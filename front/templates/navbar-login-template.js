@@ -10,15 +10,15 @@ const NavbarLoginTemplate = `
                         <li class="nav-item active mt-sm-2 mr-sm-2">Seja bem vindo(a), <strong>Usuário</strong></li>
                         <li class="nav-item active">
                             <div class="dropdown">
-                                <img style="width: 35px" src="public/img/user.png" alt="" class="dropdown-toggle"id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img style="width: 35px; cursor: pointer" src="public/img/user.png" alt="" class="dropdown-toggle"id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#/"><img style="width: 30px" src="public/img/cat.png" alt=""> Gerenciar Pets</a>
-                                    <a class="dropdown-item bg-warning" href="#/"><img style="width: 30px" src="public/img/editar.png" alt=""> Editar Perfil</a>
-                                    <a class="dropdown-item" href="#"><img style="width: 30px" src="public/img/logout.png" alt=""> Sair</a>
+                                    <a v-on:click.stop.prevent="emitClick('telaPets')" class="dropdown-item" href=""><img style="width: 30px" src="public/img/cat.png" alt=""> Gerenciar Pets</a>
+                                    <a v-on:click.stop.prevent="emitClick('telaPerfil')" class="dropdown-item" href=""><img style="width: 30px" src="public/img/editar.png" alt=""> Editar Perfil</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#"><img style="width: 30px" src="public/img/comousar.png" alt=""> Como Usar</a>
-                                    <a class="dropdown-item" href="#"><img style="width: 30px" src="public/img/sobrenos.png" alt=""> Quem Somos</a>
-                                    <a class="dropdown-item" href="#"><img style="width: 30px" src="public/img/contato.png" alt=""> Contato</a>
+                                    <a  v-on:click.stop.prevent="emitClick('telaComoUsar')" class="dropdown-item" href="#"><img style="width: 30px" src="public/img/comousar.png" alt=""> Como Usar</a>
+                                    <a v-on:click.stop.prevent="emitClick('telaContato')" class="dropdown-item" href="#"><img style="width: 30px" src="public/img/contato.png" alt=""> Contato</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#/"><img style="width: 30px" src="public/img/logout.png" alt=""> Sair</a>
                                 </div>
                             </div>
                         </li>

@@ -14,16 +14,13 @@ const NavbarTemplate = `
                             <a style="color: #7e4732;" class="nav-link" href="">Como usar</a>
                         </li>
                         <li class="nav-item active">
-                            <a style="color: #7e4732;" class="nav-link" href="">Quem somos</a>
-                        </li>
-                        <li class="nav-item active">
                             <a style="color: #7e4732;" class="nav-link" href="">Fale conosco</a>
                         </li>
                         <li class="nav-item active mx-2">
-                            <a style="color: #7e4732;" class="btn btn-outline-light nav-link" href="">Login</a>
+                            <a style="color: #7e4732;" class="btn btn-outline-light nav-link" href="#/login">Login</a>
                         </li>
                         <li class="nav-item active mx-2">
-                            <a style="color: #7e4732" class="btn btn-outline-light nav-link" href="">Cadastro</a>
+                            <a style="color: #7e4732" class="btn btn-outline-light nav-link" href="#/cadastro">Cadastro</a>
                         </li>
                     </ul>
                 </div>
