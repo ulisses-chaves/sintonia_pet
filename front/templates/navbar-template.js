@@ -10,14 +10,8 @@ const NavbarTemplate = `
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSite">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a style="color: #7e4732;" class="nav-link" href="">Como usar</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a style="color: #7e4732;" class="nav-link" href="">Fale conosco</a>
-                        </li>
                         <li class="nav-item active mx-2">
-                            <a style="color: #7e4732;" class="btn btn-outline-light nav-link" href="#/login">Login</a>
+                            <a style="color: #7e4732;" class="btn btn-outline-light nav-link" href="#/">Home</a>
                         </li>
                         <li class="nav-item active mx-2">
                             <a style="color: #7e4732" class="btn btn-outline-light nav-link" href="#/cadastro">Cadastro</a>

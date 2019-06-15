@@ -1,48 +1,44 @@
 const PrincipalTemplate = `
-    <div> <!--style="background-image: linear-gradient(to bottom, #ffffff, #dddcdc);"-->
+    <div>
         <navbar></navbar>
             <div class="row m-0">
                 <div class="col-lg-4 mt-4">
-                    <h1 class="color-warning text-center" style="font-size: 47px">Sintonia<span class="color-brown">Pet</span></h1>
-                    <div class="row mt-5">
-                        <div class="col-4 m-auto">
-                            <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img class="d-block w-100" src="public/img/cachorro-perfil.png" alt="Slide1">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img class="d-block w-100" src="public/img/gato-perfil.png" alt="Slide2">
-                                    </div>        
+                    <h1 class="color-warning text-center mb-4" style="font-size: 47px">Sintonia<span class="color-brown">Pet</span></h1>
+                    <div class="card m-auto" style="width: 80%; background: #fdc536">
+                        <h5 style="font-weight: 700" class="color-brown card-title text-center mt-4">Faça seu login e conheça nossos produtos</h5>
+                        <div style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);" class="card-body m-auto">
+                             <form action="">
+                                <div class="form-group">
+                                    <label class="color-brown" for="login">Login</label>
+                                    <input type="text" class="form-control" id="login" required>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label class="color-brown" for="senha">Senha</label>
+                                    <input type="password" class="form-control" id="senha" required>
+                                    <a style="font-size: 13px" class="card-link" href="">Esqueceu a senha?</a>
+                                </div>
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label mb-0 color-brown" for="exampleCheck1">Lembrar-me</label>
+                                </div>
+                                <div class="text-center">
+                                    <button style="width: 120px" type="submit" class="color-brown btn btn-light" hre><a href="">Entrar</a></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div style="background: white" class="card-footer text-muted p-1 pl-2">
+                            <p class="m-0 color-brown">É novo por aqui? <a href="#/cadastro">Crie sua conta</a></p>
                         </div>
                     </div>
-                    <h3 class="color-brown mt-3">O melhor site de gerenciamento de pets que você poderá encontrar!</h3>
-                    <h4 class="mt-5 text-right">
-                        Faça <a class="card-link" href="#/login">login</a> e usufrua dos nossos serviços gratuitos. Caso não tenha conta, <a class="card-link m-0" href="#/cadastro">cadastre-se</a> agora mesmo!
-                    </h4>
                 </div>
-                <div class="col-lg-8 p-0 d-none d-sm-flex h-100 mb-5">
+                <div class="col-lg-8 p-0 d-none d-sm-flex h-100 mb-5 mt-4">
                     <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
                         <ol class="carousel-indicators">
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img id="imagem1" style="object-fit: cover; filter: brightness(60%); border-radius: 5px" class="d-block w-100" src="public/img/cachorro-carousel.jpg" alt="Primeiro Slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <hr style="width: 50%;" class="pt-1 mr-0 mb-0 bg-warning">
-                                    <h2 class="text-right" style="font-size: 70px; -webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #000">Tudo de melhor para os seus pets</h2>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img id="imagem2" style=" object-fit: cover; filter: brightness(60%); border-radius: 5px" class="d-block w-100" src="public/img/gato2-carousel.jpg" alt="Segundo Slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <hr style="width: 50%;" class="pt-1 mr-0 mb-0 bg-warning">
-                                    <h2 class="text-right" style="font-size: 70px; -webkit-text-stroke-width: 2px; -webkit-text-stroke-color: #000">Só aqui você faz o RG para o seu pet</h2>
-                                </div>
+                                <img style="object-fit: cover; border-radius: 5px" class="d-block w-100" src="public/img/carousel/img-carousel-1.jpeg" alt="Primeiro Slide">
                             </div>
                         </div>
                     </div>
