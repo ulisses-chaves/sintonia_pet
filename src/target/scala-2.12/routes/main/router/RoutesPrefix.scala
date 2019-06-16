@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
-// @SOURCE:C:/Users/ramic/Desktop/FreeLancer/SintoniaPet/back/conf/routes
-// @DATE:Sat Jun 15 14:41:38 BRT 2019
+// @SOURCE:C:/Users/ramic/Desktop/FreeLancer/SintoniaPet/src/conf/routes
+// @DATE:Sat Jun 15 20:05:09 BRT 2019
 
 
 package router {
