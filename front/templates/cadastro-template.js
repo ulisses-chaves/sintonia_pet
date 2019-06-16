@@ -6,38 +6,38 @@ const CadastroTemplate = `
             <h1>Estamos ansiosos para receber você no <a href="#/" class="link color-warning">Sintonia Pet</a></h1>
             <h2 class="color-brown">Preencha os campos abaixo para se cadastrar!</h2>
         </div>
-        <form action="">
+        <form v-on:submit.prevent="cadastro">
             <div class="row mt-5">
                 <div class="col-sm-6">
                     <h4 class="mb-4">Suas informações pessoais</h4>
                     <div class="form-group row">
-                        <label for="nome" class="col-sm-2 col-form-label">Nome</label>
+                        <label for="inputNome" class="col-sm-2 col-form-label">Nome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nome" placeholder="Primeiro Nome">
+                            <input type="text" class="form-control" id="inputNome" placeholder="Primeiro Nome" v-model="usuario.nome">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
+                        <label for="inputSobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="sobrenome" placeholder="Sobrenome">
+                            <input type="text" class="form-control" id="inputSobrenome" placeholder="Sobrenome" v-model="usuario.sobrenome">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="telefone" class="col-sm-2 col-form-label">Telefone</label>
+                        <label for="inputTelefone" class="col-sm-2 col-form-label">Telefone</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="telefone" placeholder="DDD + Telefone">
+                            <input type="text" class="form-control" id="inputTelefone" placeholder="DDD + Telefone" v-model="usuario.telefone">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="celular" class="col-sm-2 col-form-label">Celular</label>
+                        <label for="inputCelular" class="col-sm-2 col-form-label">Celular</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="celular" placeholder="DDD + Celular">
+                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuario.celular">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputSexo" class="col-sm-2 col-form-label">Sexo</label>
                         <div class="col-sm-10">
-                            <select id="inputSexo" class="form-control">
+                            <select id="inputSexo" class="form-control" v-model="usuario.sexo">
                                 <option selected>Escolher...</option>
                                 <option value="masculino">Masculino</option>
                                 <option value="feminino">Feminino</option>
@@ -48,10 +48,11 @@ const CadastroTemplate = `
                     <div class="form-group row">
                             <label for="imputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
                             <div class="col-sm-10">
-                                <select id="inputEstadoCivil" class="form-control">
+                                <select id="inputEstadoCivil" class="form-control" v-model="usuario.estadoCivil">
                                     <option selected>Escolher...</option>
                                     <option value="solteiro">Solteiro(a)</option>
                                     <option value="casado">Casado(a)</option>
+                                    <option value="outro">Outro</option>
                                 </select>
                             </div>
                         </div>
@@ -85,31 +86,31 @@ const CadastroTemplate = `
                     <div class="form-group row">
                         <label for="inputCEP" class="col-sm-2 col-form-label">CEP</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)">
+                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)" v-model="usuario.cep">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPais" class="col-sm-2 col-form-label">País</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputPais" placeholder="País">
+                            <input type="text" class="form-control" id="inputPais" placeholder="País" v-model="usuario.pais">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCidade" class="col-sm-2 col-form-label">Cidade</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade">
+                            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" v-model="usuario.cidade">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputBairro" class="col-sm-2 col-form-label">Bairro</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro">
+                            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro" v-model="usuario.bairro">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputRua" class="col-sm-2 col-form-label">Rua</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputRua" placeholder="Rua">
+                            <input type="text" class="form-control" id="inputRua" placeholder="Rua" v-model="usuario.rua">
                         </div>
                     </div>
                 </div>
@@ -123,29 +124,29 @@ const CadastroTemplate = `
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email" v-model="usuario.email">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login">
+                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login" v-model="usuario.login">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputSenha" class="col-sm-2 col-form-label">Senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números">
+                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números" v-model="usuario.senha">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputConSenha" class="col-sm-2 col-form-label">Repita a senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha">
+                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="usuario.confirmarSenha">
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-warning"> Finalizar o Cadastro</button>
+                        <button class="btn btn-warning">Finalizar o Cadastro</button>
                     </div>
                 </div>
                 <div class="col-sm-3 mt-5 d-none d-sm-block">

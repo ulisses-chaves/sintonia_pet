@@ -106,18 +106,33 @@ const MenuPetsTemplate = `
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Lorem ipsum dolor</h5>
+                    <h5 class="modal-title">RG Pet</h5>
                     <button type="button" class="close" data-dismiss="modal">
-                        <!-- <span>x</span> -->
                         <span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col text-center">
-                            <img src="public/img/rg1.jpg" alt="">
+                        <div id="minhaImagem" class="col text-center">
+                            <img style="width: 70%" src="public/img/rg1.jpg" alt="">
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer m-auto">
+                    <ul>
+                        <li class="d-inline-block mx-2">
+                            <a v-on:click.stop.prevent="imprimirRG" href="">
+                                <img style="width: 25px" src="public/img/printer.png" alt="Impressora">
+                                Imprimir RG
+                            </a>
+                        </li>
+                        <li class="d-inline-block mx-2">
+                            <a href="">
+                                <img style="width: 25px" src="public/img/sendEmail.png" alt="email">
+                                Enviar para o email
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

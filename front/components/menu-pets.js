@@ -6,6 +6,13 @@ const MenuPets = Vue.component ('menuPets', {
     methods: {
         emitClick (opcao) {
             this.$emit ('emit-click', opcao)
+        },
+        imprimirRG () {
+            let img = document.getElementById("minhaImagem").innerHTML; 
+            let rgPet = window.open ('', '', 'height=660,width=375');
+            rgPet.document.write (img);
+            rgPet.document.close ();
+            rgPet.print ();
         }
     }
 })

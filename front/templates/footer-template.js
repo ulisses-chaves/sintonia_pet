@@ -24,9 +24,8 @@ const FooterTemplate = `
             <div class="col-8 col-sm-4 text-right mt-5">
                 <p class="mt-sm-4 mb-1" style="font-size: 14px">Siga-nos nas redes sociais</p>
                 <ul style="list-style: none">
-                    <a href=""><li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/facebook.png" alt=""></li></a>
-                    <a href=""><li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/gmail.png" alt=""></li></a>
-                    <a href=""><li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/instagram.png" alt=""></li></a>
+                    <a href="https://www.facebook.com/Sintonia-Pet-460237517834342/"><li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/facebook.png" alt=""></li></a>
+                    <a href="https://www.instagram.com/sintoniapet/"><li class="d-inline-block mt-1 mx-1"><img style="width: 32px" src="public/img/instagram.png" alt=""></li></a>
                 </ul>
             </div>
         </div>

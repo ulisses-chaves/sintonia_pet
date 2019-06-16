@@ -14,57 +14,104 @@
 </head>
 <body>
     <div>
-        <navbar></navbar>
-            <div class="row m-0">
-                <div class="col-lg-4 mt-5">
-                    <h1 class="color-warning text-center mb-4" style="font-size: 47px">Sintonia<span class="color-brown">Pet</span></h1>
-                    <div class="card m-auto" style="width: 80%; background: #fdc536">
-                        <h5 style="font-weight: 700" class="color-brown card-title text-center mt-4">Faça seu login e conheça nossos produtos</h5>
-                        <div style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);" class="card-body m-auto">
-                             <form action="">
-                                <div class="form-group">
-                                    <label class="color-brown" for="login">Login</label>
-                                    <input type="text" class="form-control" id="login" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="color-brown" for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha" required>
-                                    <a style="font-size: 13px" class="card-link" href="">Esqueceu a senha?</a>
-                                </div>
-                                <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label mb-0 color-brown" for="exampleCheck1">Lembrar-me</label>
-                                </div>
-                                <div class="text-center">
-                                    <button style="width: 120px" type="submit" class="color-brown btn btn-light" hre><a href="">Entrar</a></button>
-                                </div>
-                            </form>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-sm-4 m-auto">
+                    <hr style="width: 40%;" class="pt-1 bg-warning mr-0">
+                    <h1 class="text-center color-brown">Cadastre seu Pet</h1>
+                    <hr style="width: 40%;" class="pt-1 bg-warning ml-0">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col mt-5">
+                    <h3 class="text-center">Preencha os dados para o cadastro</h3>
+                    <hr>
+                </div>
+            </div>
+            <form v-on:submit.prevent="cadastro">
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputNome">Nome</label>
+                            <input type="text" class="form-control" id="inputNome" v-model="pet.nome" required>
                         </div>
-                        <div style="background: white" class="card-footer text-muted p-1 pl-2">
-                            <p class="m-0 color-brown">É novo por aqui? <a href="#/cadastro">Crie sua conta</a></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputPelugem">Cor da Pelugem</label>
+                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.pelugem" required>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 p-0 d-none d-sm-flex h-100 mb-5">
-                    <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img id="imagem1" style="object-fit: cover; border-radius: 5px" class="d-block w-100" src="public/img/carousel/img-carousel-1.jpeg" alt="Primeiro Slide">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputRaca">Espécie/Raça</label>
+                            <input type="text" class="form-control" id="inputRaca" v-model="pet.raca" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputIdade">Idade</label>
+                            <input type="text" class="form-control" id="inputIdade" v-model="pet.idade" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label class="mr-sm-2" for="inputSexo">Sexo</label>
+                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="pet.sexo">
+                                    <option selected>Escolha...</option>
+                                    <option value="1">Macho</option>
+                                    <option value="2">Fêmea</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label class="mr-sm-2" for="inputPorte">Porte</label>
+                                <select class="custom-select mr-sm-2" id="inputPorte" v-model="pet.porte">
+                                    <option selected>Escolha...</option>
+                                    <option value="1">Pequeno</option>
+                                    <option value="2">Médio</option>
+                                    <option value="3">Grande</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr class="container">
-            <comoUsar></comoUsar>
-            <hr class="container">
-            <contato></contato>
-            <rodape></rodape>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputData">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="inputData" v-model="pet.data" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group mt-4 text-right text-sm-center">
+                            <label class="mr-4" for="inputFoto">Escolha uma foto</label>
+                            <input type="file" accept="image/png, image/jpeg" v-on:change="fotoSelecionada">
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-4">
+                    <div class="col-sm-5 text-sm-right text-center">
+                        <img src="public/img/gato-cinza-sentado.png" alt="">
+                    </div>
+                    <div class="col-sm-2 mt-sm-5 text-center">
+                        <button class="mt-4 btn btn-warning">Cadastrar Pet</button>
+                    </div>
+                    <div class="col-5 mt-3 text-left d-none d-sm-block">
+                        <img style="width: 115px" src="public/img/cachorro-esquerda.png" alt="">
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
     <script type="module" src="./public/js/vue.js"></script>
     <script src="./public/js/vue-router.js"></script>
     <script src="./public/js/jquery.min.js"></script>
@@ -72,3 +119,19 @@
     <script type="module" src="./main.js"></script>
 </body>
 </html>
+<!--var img = new Image(); e depois img.src = "suaimagem.jpeg";-->
+<!--<div id="app">
+        <img style="z-index: 1; position: absolute" src="public/img/rg1.jpg" alt="">
+        <div style="
+        z-index: 2; 
+        position: absolute;
+        margin-top: 345px;
+        margin-left: 65px;
+        ">João</div>
+        <div style="
+        z-index: 2;
+        position: absolute;
+        margin-top:380px;
+        margin-left: 65px;
+        ">macho</div>
+    </div>-->
