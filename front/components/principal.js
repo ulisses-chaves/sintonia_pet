@@ -23,9 +23,13 @@ const Principal = Vue.component ('principal', {
     methods: {
         login () {
             let url = 'http://jsonplaceholder.typicode.com/posts';
-            axios.post (url, this.usuario).then (function (response) {
-                console.log (response) //apenas teste
-            })
+            axios.post (url, this.usuario)
+                .then (function (response) {
+                    console.log (response) //apenas teste
+                })
+                .catch (error => {
+                    console.log(error)
+                })
         },
         recovery () {
             let url = 'http://jsonplaceholder.typicode.com/posts';

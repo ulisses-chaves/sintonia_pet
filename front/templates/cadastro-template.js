@@ -35,6 +35,12 @@ const CadastroTemplate = `
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="inputData" class="col-sm-2 col-form-label">Data de Nascimento</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="inputData" v-model="usuario.data">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="inputSexo" class="col-sm-2 col-form-label">Sexo</label>
                         <div class="col-sm-10">
                             <select id="inputSexo" class="form-control" v-model="usuario.sexo">
@@ -46,16 +52,16 @@ const CadastroTemplate = `
                         </div>
                     </div>
                     <div class="form-group row">
-                            <label for="imputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
-                            <div class="col-sm-10">
-                                <select id="inputEstadoCivil" class="form-control" v-model="usuario.estadoCivil">
-                                    <option selected>Escolher...</option>
-                                    <option value="solteiro">Solteiro(a)</option>
-                                    <option value="casado">Casado(a)</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
+                        <label for="inputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
+                        <div class="col-sm-10">
+                            <select id="inputEstadoCivil" class="form-control" v-model="usuario.estadoCivil">
+                                <option selected>Escolher...</option>
+                                <option value="solteiro">Solteiro(a)</option>
+                                <option value="casado">Casado(a)</option>
+                                <option value="outro">Outro</option>
+                            </select>
                         </div>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="row mt-5">
@@ -86,7 +92,7 @@ const CadastroTemplate = `
                     <div class="form-group row">
                         <label for="inputCEP" class="col-sm-2 col-form-label">CEP</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)" v-model="usuario.cep">
+                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)" v-model="usuario.cep" v-on:blur="preencherCep">
                         </div>
                     </div>
                     <div class="form-group row">

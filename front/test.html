@@ -13,103 +13,154 @@
         <link rel="shortcut icon" href="public/img/logo.png" >
 </head>
 <body>
-    <div>
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col-sm-4 m-auto">
-                    <hr style="width: 40%;" class="pt-1 bg-warning mr-0">
-                    <h1 class="text-center color-brown">Cadastre seu Pet</h1>
-                    <hr style="width: 40%;" class="pt-1 bg-warning ml-0">
-                </div>
+    <div class="container my-5">
+        <div class="row mb-5">
+            <div class="col-sm-6 text-center text-sm-right">
+                <img src="public/img/perfil.png" alt="">
             </div>
-            <div class="row mt-4">
-                <div class="col mt-5">
-                    <h3 class="text-center">Preencha os dados para o cadastro</h3>
-                    <hr>
-                </div>
+            <div  style="vertical-align: middle" class="col-sm-6 text-center text-sm-left pl-0 mt-3">
+                <h1>Perfil</h1>
             </div>
-            <form v-on:submit.prevent="cadastro">
-                <div class="row mt-5">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="inputNome">Nome</label>
-                            <input type="text" class="form-control" id="inputNome" v-model="pet.nome" required>
+        </div>
+        <div class="card m-auto"  style="width: 85%; background: #fdc536">
+            <h2 class="text-center my-3">Edite ou atualize seus dados</h2>
+            <div class="dropdown-divider"></div>
+            <img class="m-auto py-3" src="public/img/perfil.png"style="width: 64px" alt="">
+            <div class="card-body" style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);">
+                <form v-on:submit.prevent="atualizar">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputLogin">Login</label>
+                                <input type="text" class="form-control" id="inputLogin" v-model="usuario.login">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">   
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputSenha">Senha</label>
+                                <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="inputPelugem">Cor da Pelugem</label>
-                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.pelugem" required>
+                    <div class="form-group">
+                        <label style="color: #7e4732" for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" v-model="usuario.email">
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputNome">Nome</label>
+                                <input type="text" class="form-control" id="inputNome" v-model="usuario.nome">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">   
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputSobrenome">Sobrenome</label>
+                                <input type="password" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="inputRaca">Espécie/Raça</label>
-                            <input type="text" class="form-control" id="inputRaca" v-model="pet.raca" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="inputIdade">Idade</label>
-                            <input type="text" class="form-control" id="inputIdade" v-model="pet.idade" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-row align-items-center">
-                            <div class="col-auto my-1">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-row align-items-center">
+                                <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
-                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="pet.sexo">
+                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="usuario.sexo">
                                     <option selected>Escolha...</option>
-                                    <option value="1">Macho</option>
-                                    <option value="2">Fêmea</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                    <option value="outro">Outro</option>
                                 </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">   
+                            <div class="form-row align-items-center">
+                                <div class="col-auto my-1" style="width: 191.05px;">
+                                <label class="mr-sm-2" for="inputEstadoCivil">Estado Civil</label>
+                                <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuario.estadoCivil">
+                                    <option selected>Escolha...</option>
+                                    <option value="solteiro">Solteiro(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="p-0 mt-2" style="list-style: none">
+                                <li>
+                                    <label>Alterar foto</label>
+                                </li>
+                                <li>
+                                    <input type="file" class="m-0" accept="image/jpeg, image/png" v-model="usuario.foto">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputData">Data de Nascimento</label>
+                                <input type="date" class="form-control" id="inputData" v-model="usuario.data">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputTelefone">Telefone</label>
+                                <input type="text" class="form-control" id="inputTelefone" v-model="usuario.telefone">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputCelular">Celular</label>
+                                <input type="text" class="form-control" id="inputCelular" v-model="usuario.celular">
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-row align-items-center">
-                            <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inputPorte">Porte</label>
-                                <select class="custom-select mr-sm-2" id="inputPorte" v-model="pet.porte">
-                                    <option selected>Escolha...</option>
-                                    <option value="1">Pequeno</option>
-                                    <option value="2">Médio</option>
-                                    <option value="3">Grande</option>
-                                </select>
+                    <div class="dropdown-divider"></div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputCep">CEP</label>
+                                <input type="text" class="form-control" id="inputCep" v-model="usuario.cep">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputPais">País</label>
+                                <input type="text" class="form-control" id="inputPais" v-model="usuario.pais">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputCidade">Cidade</label>
+                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="inputData">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="inputData" v-model="pet.data" required>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputRua">Rua</label>
+                                <input type="text" class="form-control" id="inputRua" v-model="usuario.rua">
+                            </div>
+                        </div>
+                        <div class="col sm-6">
+                            <div class="form-group">
+                                <label style="color: #7e4732" for="inputCidade">Cidade</label>
+                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group mt-4 text-right text-sm-center">
-                            <label class="mr-4" for="inputFoto">Escolha uma foto</label>
-                            <input type="file" accept="image/png, image/jpeg" v-on:change="fotoSelecionada">
-                        </div>
+                    <div class="dropdown-divider"></div>
+                    <div>
+                        <button class="mt-2 btn btn-light">Atualizar</button>
+                        <button v-on:click.stop.prevent="" class="mt-2 mx-1 btn btn-light">Voltar</button>
                     </div>
-                </div>
-                <div class="row my-4">
-                    <div class="col-sm-5 text-sm-right text-center">
-                        <img src="public/img/gato-cinza-sentado.png" alt="">
-                    </div>
-                    <div class="col-sm-2 mt-sm-5 text-center">
-                        <button class="mt-4 btn btn-warning">Cadastrar Pet</button>
-                    </div>
-                    <div class="col-5 mt-3 text-left d-none d-sm-block">
-                        <img style="width: 115px" src="public/img/cachorro-esquerda.png" alt="">
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
     <script type="module" src="./public/js/vue.js"></script>

@@ -4,100 +4,104 @@ const MenuPerfilTemplate = `
             <div class="col-sm-6 text-center text-sm-right">
                 <img src="public/img/perfil.png" alt="">
             </div>
-            <div  style="vertical-align: middle" class="col-sm-6 text-center text-sm-left pl-0 mt-3">
+            <div style="vertical-align: middle" class="col-sm-6 text-center text-sm-left pl-0 mt-3">
                 <h1>Perfil</h1>
             </div>
         </div>
-        <div class="card m-auto"  style="width: 85%; background: #fdc536">
-            <div class="row">
-                <div class="col-sm-2 text-center text-sm-left">
-                    <img class="m-3" src="public/img/perfil.png" alt="">
-                </div>
-                <div class="m-auto col-sm-10">
-                    <h2 class="text-center text-sm-left">Edite ou atualize seus dados</h2>
-                </div>
-            </div>
+        <div class="color-brown card m-auto"  style="width: 85%; background: #fdc536">
+            <h2 class="text-center my-3">Edite ou atualize seus dados</h2>
             <div class="dropdown-divider"></div>
+            <img class="m-auto py-3" src="public/img/perfil.png"style="width: 64px" alt="">
             <div class="card-body" style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);">
-                <form action="">
+                <form v-on:submit.prevent="atualizar">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="login">Login</label>
-                                <input type="text" class="form-control" id="login" required>
+                                <label for="inputLogin">Login</label>
+                                <input type="text" class="form-control" id="inputLogin" v-model="usuario.login">
                             </div>
                         </div>
                         <div class="col-sm-6">   
                             <div class="form-group">
-                                <label style="color: #7e4732" for="senha">Senha</label>
-                                <input type="password" class="form-control" id="senha" required>
+                                <label for="inputSenha">Senha</label>
+                                <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label style="color: #7e4732" for="email">Email</label>
-                        <input type="email" class="form-control" id="email" required>
+                        <label for="inputEmail">Email</label>
+                        <input type="email" class="form-control" id="inputEmail" v-model="usuario.email">
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="nome">Nome</label>
-                                <input type="text" class="form-control" id="nome" required>
+                                <label for="inputNome">Nome</label>
+                                <input type="text" class="form-control" id="inputNome" v-model="usuario.nome">
                             </div>
                         </div>
                         <div class="col-sm-6">   
                             <div class="form-group">
-                                <label style="color: #7e4732" for="sobrenome">Sobrenome</label>
-                                <input type="password" class="form-control" id="sobrenome" required>
+                                <label for="inputSobrenome">Sobrenome</label>
+                                <input type="password" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome">
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-row align-items-center">
                                 <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Sexo</label>
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <label class="mr-sm-2" for="inputSexo">Sexo</label>
+                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="usuario.sexo">
                                     <option selected>Escolha...</option>
-                                    <option value="1">Masculino</option>
-                                    <option value="2">Feminino</option>
-                                    <option value="3">Outro</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="feminino">Feminino</option>
+                                    <option value="outro">Outro</option>
                                 </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">   
+                        <div class="col-sm-4">   
                             <div class="form-row align-items-center">
-                                <div class="col-auto my-1">
-                                <label class="mr-sm-2" for="inlineFormCustomSelect">Estado Civil</label>
-                                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <div class="col-auto my-1" style="width: 191.05px;">
+                                <label class="mr-sm-2" for="inputEstadoCivil">Estado Civil</label>
+                                <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuario.estadoCivil">
                                     <option selected>Escolha...</option>
-                                    <option value="1">Solteiro(a)</option>
-                                    <option value="2">Casado(a)</option>
-                                    <option value="3">Outro</option>
+                                    <option value="solteiro">Solteiro(a)</option>
+                                    <option value="casado">Casado(a)</option>
+                                    <option value="outro">Outro</option>
                                 </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="p-0 mt-2" style="list-style: none">
+                                <li>
+                                    <label>Alterar foto</label>
+                                </li>
+                                <li>
+                                    <input type="file" class="m-0" accept="image/jpeg, image/png" v-on:change="fotoSelecionada">
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="data">Data de Nascimento</label>
-                                <input type="text" class="form-control" id="data" required>
+                                <label for="inputData">Data de Nascimento</label>
+                                <input type="date" class="form-control" id="inputData" v-model="usuario.data">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="telefone">Telefone</label>
-                                <input type="text" class="form-control" id="telefone" required>
+                                <label for="inputTelefone">Telefone</label>
+                                <input type="text" class="form-control" id="inputTelefone" v-model="usuario.telefone">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="celular">Celular</label>
-                                <input type="text" class="form-control" id="celular" required>
+                                <label for="inputCelular">Celular</label>
+                                <input type="text" class="form-control" id="inputCelular" v-model="usuario.celular">
                             </div>
                         </div>
                     </div>
@@ -105,41 +109,41 @@ const MenuPerfilTemplate = `
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="cep">CEP</label>
-                                <input type="text" class="form-control" id="cep" required>
+                                <label for="inputCep">CEP</label>
+                                <input type="text" class="form-control" id="inputCep" v-model="usuario.cep">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="pais">País</label>
-                                <input type="text" class="form-control" id="pais" required>
+                                <label for="inputPais">País</label>
+                                <input type="text" class="form-control" id="inputPais" v-model="usuario.pais">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="bairro">Cidade</label>
-                                <input type="text" class="form-control" id="bairro" required>
+                                <label for="inputCidade">Cidade</label>
+                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="rua">Rua</label>
-                                <input type="text" class="form-control" id="rua" required>
+                                <label for="inputRua">Rua</label>
+                                <input type="text" class="form-control" id="inputRua" v-model="usuario.rua">
                             </div>
                         </div>
                         <div class="col sm-6">
                             <div class="form-group">
-                                <label style="color: #7e4732" for="cidade">Cidade</label>
-                                <input type="text" class="form-control" id="cidade" required>
+                                <label for="inputCidade">Cidade</label>
+                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
                             </div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div>
+                        <button v-on:click.stop.prevent="" class="mt-2 mx-1 btn btn-light">Voltar</button>
                         <button class="mt-2 btn btn-light">Atualizar</button>
-                        <button class="mt-2 mx-1 btn btn-light">Voltar</button>
                     </div>
                 </form>
             </div>
