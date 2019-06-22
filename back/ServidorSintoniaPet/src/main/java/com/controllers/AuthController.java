@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path="/")
-public class AuthController {
+public class AuthController
+{
 	
 	
 	
