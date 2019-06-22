@@ -19,11 +19,11 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	  {
 		
 		  http.authorizeRequests().mvcMatchers( "/usuario/all").hasRole("USER").and().httpBasic().and().csrf().disable().cors().disable();
-		  http.authorizeRequests().mvcMatchers( "/usuario/login").permitAll().and().httpBasic().and().csrf().disable().cors().disable();
+		  http.authorizeRequests().mvcMatchers( "/usuario/login").permitAll().and().csrf().disable().cors().disable();
 		  
-		  http.authorizeRequests().mvcMatchers( "/usuario/add").permitAll().and().csrf().disable();
+		  http.authorizeRequests().mvcMatchers( "/usuario/add").permitAll().and().csrf().disable().cors().disable();
 		 
-		  http.logout().logoutUrl("/logout").disable();
+		  http.logout().logoutUrl("/logout").disable().cors().disable();
 	  
 	  }
 	  
