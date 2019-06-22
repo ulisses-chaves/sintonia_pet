@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import { http } from '../services/config.js'
+import Usuario from '../services/usuarios.js'
 import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
 import ContatoVue from './Contato.vue';
@@ -90,17 +92,17 @@ import ComoUsarVue from './ComoUsar.vue';
 export default {
     name: 'Principal',
     data () {
-            return {
-                usuario: {
-                    username: '',
-                    senha: ''
-                },
-                lost: {
-                    username: '',
-                    email: ''
-                }
+        return {
+            usuario: {
+                username: '',
+                senha: ''
+            },
+            lost: {
+                username: '',
+                email: ''
             }
-        },
+        }
+    },
     components: {
         'navbar': NavbarVue,
         'rodape': RodapeVue,
@@ -109,8 +111,12 @@ export default {
     },
     methods: {
         login () {
-            let url = 'http://jsonplaceholder.typicode.com/posts';
-            axios.post (url, this.usuario)
+            http.post ('login', this.usuario, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'YXBwOmFwcA=='
+                }
+            })
                 .then (function (response) {
                     console.log (response) //apenas teste
                 })
