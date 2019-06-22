@@ -23,7 +23,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 		  
 		  http.authorizeRequests().mvcMatchers( "/usuario/add").permitAll().and().csrf().disable().cors().disable();
 		 
-		  http.logout().logoutUrl("/logout").disable();
+		  http.logout().logoutUrl("/logout").disable().cors().disable();
 	  
 	  }
 	  
