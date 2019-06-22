@@ -19,6 +19,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
 	  {
 		
 		  http.authorizeRequests().mvcMatchers( "/usuario/all").hasRole("USER").and().httpBasic().and().csrf().disable();
+		  http.authorizeRequests().mvcMatchers( "/usuario/login").permitAll().and().httpBasic().and().csrf().disable();
+		  
 		  http.authorizeRequests().mvcMatchers( "/usuario/add").permitAll().and().csrf().disable();
 		 
 		  http.logout().logoutUrl("/logout").disable();
