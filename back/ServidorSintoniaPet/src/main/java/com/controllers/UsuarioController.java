@@ -20,7 +20,6 @@ public class UsuarioController
 	@Autowired
 	private UsuarioRepository repositorioUsuario;
 	
-
 		
 	@PostMapping(value="/all")
 	public @ResponseBody List<Usuario> all()
