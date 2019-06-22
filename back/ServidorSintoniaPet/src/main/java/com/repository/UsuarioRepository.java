@@ -8,5 +8,5 @@ import com.models.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, String>
 {
 	Usuario findByLogin(String login);
-	Usuario findByRgAndLogin(String rg, String login);
+	Usuario findByRgAndLoginAndCpf(String rg, String login, String cpf);
 }

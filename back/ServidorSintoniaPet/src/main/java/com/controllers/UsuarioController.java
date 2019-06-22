@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.models.Usuario;
 import com.repository.UsuarioRepository;
 
@@ -27,11 +30,24 @@ public class UsuarioController
 		return repositorioUsuario.findAll();
 	}
 	
+	@PostMapping(value="/file")
+	public @ResponseBody boolean saveFile(@RequestBody  MultipartFile file)
+	{
+	
+		if(file == null)
+			return false;
+		
+		
+		return true;
+	}
+
+	
 	@PostMapping(value="/add")
 	public @ResponseBody boolean add(@RequestBody Usuario usuario)
 	{
+	
 		
-		Usuario usuarioBusca = repositorioUsuario.findByLogin(usuario.getLogin());
+		Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
 		
 		if(usuarioBusca != null)
 			return false;
