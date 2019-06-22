@@ -31,7 +31,7 @@ public class UsuarioController
 	}
 	
 	@PostMapping(value="/file")
-	public @ResponseBody boolean saveFile(MultipartFile file, Usuario usuario)
+	public @ResponseBody boolean saveFile(@RequestBody  MultipartFile file)
 	{
 	
 		if(file == null)
