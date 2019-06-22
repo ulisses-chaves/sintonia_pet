@@ -113,8 +113,6 @@ export default {
         login () {
             http.post ('login', this.usuario, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'YXBwOmFwcA=='
                 }
             })
                 .then (function (response) {
