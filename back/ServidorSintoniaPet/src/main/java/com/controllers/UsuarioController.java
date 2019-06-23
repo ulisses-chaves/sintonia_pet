@@ -27,6 +27,8 @@ public class UsuarioController
 	@PostMapping(value="/all")
 	public @ResponseBody List<Usuario> all()
 	{
+		
+		
 		return repositorioUsuario.findAll();
 	}
 	
@@ -46,6 +48,7 @@ public class UsuarioController
 	public @ResponseBody boolean add(@RequestBody Usuario usuario)
 	{
 	
+		
 		
 		Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
 		
