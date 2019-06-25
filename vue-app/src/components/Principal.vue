@@ -89,6 +89,7 @@ import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
 import ContatoVue from './Contato.vue';
 import ComoUsarVue from './ComoUsar.vue';
+
 export default {
     name: 'Principal',
     data () {
@@ -111,9 +112,13 @@ export default {
     },
     methods: {
         login () {
-            http.post ('login', this.usuario, {
-                headers: {
-                }
+            var basicAuth = 'Basic ' + btoa('ramices' + ':' + '123');
+            http.post ('http://localhost:8080/usuario/all', {}, {
+         
+                auth: {
+                        username: 'ramices',
+                        password: '123'
+                      }
             })
                 .then (function (response) {
                     console.log (response) //apenas teste
