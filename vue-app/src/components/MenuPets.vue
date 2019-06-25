@@ -113,9 +113,28 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div id="minhaImagem" class="col text-center">
-                            <img style="width: 70%" src="../../public/assets/rg1.jpg" alt="">
+                        <div style="position: relative" id="minhaImagem" class="col text-center">
+                            <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
                         </div>
+                        <div style="position: relative" id="minhaImagem" class="col text-center">
+                            <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
+                        </div>
+                        <label class="nomePet positions" for="">Nome</label>
+                        <label class="dataPet positions" for="">Data</label>
+                        <label class="positions" for="">Data exp??</label>
+                        <label class="positions" for="">Filiação??</label>
+                        <label class="positions" for="">Peso??</label>
+                        <label class="positions" for="">Naturalidade??</label>
+                        <label class="racaPet positions" for="">Raça</label>
+                        <label class="sexoPet positions" for="">S</label>
+                        <label class="pelugemPet positions" for="">Cor</label>
+                        <label class="usuario positions" for="">Guardião</label>
+                        <label class="rua positions" for="">Endereço</label>
+                        <label class="cidade positions" for="">Cidade</label>
+                        <label class="bairro positions" for="">Bairro</label>
+                        <label class="uf positions" for="">UF</label>
+                        <label class="cep positions" for="">CEP</label>
+                        <label class="telefone positions" for="">Tel</label>
                     </div>
                 </div>
                 <div class="modal-footer m-auto">
@@ -244,10 +263,18 @@
 <script>
 export default {
     name: 'menuPets',
+    data () {
+        return {
+            
+        }
+    },
+    mounted () {
+        //para listar os pets
+    },
     methods: {
         imprimirRG () {
             let img = document.getElementById("minhaImagem").innerHTML; 
-            let rgPet = window.open ('', '', 'height=660,width=375');
+            let rgPet = window.open ('', '', 'height=500,width=500');
             rgPet.document.write (img);
             rgPet.document.close ();
             rgPet.print ();
@@ -255,3 +282,50 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .rgPet {
+        z-index: 1;
+    }
+    .positions { 
+        z-index: 2;
+        position: absolute;
+        font-size: 13px;
+    }
+    .nomePet {
+        margin: 225px 0 0 150px
+    }
+    .dataPet {
+        margin: 244px 0 0 180px
+    }
+    .racaPet {
+        margin: 302px 0 0 148px
+    }
+    .sexoPet {
+        margin: 302px 0 0 286px
+    }
+    .pelugemPet {
+        margin: 302px 0 0 332px
+    }
+    .usuario {
+        margin: 320px 0 0 168px
+    }
+    .rua {
+        margin: 347px 0 0 170px
+    }
+    .cidade {
+        margin: 366px 0 0 155px
+    }
+    .bairro {
+        margin: 366px 0 0 295px
+    }
+    .uf {
+        margin: 384px 0 0 138px
+    }
+    .cep {
+        margin: 384px 0 0 190px
+    }
+    .telefone {
+        margin: 384px 0 0 280px
+    }
+</style>

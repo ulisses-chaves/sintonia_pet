@@ -84,11 +84,13 @@
 
 <script>
 import { http } from '../services/config.js'
+import Axios from 'axios'
 import Usuario from '../services/usuarios.js'
 import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
 import ContatoVue from './Contato.vue';
 import ComoUsarVue from './ComoUsar.vue';
+
 export default {
     name: 'Principal',
     data () {
@@ -111,15 +113,19 @@ export default {
     },
     methods: {
         login () {
-            http.post ('login', this.usuario, {
-                headers: {
+            let vm = this;
+            Axios.post ('http://jsonplaceholder.typicode.com/posts', {}, {
+                auth: {
+                    username: vm.usuario.username,
+                    password: vm.usuario.senha
                 }
             })
                 .then (function (response) {
                     console.log (response) //apenas teste
                 })
                 .catch (error => {
-                    console.log(error) //teste
+                    console.log (error)
+                    console.log ('Error on Authentication') //teste
                 })
         },
         recovery () {
@@ -127,7 +133,7 @@ export default {
             axios.post (url, this.lost).then (function (response) {
                 console.log (response) //apenas teste
             })
-        },
+        }
     }
 }
 </script>

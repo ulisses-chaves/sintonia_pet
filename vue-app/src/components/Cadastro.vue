@@ -166,8 +166,11 @@
 </template>
 
 <script>
+import Axios from 'axios';
+import { http } from '../services/config'
 import RodapeVue from '../views/Rodape.vue';
 import NavbarVue from '../views/Navbar.vue';
+
 export default {
     name: 'cadastro',
     data () {
@@ -199,7 +202,7 @@ export default {
     methods: {
         cadastro () {
             let url = 'http://jsonplaceholder.typicode.com/posts';
-            axios.post (url, this.usuario)
+            http.post (url, this.usuario)
                 .then (function (response) {
                     console.log (response) //teste
                 })
@@ -207,7 +210,7 @@ export default {
         preencherCep () {
             let url = 'http://api.postmon.com.br/v1/cep/' + this.usuario.cep;
             let vm = this;  //armazenando a instância do Vue
-            axios.get(url)
+            Axios.get(url)
                 .then(function (response) {
                     vm.usuario.pais = 'Brasil';
                     vm.usuario.cidade = response.data.cidade;
@@ -215,7 +218,7 @@ export default {
                     vm.usuario.rua = response.data.logradouro;
                 })
                 .catch (error => {
-                    // deixando o catch vazio pra n dar erro no console
+                    console.log (error)
                 })
             
         },
