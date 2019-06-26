@@ -25,13 +25,19 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 	  protected void configure(HttpSecurity http) throws Exception 
 	  {
 		
-		 http.csrf().disable();
-		 http.cors().and().authorizeRequests().antMatchers( "/usuario/all").hasRole("USER").and().httpBasic();
-		
+		 http.cors();
+		 http.httpBasic();  	
 		 
-		 //http.authorizeRequests().antMatchers( "/login").permitAll().and().httpBasic().and().csrf().disable().cors().disable();
-		//http.authorizeRequests().antMatchers( "/usuario/add").permitAll().and().csrf().disable().cors().disable(); 
-		// http.logout().logoutUrl("/logout").disable().cors().disable();
+		 
+		 http.logout().logoutUrl("/logout").disable();
+		 http.authorizeRequests().antMatchers( "/usuario/add").permitAll();
+		 
+		 
+		
+		 http.csrf().disable();
+		 
+		 http.authorizeRequests().antMatchers( "/login").hasRole("USER");
+		 
 	  
 	  }
 	  

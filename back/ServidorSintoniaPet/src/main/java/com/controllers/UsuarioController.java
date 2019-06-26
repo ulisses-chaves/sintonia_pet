@@ -28,39 +28,21 @@ public class UsuarioController
 	@Autowired
 	private UsuarioRepository repositorioUsuario;
 	
-	@PostMapping(value="/all")
-	 @PreAuthorize("hasAnyRole('ADMIN')")
-	public @ResponseBody List<Usuario> all()
-	{
-		
-		
-		return repositorioUsuario.findAll();
-	}
 	
-	@PostMapping(value="/file")
-	public @ResponseBody boolean saveFile(@RequestBody  MultipartFile file)
-	{
-	
-		if(file == null)
-			return false;
-		
-		
-		return true;
-	}
-
 	
 	@PostMapping(value="/add")
-	public @ResponseBody boolean add(@RequestBody Usuario usuario)
+	public @ResponseBody boolean add(MultipartFile file, Usuario usuario)
 	{
 	
 		
-		
-		Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
-		
-		if(usuarioBusca != null)
-			return false;
+		 Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
+		  
+		 if(usuarioBusca != null) return false;
+		 
 		
 		repositorioUsuario.save(usuario);
+		
+		
 		
 		return true;
 	}

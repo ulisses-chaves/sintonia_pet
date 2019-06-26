@@ -113,7 +113,7 @@ export default {
     methods: {
         login () {
             var basicAuth = 'Basic ' + btoa('ramices' + ':' + '123');
-            http.post ('http://localhost:8080/usuario/all', {}, {
+            http.post ('http://localhost:8080/login', {}, {
          
                 auth: {
                         username: 'ramices',
