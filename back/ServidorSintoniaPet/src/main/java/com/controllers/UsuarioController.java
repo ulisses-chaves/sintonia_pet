@@ -5,6 +5,9 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,13 +21,15 @@ import com.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping(path="/usuario")
+@CrossOrigin(origins = "*")
+
 public class UsuarioController
 {
 	@Autowired
 	private UsuarioRepository repositorioUsuario;
 	
-		
 	@PostMapping(value="/all")
+	 @PreAuthorize("hasAnyRole('ADMIN')")
 	public @ResponseBody List<Usuario> all()
 	{
 		

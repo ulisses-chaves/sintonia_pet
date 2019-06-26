@@ -113,11 +113,10 @@ export default {
     },
     methods: {
         login () {
-            let vm = this;
-            Axios.post ('http://jsonplaceholder.typicode.com/posts', {}, {
+            http.post ('http://localhost:8080/usuario/all', {}, {
                 auth: {
-                    username: vm.usuario.username,
-                    password: vm.usuario.senha
+                    username: 'ramices',
+                    password: '123'
                 }
             })
                 .then (function (response) {
@@ -125,7 +124,6 @@ export default {
                 })
                 .catch (error => {
                     console.log (error)
-                    console.log ('Error on Authentication') //teste
                 })
         },
         recovery () {
