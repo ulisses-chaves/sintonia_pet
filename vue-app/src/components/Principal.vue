@@ -84,6 +84,7 @@
 
 <script>
 import { http } from '../services/config.js'
+import Axios from 'axios'
 import Usuario from '../services/usuarios.js'
 import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
@@ -112,19 +113,23 @@ export default {
     },
     methods: {
         login () {
+<<<<<<< HEAD
             var basicAuth = 'Basic ' + btoa('ramices' + ':' + '123');
             http.post ('http://localhost:8080/login', {}, {
          
+=======
+            http.post ('http://localhost:8080/usuario/all', {}, {
+>>>>>>> b473ad1ea94f391b7cb0947f0eb5384c5f2cf014
                 auth: {
-                        username: 'ramices',
-                        password: '123'
-                      }
+                    username: 'ramices',
+                    password: '123'
+                }
             })
                 .then (function (response) {
                     console.log (response) //apenas teste
                 })
                 .catch (error => {
-                    console.log(error) //teste
+                    console.log (error)
                 })
         },
         recovery () {
@@ -132,7 +137,7 @@ export default {
             axios.post (url, this.lost).then (function (response) {
                 console.log (response) //apenas teste
             })
-        },
+        }
     }
 }
 </script>
