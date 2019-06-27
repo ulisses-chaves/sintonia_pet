@@ -43,11 +43,10 @@
                     <div class="form-group row">
                         <label for="inputSexo" class="col-sm-2 col-form-label">Sexo</label>
                         <div class="col-sm-10">
-                            <select id="inputSexo" class="form-control" v-model="usuario.sexo">
-                                <option selected>Escolher...</option>
-                                <option value="masculino">Masculino</option>
-                                <option value="feminino">Feminino</option>
-                                <option value="outro">Outro</option>
+                            <select aria-placeholder="Escolher" id="inputSexo" class="form-control" v-model="usuario.sexo">
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                                <option value="O">Outro</option>
                             </select>
                         </div>
                     </div>
@@ -55,10 +54,9 @@
                         <label for="inputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
                         <div class="col-sm-10">
                             <select id="inputEstadoCivil" class="form-control" v-model="usuario.estadoCivil">
-                                <option selected>Escolher...</option>
-                                <option value="solteiro">Solteiro(a)</option>
-                                <option value="casado">Casado(a)</option>
-                                <option value="outro">Outro</option>
+                                <option value="S">Solteiro(a)</option>
+                                <option value="C">Casado(a)</option>
+                                <option value="O">Outro</option>
                             </select>
                         </div>
                     </div>
@@ -181,8 +179,8 @@ export default {
                 telefone: '',
                 celular: '',
                 data: '',
-                sexo: '',
-                estadoCivil: '',
+                sexo: 'M',
+                estadoCivil: 'S',
                 cep: '',
                 pais: '',
                 cidade: '',
@@ -201,11 +199,33 @@ export default {
     },
     methods: {
         cadastro () {
-            let url = 'http://jsonplaceholder.typicode.com/posts';
-            http.post (url, this.usuario)
+            if (this.usuario.telefone.length != 10) {
+                alert ('Telefone inválido! Deve haver 10 números.\n Ex: 8135230303');
+            }else{
+                if (this.usuario.celular.length != 10) {
+                    alert ('Celular inválido! Deve haver 10 números.\n Ex: 8197145258')
+                } else {
+                    if (this.usuario.cep.length != 8) {
+                        alert ('CEP inválido! Deve contem apenas números e 8 deles')
+                    } else {
+                        if (this.usuario.senha != this.usuario.confirmarSenha) {
+                            alert ("Repita uma senha igual no campo 'Confirme sua Senha'")
+                        }else {
+                            http.post ('/cadastroUsuario', this.usuario)
+                                .then (function (response) {
+                                console.log (response) //teste
+                                })
+                                .catch (error => {
+                                    alert (error)
+                                })
+                        }
+                    }
+                }
+            }
+            /*http.post ('/cadastroUsuario', this.usuario)
                 .then (function (response) {
                     console.log (response) //teste
-                })
+                })*/
         },
         preencherCep () {
             let url = 'http://api.postmon.com.br/v1/cep/' + this.usuario.cep;

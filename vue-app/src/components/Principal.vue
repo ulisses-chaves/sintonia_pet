@@ -113,10 +113,11 @@ export default {
     },
     methods: {
         login () {
-            http.post ('http://localhost:8080/usuario/all', {}, {
+            let vm = this;
+            http.post ('login', {}, {
                 auth: {
-                    username: 'ramices',
-                    password: '123'
+                    username: vm.usuario.username,
+                    password: vm.usuario.senha
                 }
             })
                 .then (function (response) {
