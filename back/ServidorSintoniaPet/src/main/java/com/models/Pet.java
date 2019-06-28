@@ -24,6 +24,13 @@ public class Pet
 	private String raca;
 	private String caminho_foto;
 	
+	
+	@Override
+	public boolean equals(Object pet)
+	{
+		return this.numero_rg.equals( ((Pet)pet).getNumero_rg());
+	}
+	
 	public String getNumero_rg() 
 	{
 		return numero_rg;

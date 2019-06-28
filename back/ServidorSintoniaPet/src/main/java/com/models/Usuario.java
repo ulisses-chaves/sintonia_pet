@@ -251,6 +251,30 @@ public class Usuario
 		this.is_admin = isAdmin;
 	}
 
+	public Date getData_nascimento() {
+		return data_nascimento;
+	}
+
+	public void setData_nascimento(Date data_nascimento) {
+		this.data_nascimento = data_nascimento;
+	}
+
+	public Boolean getIs_admin() {
+		return is_admin;
+	}
+
+	public void setIs_admin(Boolean is_admin) {
+		this.is_admin = is_admin;
+	}
+
+	public List<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
+	}
+
 
     
     

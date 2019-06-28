@@ -31,7 +31,10 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 		 
 		 http.logout().logoutUrl("/logout").disable();
 		 http.authorizeRequests().antMatchers( "/usuario/add").permitAll();
-		 
+		 http.authorizeRequests().antMatchers( "/usuario/update").hasRole("USER");
+		 http.authorizeRequests().antMatchers( "/pet/update").hasRole("USER");
+		 http.authorizeRequests().antMatchers( "/pet/add").hasRole("USER");
+		 http.authorizeRequests().antMatchers( "/pet/remove").hasRole("USER");
 		 
 		
 		 http.csrf().disable();
