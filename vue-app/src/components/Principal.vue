@@ -113,16 +113,11 @@ export default {
     },
     methods: {
         login () {
-<<<<<<< HEAD
-            var basicAuth = 'Basic ' + btoa('ramices' + ':' + '123');
-            http.post ('http://localhost:8080/login', {}, {
-         
-=======
-            http.post ('http://localhost:8080/usuario/all', {}, {
->>>>>>> b473ad1ea94f391b7cb0947f0eb5384c5f2cf014
+            let vm = this;
+            http.post ('login', {}, {
                 auth: {
-                    username: 'ramices',
-                    password: '123'
+                    username: vm.usuario.username,
+                    password: vm.usuario.senha
                 }
             })
                 .then (function (response) {

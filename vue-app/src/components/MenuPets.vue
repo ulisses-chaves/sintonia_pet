@@ -19,11 +19,11 @@
                         </router-link>
                     </li>
                     <li>
-                        <div class="card">
+                        <div v-for="pet of pets" :key="pet.id" class="card">
                             <img class="card-img-top" src="../../public/assets/ralf.jpg" alt="">
                             <div class="card-body">
-                                <h4 class="card-title">Ralf</h4>
-                                <h6 class="card-subtitle mb-2 text-muted">Beagle</h6>
+                                <h4 class="card-title">{{ pet.nome }}</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.raca }}</h6>
                                 <p class="card-text">Alguma frase?</p>
                             </div>
                             <div class="accordion" id="accordionExample">
@@ -38,11 +38,11 @@
                                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><strong>Idade:</strong> 2 anos</li>
-                                                <li class="list-group-item"><strong>Sexo:</strong> Macho</li>
-                                                <li class="list-group-item"><strong>Porte:</strong> Pequeno</li>
-                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> 12/01/2019</li>
-                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> Branca e Marrom</li>
+                                                <li class="list-group-item"><strong>Idade:</strong> {{pet.idade}}</li>
+                                                <li class="list-group-item"><strong>Sexo:</strong> {{pet.sexo}}</li>
+                                                <li class="list-group-item"><strong>Porte:</strong> {{pet.porte}}</li>
+                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.data }}</li>
+                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.pelugem}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -60,8 +60,8 @@
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><strong>Número do RG:</strong> 123456789</li>
-                                                <li class="list-group-item"><strong>Cadastro:</strong> 123</li>
+                                                <li class="list-group-item"><strong>Número do RG:</strong> {{pet.rg}}</li>
+                                                <li class="list-group-item"><strong>Cadastro:</strong> {{pet.cadastro}}</li>
                                                 <li class="list-group-item"><strong>QR code ??:</strong> imagem</li>
                                             </ul>
                                         </div>
@@ -71,7 +71,7 @@
                             <div class="card-footer text-muted">
                                 <ul class="p-0">
                                     <li class="d-inline-block">
-                                        <a data-toggle="modal" data-target="#rg" class="card-link" href="">
+                                        <a v-on:click.stop.prevent="definirCorRg(pet.sexo); pegarIdPet(pet.id)" data-toggle="modal" data-target="#rg" class="card-link" href="">
                                             <ul class="p-0">
                                                 <li class="d-inline"><img class="m-0 p-0" style="width: 64px" src="../../public/assets/rg.png" alt=""></li>
                                                 <li class="d-inline">RG</li>
@@ -113,22 +113,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div style="position: relative" id="minhaImagem" class="col text-center">
+                        <div v-if="sexoPet === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
                         </div>
-                        <div style="position: relative" id="minhaImagem" class="col text-center">
-                            <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
+                        <div v-if="sexoPet === 'F'" style="position: relative" id="minhaImagem" class="col text-center">
+                            <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetF.jpeg" alt="">
                         </div>
-                        <label class="nomePet positions" for="">Nome</label>
-                        <label class="dataPet positions" for="">Data</label>
-                        <label class="positions" for="">Data exp??</label>
-                        <label class="positions" for="">Filiação??</label>
-                        <label class="positions" for="">Peso??</label>
-                        <label class="positions" for="">Naturalidade??</label>
-                        <label class="racaPet positions" for="">Raça</label>
-                        <label class="sexoPet positions" for="">S</label>
-                        <label class="pelugemPet positions" for="">Cor</label>
-                        <label class="usuario positions" for="">Guardião</label>
+                        <label class="nomePet positions" for="">{{idPet.nome}}</label>
+                        <label class="dataPet positions" for="">{{idPet.data}}</label>
+                        <label class="positions" for="">{{idPet.dataExp}}</label>
+                        <label class="positions" for="">{{idPet.filiacao}}</label>
+                        <label class="positions" for="">{{idPet.peso}}</label>
+                        <label class="positions" for="">{{idPet.naturalidade}}</label>
+                        <label class="racaPet positions" for="">{{idPet.raca}}</label>
+                        <label class="sexoPet positions" for="">{{idPet.sexo}}</label>
+                        <label class="pelugemPet positions" for="">{{idPet.pelugem}}</label>
+                        <label class="usuario positions" for="">{{}}</label>
                         <label class="rua positions" for="">Endereço</label>
                         <label class="cidade positions" for="">Cidade</label>
                         <label class="bairro positions" for="">Bairro</label>
@@ -261,15 +261,23 @@
 </template>
 
 <script>
+import { http } from '../services/config';
+
 export default {
     name: 'menuPets',
     data () {
         return {
-            
+            pets: [],
+            sexoPet: '',
+            idPet: {}
         }
     },
     mounted () {
-        //para listar os pets
+        let vm = this;
+        http.get ('pets')
+            .then (function (response) {
+                vm.pets = response.data
+            })
     },
     methods: {
         imprimirRG () {
@@ -278,6 +286,19 @@ export default {
             rgPet.document.write (img);
             rgPet.document.close ();
             rgPet.print ();
+        },
+        definirCorRg (sexo) {
+            this.sexoPet = sexo;
+        },
+        pegarIdPet (id) {
+            let vm = this;
+            http.get ('url', id)
+                .then (function (response) {
+                    vm.idPet = response.data
+                })
+                .catch (error => {
+                    console.log (error)
+                })
         }
     }
 }

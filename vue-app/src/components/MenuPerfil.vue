@@ -152,6 +152,8 @@
 </template>
 
 <script>
+import { http } from '../services/config.js'
+
 export default {
     name: 'menuPerfil',
     data () {
@@ -178,10 +180,10 @@ export default {
         }
     },
     mounted () {    //pra preencher nos campos os dados do usuario que está na sessao
-        let url = 'http://jsonplaceholder.typicode.com/posts/1';
         let vm = this;  //armazenando uma instancia do Vue
-        axios.get (url)
+        http.post ('')
             .then (function (response){
+                console.log (response.data)
                 vm.usuario.nome = response.data.nome
                 vm.usuario.sobrenome = response.data.sobrenome
                 vm.usuario.telefone = response.data.telefone
@@ -200,7 +202,7 @@ export default {
                 vm.usuario.foto = response.data.foto
             })
             .catch (error => {
-                
+                console.log (error)
             })
     },
     methods: {

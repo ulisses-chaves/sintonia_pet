@@ -50,8 +50,8 @@
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
                                 <select class="custom-select mr-sm-2" id="inputSexo" v-model="pet.sexo">
                                     <option selected>Escolha...</option>
-                                    <option value="1">Macho</option>
-                                    <option value="2">Fêmea</option>
+                                    <option value="M">Macho</option>
+                                    <option value="F">Fêmea</option>
                                 </select>
                             </div>
                         </div>
@@ -62,9 +62,9 @@
                                 <label class="mr-sm-2" for="inputPorte">Porte</label>
                                 <select class="custom-select mr-sm-2" id="inputPorte" v-model="pet.porte">
                                     <option selected>Escolha...</option>
-                                    <option value="1">Pequeno</option>
-                                    <option value="2">Médio</option>
-                                    <option value="3">Grande</option>
+                                    <option value="P">Pequeno</option>
+                                    <option value="M">Médio</option>
+                                    <option value="G">Grande</option>
                                 </select>
                             </div>
                         </div>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { http } from '../services/config';
 export default {
     name: 'cadastroPet',
     data () {
@@ -110,8 +111,8 @@ export default {
                 pelugem: '',
                 raca: '',
                 idade: '',
-                sexo: '',
-                porte: '',
+                sexo: 'M',
+                porte: 'P',
                 data: '',
                 foto: null
             }
@@ -119,10 +120,19 @@ export default {
     },
     methods: {
         cadastro () {
-            let url= 'http://jsonplaceholder.typicode.com/posts';
-            axios.post (url, this.pet).then (function (response) {
-                console.log(response)
-            })
+            if (this.pet.nome.length < 2 || this.pet.nome.length > 12) {
+                alert ('Nome muito pequeno ou muito grande. \n Por favor, defina outro!')
+            }else if (this.pet.idade.length > 99) {
+                alert ('Idade não inconsistente!')
+            }else {
+                http.post (url, this.pet)
+                    .then (function (response) {
+                        console.log(response)
+                    })
+                    .catch (error => {
+                        console.log (error)
+                    })
+            }
         },
         fotoSelecionada (event) {
             //this.foto.src = ''
