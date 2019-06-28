@@ -120,7 +120,8 @@ export default {
                 }
             })
                 .then (function (response) {
-                    console.log (response) //apenas teste
+                    localStorage.setItem ('login', vm.usuario.username), //JSON.stringify (vm.usuario.username))
+                    vm.$router.push('menu')
                 })
                 .catch (error => {
                     console.log (error)

@@ -274,7 +274,7 @@ export default {
     },
     mounted () {
         let vm = this;
-        http.get ('pets')
+        http.get ('pet/all/' + localStorage.getItem('login'))
             .then (function (response) {
                 vm.pets = response.data
             })
@@ -292,7 +292,7 @@ export default {
         },
         pegarIdPet (id) {
             let vm = this;
-            http.get ('url', id)
+            http.get ('pet/', id)
                 .then (function (response) {
                     vm.idPet = response.data
                 })

@@ -123,8 +123,8 @@ export default {
                 sexo: 'M',
                 porte: 'Pequeno',
                 data_nascimento: '',
-                rg_dono: '',
-                numero_rg: '',
+                rg_dono: '12',
+                numero_rg: '1',
                 castrado: 'S',
                 caminho_foto: null
             }
@@ -132,9 +132,11 @@ export default {
     },
     methods: {
         cadastro () {
-            http.post (url, this.pet)
+            let vm = this;
+            http.post ('pet/add/' + localStorage.getItem ('login'), this.pet)
                 .then (function (response) {
-                    console.log(response)
+                    alert ('pet cadastrado');
+                    vm.$router.push ('menu-pets')
                 })
                 .catch (error => {
                     console.log (error)
