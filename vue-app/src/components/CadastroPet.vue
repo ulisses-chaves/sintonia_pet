@@ -25,7 +25,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputPelugem">Cor da Pelugem</label>
-                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.pelugem" required>
+                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.cor_pelugem" required>
                         </div>
                     </div>
                 </div>
@@ -44,27 +44,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
                                 <select class="custom-select mr-sm-2" id="inputSexo" v-model="pet.sexo">
-                                    <option selected>Escolha...</option>
                                     <option value="M">Macho</option>
                                     <option value="F">Fêmea</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label class="mr-sm-2" for="inputCastrado">Castrado</label>
+                                <select class="custom-select mr-sm-2" id="inputCastrado" v-model="pet.castrado">
+                                    <option value="S">Sim</option>
+                                    <option value="N">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputPorte">Porte</label>
                                 <select class="custom-select mr-sm-2" id="inputPorte" v-model="pet.porte">
-                                    <option selected>Escolha...</option>
-                                    <option value="P">Pequeno</option>
-                                    <option value="M">Médio</option>
-                                    <option value="G">Grande</option>
+                                    <option value="Pequeno">Pequeno</option>
+                                    <option value="Médio">Médio</option>
+                                    <option value="Grande">Grande</option>
                                 </select>
                             </div>
                         </div>
@@ -74,7 +83,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputData">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="inputData" v-model="pet.data" required>
+                            <input type="date" class="form-control" id="inputData" v-model="pet.data_nascimento" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -108,31 +117,28 @@ export default {
         return {
             pet: {
                 nome: '',
-                pelugem: '',
+                cor_pelugem: '',
                 raca: '',
                 idade: '',
                 sexo: 'M',
-                porte: 'P',
-                data: '',
-                foto: null
+                porte: 'Pequeno',
+                data_nascimento: '',
+                rg_dono: '',
+                numero_rg: '',
+                castrado: 'S',
+                caminho_foto: null
             }
         }
     },
     methods: {
         cadastro () {
-            if (this.pet.nome.length < 2 || this.pet.nome.length > 12) {
-                alert ('Nome muito pequeno ou muito grande. \n Por favor, defina outro!')
-            }else if (this.pet.idade.length > 99) {
-                alert ('Idade não inconsistente!')
-            }else {
-                http.post (url, this.pet)
-                    .then (function (response) {
-                        console.log(response)
-                    })
-                    .catch (error => {
-                        console.log (error)
-                    })
-            }
+            http.post (url, this.pet)
+                .then (function (response) {
+                    console.log(response)
+                })
+                .catch (error => {
+                    console.log (error)
+                })
         },
         fotoSelecionada (event) {
             //this.foto.src = ''

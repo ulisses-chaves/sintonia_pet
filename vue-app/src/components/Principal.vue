@@ -85,7 +85,6 @@
 <script>
 import { http } from '../services/config.js'
 import Axios from 'axios'
-import Usuario from '../services/usuarios.js'
 import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
 import ContatoVue from './Contato.vue';

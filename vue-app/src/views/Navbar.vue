@@ -2,7 +2,7 @@
     <div style= "box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5)">
         <nav id="altura-nav" style="background-image: linear-gradient(to bottom, #fdad00 , #fdc536);" class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
-                <a href="#/">
+                <a href="/">
                     <img style="height: 65px;" src="../../public/assets/logo-titulo branco.png" alt="">
                 </a>
                 <button style="background: #7e4732" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
