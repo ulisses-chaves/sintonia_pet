@@ -85,7 +85,6 @@
 <script>
 import { http } from '../services/config.js'
 import Axios from 'axios'
-import Usuario from '../services/usuarios.js'
 import NavbarVue from '../views/Navbar.vue';
 import RodapeVue from '../views/Rodape.vue';
 import ContatoVue from './Contato.vue';
@@ -121,7 +120,8 @@ export default {
                 }
             })
                 .then (function (response) {
-                    console.log (response) //apenas teste
+                    localStorage.setItem ('login', vm.usuario.username), //JSON.stringify (vm.usuario.username))
+                    vm.$router.push('menu')
                 })
                 .catch (error => {
                     console.log (error)

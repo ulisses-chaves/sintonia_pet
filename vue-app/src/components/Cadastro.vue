@@ -3,7 +3,7 @@
         <navbar></navbar>
         <div class="container">
         <div class="my-5 text-center">
-            <h1>Estamos ansiosos para receber você no <a href="#/" class="link color-warning">Sintonia Pet</a></h1>
+            <h1>Estamos ansiosos para receber você no <a href="/" class="link color-warning">Sintonia Pet</a></h1>
             <h2 class="color-brown">Preencha os campos abaixo para se cadastrar!</h2>
         </div>
         <form v-on:submit.prevent="cadastro">
@@ -23,21 +23,33 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="inputCpf" class="col-sm-2 col-form-label">CPF</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputCpf" placeholder="CPF (Apenas números)" v-model="usuario.cpf">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputRg" class="col-sm-2 col-form-label">RG</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputRg" placeholder="RG (Apenas números)" v-model="usuario.rg">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="inputTelefone" class="col-sm-2 col-form-label">Telefone</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputTelefone" placeholder="DDD + Telefone" v-model="usuario.telefone">
+                            <input type="text" class="form-control" id="inputTelefone" placeholder="DDD + Telefone" v-model="usuario.numero_fixo">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCelular" class="col-sm-2 col-form-label">Celular</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuario.celular">
+                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuario.numero_telefone">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputData" class="col-sm-2 col-form-label">Data de Nascimento</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="inputData" v-model="usuario.data">
+                            <input type="date" class="form-control" id="inputData" v-model="usuario.data_nascimento">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -53,7 +65,7 @@
                     <div class="form-group row">
                         <label for="inputEstadoCivil" class="col-sm-2 col-form-label">Estado Civil</label>
                         <div class="col-sm-10">
-                            <select id="inputEstadoCivil" class="form-control" v-model="usuario.estadoCivil">
+                            <select id="inputEstadoCivil" class="form-control" v-model="usuario.estado_civil">
                                 <option value="S">Solteiro(a)</option>
                                 <option value="C">Casado(a)</option>
                                 <option value="O">Outro</option>
@@ -146,7 +158,7 @@
                     <div class="form-group row">
                         <label for="inputConSenha" class="col-sm-2 col-form-label">Repita a senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="usuario.confirmarSenha">
+                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="confirmarSenha">
                         </div>
                     </div>
                     <div class="text-center">
@@ -174,13 +186,15 @@ export default {
     data () {
         return {
             usuario: {
+                rg: '',
+                cpf: '',
                 nome: '',
                 sobrenome: '',
-                telefone: '',
-                celular: '',
-                data: '',
+                numero_fixo: '',
+                numero_telefone: '',
+                data_nascimento: '',
                 sexo: 'M',
-                estadoCivil: 'S',
+                estado_civil: 'S',
                 cep: '',
                 pais: '',
                 cidade: '',
@@ -189,8 +203,9 @@ export default {
                 email: '',
                 login: '',
                 senha: '',
-                confirmarSenha: '',
-            }
+                caminho_foto: null,
+            },
+            confirmarSenha: '',
         }
     },
     components: {
@@ -198,7 +213,7 @@ export default {
         'rodape': RodapeVue
     },
     methods: {
-        cadastro () {
+        cadastro () { //arrumar esses if's e else's
             if (this.usuario.telefone.length != 10) {
                 alert ('Telefone inválido! Deve haver 10 números.\n Ex: 8135230303');
             }else{
@@ -208,7 +223,7 @@ export default {
                     if (this.usuario.cep.length != 8) {
                         alert ('CEP inválido! Deve contem apenas números e 8 deles')
                     } else {
-                        if (this.usuario.senha != this.usuario.confirmarSenha) {
+                        if (this.usuario.senha != this.confirmarSenha) {
                             alert ("Repita uma senha igual no campo 'Confirme sua Senha'")
                         }else {
                             http.post ('/cadastroUsuario', this.usuario)
@@ -222,10 +237,6 @@ export default {
                     }
                 }
             }
-            /*http.post ('/cadastroUsuario', this.usuario)
-                .then (function (response) {
-                    console.log (response) //teste
-                })*/
         },
         preencherCep () {
             let url = 'http://api.postmon.com.br/v1/cep/' + this.usuario.cep;
