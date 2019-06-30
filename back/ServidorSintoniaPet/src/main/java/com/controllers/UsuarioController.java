@@ -11,9 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 
 import com.models.Usuario;
 import com.repository.UsuarioRepository;
@@ -24,16 +31,24 @@ import com.repository.UsuarioRepository;
 
 public class UsuarioController
 {
+	
+	
+	
 	@Autowired
 	private UsuarioRepository repositorioUsuario;
 	
-	//public @ResponseBody boolean file(MultipartFile file);
+	@PostMapping(value="/file")
+	public @ResponseBody boolean save(@RequestParam("file") MultipartFile file)
+	{
+		
+		return true;
+	}
+	
 	
 	@PostMapping(value="/add")
-	public @ResponseBody ResponseEntity<String> add(@RequestBody Usuario usuario)
+	public @ResponseBody ResponseEntity<String> add(@RequestParam("file") MultipartFile file, @RequestParam("usuario") Usuario usuario)
 	{
 	
-		
 		 Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
 		  
 		 if(usuarioBusca != null) 
