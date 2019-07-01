@@ -15,7 +15,7 @@
                     <li class="mb-3">
                         <router-link style="color: black" v-bind:to="{ name: 'cadastroPet', params: { name: 'cadastro-pet' } }">
                             <img style="width: 25px" src="../../public/assets/plus.png" alt="">
-                            <span style="vertical-align: middle">Adicionar Pet</span>
+                            <span class="ml-2" style="vertical-align: middle">Adicionar Pet</span>
                         </router-link>
                     </li>
                     <li>
@@ -39,10 +39,13 @@
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong>Idade:</strong> {{pet.idade}}</li>
-                                                <li class="list-group-item"><strong>Sexo:</strong> {{pet.sexo}}</li>
-                                                <li class="list-group-item"><strong>Porte:</strong> {{pet.porte}}</li>
-                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.data }}</li>
-                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.pelugem}}</li>
+                                                <li v-if="pet.sexo === 'M'" class="list-group-item"><strong>Sexo:</strong> Macho</li>
+                                                <li v-else class="list-group-item"><strong>Sexo:</strong> Fêmea</li>
+                                                <li v-if="pet.porte === 'P'" class="list-group-item"><strong>Porte:</strong> Pequeno</li>
+                                                <li v-if="pet.porte === 'M'" class="list-group-item"><strong>Porte:</strong> Médio</li>
+                                                <li v-if="pet.porte === 'G'" class="list-group-item"><strong>Porte:</strong> Grande</li>
+                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.data_nascimento }}</li>
+                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.cor_pelugem}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -60,7 +63,7 @@
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><strong>Número do RG:</strong> {{pet.rg}}</li>
+                                                <li class="list-group-item"><strong>Número do RG:</strong> {{pet.numero_rg}}</li>
                                                 <li class="list-group-item"><strong>Cadastro:</strong> {{pet.cadastro}}</li>
                                                 <li class="list-group-item"><strong>QR code ??:</strong> imagem</li>
                                             </ul>
@@ -70,19 +73,27 @@
                             </div>
                             <div class="card-footer text-muted">
                                 <ul class="p-0">
-                                    <li class="d-inline-block">
-                                        <a v-on:click.stop.prevent="definirCorRg(pet.sexo); pegarIdPet(pet.id)" data-toggle="modal" data-target="#rg" class="card-link" href="">
+                                    <li class="d-inline-block mx-2">
+                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#rg" class="card-link" href="">
                                             <ul class="p-0">
-                                                <li class="d-inline"><img class="m-0 p-0" style="width: 64px" src="../../public/assets/rg.png" alt=""></li>
+                                                <li class="d-inline mx-2"><img class="m-0 p-0" style="width: 64px" src="../../public/assets/rg.png" alt=""></li>
                                                 <li class="d-inline">RG</li>
                                             </ul>
                                         </a>
                                     </li>
-                                    <li class="d-inline-block">
-                                        <a  data-toggle="modal" data-target="#edit" class="card-link" href="">
+                                    <li class="d-inline-block mx-2">
+                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#edit" class="card-link" href="">
                                             <ul class="p-0">
-                                                <li class="d-inline"><img style="width: 43px" class="m-0 p-0" src="../../public/assets/pen.png" alt=""></li>
+                                                <li class="d-inline mx-2"><img style="width: 45px" class="m-0 p-0" src="../../public/assets/pen.png" alt=""></li>
                                                 <li class="d-inline">Editar</li>
+                                            </ul>
+                                        </a>
+                                    </li>
+                                    <li class="d-inline-block mx-2">
+                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#delete" class="card-link" href="">
+                                            <ul class="p-0">
+                                                <li class="d-inline mx-2"><img style="width: 45px" class="m-0 p-0" src="../../public/assets/delete.png" alt=""></li>
+                                                <li class="d-inline">Deletar</li>
                                             </ul>
                                         </a>
                                     </li>
@@ -113,22 +124,22 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div v-if="sexoPet === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
+                        <div v-if="petSelecionado.sexo === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
                         </div>
-                        <div v-if="sexoPet === 'F'" style="position: relative" id="minhaImagem" class="col text-center">
+                        <div v-if="petSelecionado.sexo === 'F'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetF.jpeg" alt="">
                         </div>
-                        <label class="nomePet positions" for="">{{idPet.nome}}</label>
-                        <label class="dataPet positions" for="">{{idPet.data}}</label>
-                        <label class="positions" for="">{{idPet.dataExp}}</label>
-                        <label class="positions" for="">{{idPet.filiacao}}</label>
-                        <label class="positions" for="">{{idPet.peso}}</label>
-                        <label class="positions" for="">{{idPet.naturalidade}}</label>
-                        <label class="racaPet positions" for="">{{idPet.raca}}</label>
-                        <label class="sexoPet positions" for="">{{idPet.sexo}}</label>
-                        <label class="pelugemPet positions" for="">{{idPet.pelugem}}</label>
-                        <label class="usuario positions" for="">{{}}</label>
+                        <label class="nomePet positions" for="">{{petSelecionado.nome}}</label>
+                        <label class="dataPet positions" for="">{{petSelecionado.data_nascimento}}</label>
+                        <label class="positions" for="">dataexp</label>
+                        <label class="positions" for="">filiacao</label>
+                        <label class="positions" for="">{{petSelecionado.peso}}</label>
+                        <label class="positions" for="">naturalidade</label>
+                        <label class="racaPet positions" for="">{{petSelecionado.raca}}</label>
+                        <label class="sexoPet positions" for="">{{petSelecionado.sexo}}</label>
+                        <label class="pelugemPet positions" for="">{{petSelecionado.cor_pelugem}}</label>
+                        <label class="usuario positions" for="">usuario</label>
                         <label class="rua positions" for="">Endereço</label>
                         <label class="cidade positions" for="">Cidade</label>
                         <label class="bairro positions" for="">Bairro</label>
@@ -166,18 +177,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form v-on:submit.prevent="atualizarPet">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="nome">Nome</label>
-                                    <input type="text" class="form-control" id="nome" required>
+                                    <input type="text" class="form-control" id="nome" required v-model="petSelecionado.nome" minlength="2" maxlength="15">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label style="color: #7e4732" for="cadastro">Cadastro</label>
-                                    <input type="text" class="form-control" id="cadastro" required>
+                                    <label style="color: #7e4732" for="pelugem">Cor da Pelugem</label>
+                                    <input type="text" class="form-control" id="pelugem" required v-model="petSelecionado.cor_pelugem" minlength="2" maxlength="15">
                                 </div>
                             </div>
                         </div>
@@ -185,13 +196,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="raca">Espécie/Raça</label>
-                                    <input type="text" class="form-control" id="raca" required>
+                                    <input type="text" class="form-control" id="raca" required v-model="petSelecionado.raca" minlength="2" maxlength="15">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="idade">Idade</label>
-                                    <input type="text" class="form-control" id="idade" required>
+                                    <input type="text" class="form-control" id="idade" required v-model="petSelecionado.idade" name="numbers" pattern="[0-9]+$" maxlength="3">
                                 </div>
                             </div>
                         </div>
@@ -199,11 +210,10 @@
                             <div class="col-sm-6">
                                 <div class="form-row align-items-center">
                                     <div class="col-auto my-1">
-                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Sexo</label>
-                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                            <option selected>Escolha...</option>
-                                            <option value="1">Macho</option>
-                                            <option value="2">Fêmea</option>
+                                        <label class="mr-sm-2 color-brown" for="inlineFormCustomSelect">Sexo</label>
+                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petSelecionado.sexo">
+                                            <option value="M">Macho</option>
+                                            <option value="F">Fêmea</option>
                                         </select>
                                     </div>
                                 </div>
@@ -211,12 +221,11 @@
                             <div class="col-sm-6">
                                 <div class="form-row align-items-center">
                                     <div class="col-auto my-1">
-                                        <label class="mr-sm-2" for="inlineFormCustomSelect">Porte</label>
-                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                            <option selected>Escolha...</option>
-                                            <option value="1">Pequeno</option>
-                                            <option value="2">Médio</option>
-                                            <option value="3">Grande</option>
+                                        <label class="mr-sm-2 color-brown" for="inlineFormCustomSelect">Porte</label>
+                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petSelecionado.porte">
+                                            <option value="P">Pequeno</option>
+                                            <option value="M">Médio</option>
+                                            <option value="G">Grande</option>
                                         </select>
                                     </div>
                                 </div>
@@ -226,24 +235,23 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="data">Data de Nascimento</label>
-                                    <input type="text" class="form-control" id="data" required>
+                                    <input type="date" class="form-control" id="data" required v-model="petSelecionado.data_nascimento">
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label style="color: #7e4732" for="pelugem">Cor da Pelugem</label>
-                                    <input type="text" class="form-control" id="pelugem" required>
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto my-1">
+                                        <label class="mr-sm-2 color-brown" for="inputCastrado">Castrado</label>
+                                        <select class="custom-select mr-sm-2" id="inputCastrado" v-model="petSelecionado.castrado">
+                                            <option value="S">Sim</option>
+                                            <option value="N">Não</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label style="color: #7e4732" for="nrRG">Número do RG</label>
-                                    <input type="text" class="form-control" id="nrRG" required>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 mt-4 text-sm-right text-center">
+                            <div class="col mt-4 text-sm-right text-center">
                                 <div class="form-group mt-3">
                                     <a href="" class="card-link">Mudar Foto do Pet <img style="width: 18px" src="../../public/assets/download.png" alt=""></a>
                                 </div>
@@ -252,7 +260,34 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button style="color: #7e4732" type="button" class="btn btn-warning">Salvar mudanças</button>
+                    <button v-on:click.stop.prevent="atualizarPet" style="color: #7e4732" type="button" class="btn btn-warning">Salvar mudanças</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Excluir Pet do seu Perfil</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 my-5 my-sm-3 text-center">
+                            <img src="../../public/assets/delete.png" alt="">
+                        </div>
+                        <div class="col-sm-9 text-center text-sm-left">
+                            <h6 style="font-size: 19px">Tem certeza que deseja excluir?</h6>
+                            <p>Clicando em <strong style="color: #d9534f">deletar</strong>, fique ciente que você <strong style="color: #d9534f">PERDERÁ</strong> os dados cadastrados do seu Pet e só poderá tê-los de volta, cadastrando novamente!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                    <button type="button" v-on:click.stop.prevent="excluirPet" class="btn btn-danger">Deletar</button>
                 </div>
             </div>
         </div>
@@ -268,8 +303,7 @@ export default {
     data () {
         return {
             pets: [],
-            sexoPet: '',
-            idPet: {}
+            petSelecionado: {},
         }
     },
     mounted () {
@@ -280,6 +314,17 @@ export default {
             })
     },
     methods: {
+        atualizarPet() {
+            let vm = this;
+            http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado) //acho que falta o auth aqui
+                .then ( function (response) {
+                    alert ('pet atualizado');
+                    vm.$router.push ('menu-pets')
+                })
+                .catch (error => {
+                    console.log (error)
+                })
+        },
         imprimirRG () {
             let img = document.getElementById("minhaImagem").innerHTML; 
             let rgPet = window.open ('', '', 'height=500,width=500');
@@ -287,18 +332,18 @@ export default {
             rgPet.document.close ();
             rgPet.print ();
         },
-        definirCorRg (sexo) {
-            this.sexoPet = sexo;
+        pegarPet (pet) {
+            this.petSelecionado = pet;
         },
-        pegarIdPet (id) {
+        excluirPet () {
             let vm = this;
-            http.get ('pet/', id)
+            http.delete ('pet/delete/' + localStorage.getItem ('login'), { data: this.petSelecionado })
                 .then (function (response) {
-                    vm.idPet = response.data
+                    alert ('pet excluido');
                 })
                 .catch (error => {
                     console.log (error)
-                })
+                }) 
         }
     }
 }
@@ -314,39 +359,39 @@ export default {
         font-size: 13px;
     }
     .nomePet {
-        margin: 225px 0 0 150px
+        margin: 223px 0 0 150px
     }
     .dataPet {
-        margin: 244px 0 0 180px
+        margin: 242px 0 0 180px
     }
     .racaPet {
-        margin: 302px 0 0 148px
+        margin: 300px 0 0 148px
     }
     .sexoPet {
-        margin: 302px 0 0 286px
+        margin: 300px 0 0 286px
     }
     .pelugemPet {
-        margin: 302px 0 0 332px
+        margin: 300px 0 0 332px
     }
     .usuario {
-        margin: 320px 0 0 168px
+        margin: 318px 0 0 168px
     }
     .rua {
-        margin: 347px 0 0 170px
+        margin: 345px 0 0 170px
     }
     .cidade {
-        margin: 366px 0 0 155px
+        margin: 364px 0 0 155px
     }
     .bairro {
-        margin: 366px 0 0 295px
+        margin: 364px 0 0 295px
     }
     .uf {
-        margin: 384px 0 0 138px
+        margin: 382px 0 0 138px
     }
     .cep {
-        margin: 384px 0 0 190px
+        margin: 382px 0 0 190px
     }
     .telefone {
-        margin: 384px 0 0 280px
+        margin: 382px 0 0 280px
     }
 </style>

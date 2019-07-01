@@ -231,7 +231,7 @@ export default {
                                 console.log (response) //teste
                                 })
                                 .catch (error => {
-                                    alert (error)
+                                    alert ('login, senha ou email já usados')
                                 })
                         }
                     }
