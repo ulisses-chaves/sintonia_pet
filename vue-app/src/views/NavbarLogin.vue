@@ -7,7 +7,7 @@
                 </router-link>
                 <div id="navbarSite">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active mt-sm-2 mr-sm-2">Seja bem vindo(a), <strong>Usuário</strong></li>
+                        <li class="nav-item active mt-sm-2 mr-sm-2">Seja bem vindo(a), <strong>{{login}}</strong></li>
                         <li class="nav-item active">
                             <div class="dropdown">
                                 <img style="width: 35px; cursor: pointer" src="../../public/assets/user.png" alt="" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,6 +31,10 @@
 
 <script>
 export default {
-    
+    data () {
+        return {
+            login: localStorage.getItem ('login')
+        }
+    }
 }
 </script>

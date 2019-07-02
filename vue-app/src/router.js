@@ -49,6 +49,11 @@ export default new Router({
           component: () => import ( './components/CadastroPet.vue' )
         }
       ]
+    },
+    {
+      path: '/painel-admin',
+      name: 'painelAdmin',
+      component: () => import ( './components/PainelAdmin.vue' )
     }
   ]
 })

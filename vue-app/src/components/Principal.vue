@@ -6,7 +6,7 @@
                 <h1 class="color-warning text-center mb-4" style="font-size: 47px; letter-spacing: -1px">Sintonia<span class="color-brown">Pet</span></h1>
                 <div class="card m-auto" style="width: 80%; background: #fdc536">
                     <h5 style="font-weight: 700" class="color-brown card-title text-center mt-4">Faça seu login e conheça nossos produtos</h5>
-                    <div style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);" class="card-body m-auto">
+                    <div style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);" class="w-100 card-body m-auto">
                             <form v-on:submit.prevent="login">
                             <div class="form-group">
                                 <label class="color-brown" for="inputLogin">Login</label>
@@ -17,9 +17,9 @@
                                 <input type="password" style="font-size: 9px" class="form-control" id="inputSenha" v-model="usuario.senha" required>
                                 <a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>
                             </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="inputLembrar">
-                                <label class="form-check-label mb-0 color-brown" for="inputLembrar">Lembrar-me</label>
+                           <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                <label class="custom-control-label color-brown" for="customControlAutosizing">Lembrar-me</label>
                             </div>
                             <div class="text-center">
                                 <button style="width: 120px" class="color-brown btn btn-light">Entrar</button>
@@ -27,7 +27,7 @@
                         </form>
                     </div>
                     <div style="background: white" class="card-footer text-muted p-1 pl-2">
-                        <p class="m-0 color-brown">É novo por aqui? <router-link to="cadastro">Crie sua conta</router-link></p>
+                        <p class="m-0 color-brown">É novo por aqui? <router-link class="card-link" to="cadastro">Crie sua conta</router-link></p>
                     </div>
                 </div>
             </div>
@@ -110,6 +110,10 @@ export default {
         'contato': ContatoVue,
         'comoUsar': ComoUsarVue
     },
+    created () {
+        console.log (localStorage.getItem ('login'))
+        console.log (localStorage.getItem ('password'))
+    },
     methods: {
         login () {
             let vm = this;
@@ -121,7 +125,8 @@ export default {
             })
                 .then (function (response) {
                     localStorage.setItem ('login', vm.usuario.username), //JSON.stringify (vm.usuario.username))
-                    vm.$router.push('menu')
+                    localStorage.setItem ('password', vm.usuario.senha)
+                    vm.$router.push('menu-pets')
                 })
                 .catch (error => {
                     console.log (error)
