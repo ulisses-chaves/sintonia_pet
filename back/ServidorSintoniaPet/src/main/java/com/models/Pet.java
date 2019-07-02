@@ -23,7 +23,10 @@ public class Pet
 	private String porte;
 	private String raca;
 	private String caminho_foto;
-	
+	private Date data_exp;
+	private String filiação;
+	private float peso;
+	private String naturalidade;
 	
 	@Override
 	public boolean equals(Object pet)
@@ -139,7 +142,39 @@ public class Pet
 	
 	public void setCaminho_foto(String caminho_foto) 
 	{
-		this.caminho_foto = caminho_foto;
+	  	this.caminho_foto = caminho_foto;
+	}
+
+	public Date getData_exp() {
+		return data_exp;
+	}
+
+	public void setData_exp(Date data_exp) {
+		this.data_exp = data_exp;
+	}
+
+	public String getFiliação() {
+		return filiação;
+	}
+
+	public void setFiliação(String filiação) {
+		this.filiação = filiação;
+	}
+
+	public float getPeso() {
+		return peso;
+	}
+
+	public void setPeso(float peso) {
+		this.peso = peso;
+	}
+
+	public String getNaturalidade() {
+		return naturalidade;
+	}
+
+	public void setNaturalidade(String naturalidade) {
+		this.naturalidade = naturalidade;
 	}
 	 
 }

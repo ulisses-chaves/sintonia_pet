@@ -1,4 +1,4 @@
-package com.controllers;
+﻿package com.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,16 @@ import com.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping(value = "/pet")
+
+
 public class PetController {
 
+	
 	@Autowired
 	private UsuarioRepository usuarios;
+	
+	
+
 	
 	@GetMapping(value = "/all/{login}")
 	public ResponseEntity<List<Pet>> getAll(@PathVariable("login") String login)
@@ -39,7 +45,7 @@ public class PetController {
 	}
 	
 	@PostMapping(value = "/add/{login}")
-	public ResponseEntity<String> add(@RequestBody Pet pet, @PathVariable("login") String login)
+	public ResponseEntity<String> add(@RequestParam("imagem") String imagem @RequestParam("pet")Pet pet, @PathVariable("login") String login)
 	{
 		
 		Usuario usuario = usuarios.findByLogin(login);
@@ -48,9 +54,22 @@ public class PetController {
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
 			
 		
-		
-		if(usuario.getPets().contains(pet))
-			return new ResponseEntity<>("Pet já existe", HttpStatus.BAD_REQUEST); ;
+		while(true)
+		{
+			String cpfPet = new String();
+			
+			for(int i = 0; i < 9; ++i)
+			{
+				cpfPet += Long.toString(Math.round(Math.random()) * (9-1) +1);
+			}
+			
+			pet.setNumero_rg(cpfPet);
+						
+			if(!usuario.getPets().contains(pet))
+				break;
+			
+			
+		}
 			
 		usuario.getPets().add(pet);
 		usuarios.save(usuario);

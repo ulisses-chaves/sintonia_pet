@@ -17,6 +17,7 @@ public class Usuario
 	
 	private String senha;
 	
+	private String uf;
 	
 	private String nome;
 	
@@ -273,6 +274,14 @@ public class Usuario
 
 	public void setPets(List<Pet> pets) {
 		this.pets = pets;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 
