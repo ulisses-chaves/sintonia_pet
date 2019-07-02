@@ -19,13 +19,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputNome">Nome</label>
-                            <input type="text" class="form-control" id="inputNome" v-model="pet.nome" minlength="2" maxlength="15" required placeholder="Nome do pet">
+                            <input type="text" class="form-control" id="inputNome" v-model="pet.nome" maxlength="15" required placeholder="Nome do pet">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputPelugem">Cor da Pelugem</label>
-                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.cor_pelugem" minlength="2" maxlength="15" required placeholder="Cor do pelo"> 
+                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.cor_pelugem" maxlength="15" required placeholder="Cor do pelo"> 
                         </div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputRaca">Espécie/Raça</label>
-                            <input type="text" class="form-control" id="inputRaca" v-model="pet.raca" minlength="2" maxlength="15" required placeholder="Sua raça">
+                            <input type="text" class="form-control" id="inputRaca" v-model="pet.raca" maxlength="15" required placeholder="Sua raça">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputIdade">Idade</label>
-                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="pet.idade" maxlength="3" required placeholder="Apenas números">
+                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="pet.idade" maxlength="2" required placeholder="Apenas números">
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,6 @@ export default {
                     vm.$router.push ('menu-pets')
                 })
                 .catch (error => {
-                    console.log (error)
                     document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível cadastrar";
                     document.getElementById('alertImgMsg').style.display = 'block'
                 })

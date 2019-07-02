@@ -13,43 +13,43 @@
                     <div class="form-group row">
                         <label for="inputNome" class="col-sm-2 col-form-label">Nome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputNome" placeholder="Primeiro Nome" v-model="usuario.nome">
+                            <input type="text" class="form-control" id="inputNome" placeholder="Primeiro Nome" v-model="usuario.nome" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputSobrenome" class="col-sm-2 col-form-label">Sobrenome</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputSobrenome" placeholder="Sobrenome" v-model="usuario.sobrenome">
+                            <input type="text" class="form-control" id="inputSobrenome" placeholder="Sobrenome" v-model="usuario.sobrenome" maxlength="15" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCpf" class="col-sm-2 col-form-label">CPF</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCpf" placeholder="CPF (Apenas números)" v-model="usuario.cpf">
+                            <input type="text" class="form-control" id="inputCpf" placeholder="CPF (Apenas números)" v-model="usuario.cpf" maxlength="11" minlength="11" name="numbers" pattern="[0-9]+$" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputRg" class="col-sm-2 col-form-label">RG</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputRg" placeholder="RG (Apenas números)" v-model="usuario.rg">
+                            <input type="text" class="form-control" id="inputRg" placeholder="RG (Apenas números)" v-model="usuario.rg" maxlength="9" minlength="9" name="numbers" pattern="[0-9]+$" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputTelefone" class="col-sm-2 col-form-label">Telefone</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputTelefone" placeholder="DDD + Telefone" v-model="usuario.numero_fixo">
+                            <input type="text" class="form-control" id="inputTelefone" placeholder="DDD + Telefone" v-model="usuario.numero_fixo" maxlength="10" minlength="10" name="numbers" pattern="[0-9]+$">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCelular" class="col-sm-2 col-form-label">Celular</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuario.numero_telefone">
+                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuario.numero_telefone" maxlength="10" minlength="10" name="numbers" pattern="[0-9]+$" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputData" class="col-sm-2 col-form-label">Data de Nascimento</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="inputData" v-model="usuario.data_nascimento">
+                            <input type="date" class="form-control" id="inputData" v-model="usuario.data_nascimento" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -102,31 +102,31 @@
                     <div class="form-group row">
                         <label for="inputCEP" class="col-sm-2 col-form-label">CEP</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)" v-model="usuario.cep" v-on:blur="preencherCep">
+                            <input type="text" class="form-control" id="inputCEP" placeholder="CEP (Apenas números)" v-model="usuario.cep" v-on:blur="preencherCep" maxlength="8" minlength="8" name="numbers" pattern="[0-9]+$" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputPais" class="col-sm-2 col-form-label">País</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputPais" placeholder="País" v-model="usuario.pais">
+                            <input type="text" class="form-control" id="inputPais" placeholder="País" v-model="usuario.pais" required maxlength="20">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputCidade" class="col-sm-2 col-form-label">Cidade</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" v-model="usuario.cidade">
+                            <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" v-model="usuario.cidade" required maxlength="50">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputBairro" class="col-sm-2 col-form-label">Bairro</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro" v-model="usuario.bairro">
+                            <input type="text" class="form-control" id="inputBairro" placeholder="Bairro" v-model="usuario.bairro" required maxlength="30">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputRua" class="col-sm-2 col-form-label">Rua</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputRua" placeholder="Rua" v-model="usuario.rua">
+                            <input type="text" class="form-control" id="inputRua" placeholder="Rua" v-model="usuario.rua" required maxlength="50">
                         </div>
                     </div>
                 </div>
@@ -140,28 +140,38 @@
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email" v-model="usuario.email">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email" v-model="usuario.email" maxlength="30" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login" v-model="usuario.login">
+                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login" v-model="usuario.login" maxlength="15" minlength="5" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputSenha" class="col-sm-2 col-form-label">Senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números" v-model="usuario.senha">
+                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números" v-model="usuario.senha" maxlength="15" minlength="5" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputConSenha" class="col-sm-2 col-form-label">Repita a senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="confirmarSenha">
+                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="confirmarSenha" maxlength="15" minlength="5" required>
                         </div>
                     </div>
-                    <div class="text-center">
+                    <div id="alertImgMsg" style="width: 70%; display: none" class="m-auto text-center alert alert-danger" role="alert">
+                        <div class="row">
+                            <div class="col-md-3 text-md-right text-center">
+                                <img style="width: 50px" src="../../public/assets/alert.png" alt="">
+                            </div>
+                            <div id ="msg" class="col-md-7 text-center">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
                         <button class="btn btn-warning">Finalizar o Cadastro</button>
                     </div>
                 </div>
@@ -213,30 +223,17 @@ export default {
         'rodape': RodapeVue
     },
     methods: {
-        cadastro () { //arrumar esses if's e else's
-            if (this.usuario.telefone.length != 10) {
-                alert ('Telefone inválido! Deve haver 10 números.\n Ex: 8135230303');
-            }else{
-                if (this.usuario.celular.length != 10) {
-                    alert ('Celular inválido! Deve haver 10 números.\n Ex: 8197145258')
-                } else {
-                    if (this.usuario.cep.length != 8) {
-                        alert ('CEP inválido! Deve contem apenas números e 8 deles')
-                    } else {
-                        if (this.usuario.senha != this.confirmarSenha) {
-                            alert ("Repita uma senha igual no campo 'Confirme sua Senha'")
-                        }else {
-                            http.post ('/cadastroUsuario', this.usuario)
-                                .then (function (response) {
-                                console.log (response) //teste
-                                })
-                                .catch (error => {
-                                    alert ('login, senha ou email já usados')
-                                })
-                        }
-                    }
-                }
-            }
+        cadastro () {
+            let vm = this;
+            http.post ('usuario/add', this.usuario)
+                .then (function (response) {
+                    alert ('user cadastrado');
+                    vm.$router.push ('principal')
+                })
+                .catch (error => {
+                    document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
+                    document.getElementById('alertImgMsg').style.display = 'block'
+                })
         },
         preencherCep () {
             let url = 'http://api.postmon.com.br/v1/cep/' + this.usuario.cep;
@@ -249,7 +246,7 @@ export default {
                     vm.usuario.rua = response.data.logradouro;
                 })
                 .catch (error => {
-                    console.log (error)
+                    
                 })
             
         },
