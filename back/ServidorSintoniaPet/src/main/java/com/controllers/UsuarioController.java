@@ -22,11 +22,19 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.xml.ws.RequestWrapper;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.models.Token;
 import com.models.Usuario;
+import com.models.UsuarioWrapper;
 import com.repository.TokenRepository;
 import com.repository.UsuarioRepository;
+import com.service.ServicesFoto;
 
 @RestController
 @RequestMapping(path="/usuario")
@@ -40,6 +48,51 @@ public class UsuarioController
 	@Autowired
 	private TokenRepository repositorioToken;
 	
+	
+	
+	@GetMapping(value="/token/usar/{login}/{tokenValor}")
+	public ResponseEntity<String> usarPremmium(@PathVariable("login") String login, @PathVariable("tokenValor") String tokenValor)
+	{
+		
+		Usuario usuario = repositorioUsuario.findByLogin(login); 
+		
+		if(usuario == null)
+		{
+			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); 
+				
+		}
+		
+		Token token = repositorioToken.findByLogin(login);
+		
+		if(token == null)
+		{
+			return new ResponseEntity<>("Usuário não possui um token", HttpStatus.BAD_REQUEST);
+				
+		}
+		
+		if(!token.getToken().equals(tokenValor))
+		{
+			return new ResponseEntity<>("Não é o token gerado para o usuário", HttpStatus.BAD_REQUEST); 
+		}
+		
+		if(token.isUsado())
+		{
+			return new ResponseEntity<>("Esse token já foi utilizado", HttpStatus.BAD_REQUEST); 
+		}
+		
+		token.setUsado(true);
+		repositorioToken.delete(token);
+		repositorioToken.save(token);
+		
+		usuario.setIsPremmium(true);
+		
+		repositorioUsuario.delete(usuario);
+		repositorioUsuario.save(usuario);
+		
+		return new ResponseEntity<>("", HttpStatus.OK); 
+		
+		
+	}
 	
 	
 	@GetMapping(value="/token/{login}")
@@ -85,47 +138,89 @@ public class UsuarioController
 	}
 	
 	@PostMapping(value="/add")
-	public @ResponseBody ResponseEntity<String> add(@RequestParam("imagem") String imagem, @RequestParam("usuario") Usuario usuario)
+	public @ResponseBody ResponseEntity<String> add(@RequestBody UsuarioWrapper usuarioWrapper)
 	{
+		
+		
+		
+		Usuario usuario = usuarioWrapper.getUsuario();  
+		 
+		Usuario usuarioBusca =
+		repositorioUsuario.findByRgAndLoginAndCpf(((Usuario)usuario).getRg(),
+		((Usuario)usuario).getLogin(), ((Usuario)usuario).getCpf());
+		
+		
+		
+		if(usuarioBusca != null) return new ResponseEntity<>("Usuário já existe",
+		HttpStatus.BAD_REQUEST);
+		
+		try
+		{
+			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin() + ".txt");
+			usuario.setCaminhoFoto("fotos/usuarios/");	
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+						
+		}
 	
-		 Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
-		  
-		 if(usuarioBusca != null) 
-			 return new ResponseEntity<>("Usuário já existe", HttpStatus.BAD_REQUEST); ;
-						 
+		usuario.setIsPremmium(false);
 		
 		repositorioUsuario.save(usuario);
-		
-		return new ResponseEntity<>(HttpStatus.OK) ;
+		  
+		return new ResponseEntity<>( HttpStatus.OK) ;
+		 
 		
 	}
 	
 	@GetMapping(value="/get/{login}")
-	public @ResponseBody ResponseEntity<Usuario> get(@PathVariable("login") String login)
+	public @ResponseBody ResponseEntity<UsuarioWrapper> get(@PathVariable("login") String login)
 	{
 		Usuario usuarioBusca = repositorioUsuario.findByLogin(login);
 		
 		 if(usuarioBusca == null)
 			 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); ;
 		
-		
 		usuarioBusca.setSenha("");
-			 
-		return new ResponseEntity<>(usuarioBusca, HttpStatus.OK) ;
+		
+		String foto = new String();
+		try
+		{
+			foto = ServicesFoto.readFoto(usuarioBusca.getCaminhoFoto(), usuarioBusca.getLogin());
+			
+		}
+		catch(Exception e)
+		{
+			
+		}
+		
+		return new ResponseEntity<>(new UsuarioWrapper(foto, usuarioBusca), HttpStatus.OK) ;
 				
 	}
 	
 	@PutMapping(value="/update")
-	public @ResponseBody ResponseEntity<String> update(@RequestBody Usuario usuario)
+	public @ResponseBody ResponseEntity<String> update(@RequestBody UsuarioWrapper usuarioWrapper)
 	{
 	
+		Usuario usuario = usuarioWrapper.getUsuario();
 		
 		 Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
 		  
 		 if(usuarioBusca == null)
 			 return new ResponseEntity<>("Não existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); ;
 				
-		 
+		try
+		{
+			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin() + ".txt");
+			usuario.setCaminhoFoto("fotos/usuarios/");	
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+								
+		}
+ 
 		
 		repositorioUsuario.delete(usuario);
 		repositorioUsuario.save(usuario);

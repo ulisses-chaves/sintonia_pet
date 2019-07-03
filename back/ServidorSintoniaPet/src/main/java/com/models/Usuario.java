@@ -65,6 +65,8 @@ public class Usuario
 	
 	private Boolean is_admin;
 	
+	private Boolean isPremmium;
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Pet> pets;
 	
@@ -236,14 +238,6 @@ public class Usuario
 		this.numero_fixo = numero_fixo;
 	}
 
-	public String getCaminho_foto() {
-		return caminho_foto;
-	}
-
-	public void setCaminho_foto(String caminho_foto) {
-		this.caminho_foto = caminho_foto;
-	}
-
 	public Boolean isAdmin() {
 		return is_admin;
 	}
@@ -284,8 +278,13 @@ public class Usuario
 		this.uf = uf;
 	}
 
+	public Boolean getIsPremmium() {
+		return isPremmium;
+	}
 
-    
-    
+	public void setIsPremmium(Boolean isPremmium) {
+		this.isPremmium = isPremmium;
+	}
+
     
 }

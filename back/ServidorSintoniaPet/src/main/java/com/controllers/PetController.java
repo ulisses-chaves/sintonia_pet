@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.models.Pet;
@@ -45,7 +46,7 @@ public class PetController {
 	}
 	
 	@PostMapping(value = "/add/{login}")
-	public ResponseEntity<String> add(@RequestParam("imagem") String imagem @RequestParam("pet")Pet pet, @PathVariable("login") String login)
+	public ResponseEntity<String> add(@RequestParam("imagem") String imagem, @RequestParam("pet")Pet pet, @PathVariable("login") String login)
 	{
 		
 		Usuario usuario = usuarios.findByLogin(login);

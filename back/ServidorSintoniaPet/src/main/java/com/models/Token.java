@@ -15,18 +15,21 @@ public class Token {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	private String login;
-	public String token;
+	private String token;
+	private boolean usado;
 	
 	public Token(String login, String token)
 	{
 		this.login = login;
 		this.token = token;
+		this.usado = false;
 	}
 	
 	public Token()
 	{
 		this.login = "";
 		this.token = "";
+		this.usado = false;
 	}
 	
 	public long getId() 
@@ -60,8 +63,20 @@ public class Token {
 	
 		this.token = token;
 	}
+
+	public boolean isUsado() {
+		return usado;
+	}
+
+	public void setUsado(boolean usado) {
+		this.usado = usado;
+	}
 	
-	
+	@Override
+	public boolean equals(Object o)
+	{
+		return this.token.equals(((Token)o).getToken()) & this.login.equals(((Token)o).getLogin());
+	}
 	
 }
 
