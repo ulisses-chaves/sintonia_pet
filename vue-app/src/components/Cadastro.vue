@@ -49,7 +49,7 @@
                     <div class="form-group row">
                         <label for="inputData" class="col-sm-2 col-form-label">Data de Nascimento</label>
                         <div class="col-sm-10">
-                            <input type="date" class="form-control" id="inputData" v-model='data'  required>
+                            <input type="date" class="form-control" id="inputData" v-model="usuarioWrapper.usuario.data_nascimento" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -195,8 +195,7 @@ export default {
     name: 'cadastro',
     data () {
         return {
-            usuarioWrapper:
-            {
+            usuarioWrapper: {
                 imagem: '',
                 usuario: {
                     rg: '',
@@ -205,7 +204,7 @@ export default {
                     sobrenome: '',
                     numero_fixo: '',
                     numero_telefone: '',
-                    data_nascimento: '111111',
+                    data_nascimento: '',
                     sexo: 'M',
                     estado_civil: 'S',
                     cep: '',
@@ -216,14 +215,10 @@ export default {
                     email: '',
                     login: '',
                     senha: '',
-                    caminho_foto: '',
-                    is_admin:false,
-                    is_premmium: false,
-                    uf: ''
-                }
+                    caminho_foto: null,
+                },
             },
             confirmarSenha: '',
-            data: ''
         }
     },
     components: {
@@ -233,9 +228,10 @@ export default {
     methods: {
         cadastro () {
             let vm = this;
-            http.post ('usuario/add', this.usuarioWrapper   )
+            http.post ('usuario/add', this.usuarioWrapper)
                 .then (function (response) {
-                   vm.$router.push (' ')
+                    alert ('user cadastrado');
+                    vm.$router.push ('principal')
                 })
                 .catch (error => {
                     document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
@@ -250,7 +246,7 @@ export default {
                     vm.usuarioWrapper.usuario.pais = 'Brasil';
                     vm.usuarioWrapper.usuario.cidade = response.data.cidade;
                     vm.usuarioWrapper.usuario.bairro = response.data.bairro;
-                    vm.usuarioWrapper.usuario.rua = response.data.logradouro;
+                    vm.usuarioWrapper.rua = response.data.logradouro;
                 })
                 .catch (error => {
                     

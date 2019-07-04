@@ -29,7 +29,7 @@ public class Usuario
 	private String rg;
 		
 	
-	private String  data_nascimento;
+	private Date  data_nascimento;
 	
     
 	private char sexo;
@@ -118,22 +118,12 @@ public class Usuario
 		this.rg = rg;
 	}
 
-	public String getDataNascimento() {
+	public Date getData() {
 		return data_nascimento;
 	}
 
-	public void setDataNascimento(String data) {
+	public void setData(Date data) {
 		this.data_nascimento = data;
-	}
-	
-	public String getData_Nascimento()
-	{
-		return this.data_nascimento;
-	}
-	
-	public void setData_Nascimento(String data_nascimento)
-	{
-		this.data_nascimento = data_nascimento;
 	}
 
 	public char getSexo() {
@@ -256,6 +246,13 @@ public class Usuario
 		this.is_admin = isAdmin;
 	}
 
+	public Date getData_nascimento() {
+		return data_nascimento;
+	}
+
+	public void setData_nascimento(Date data_nascimento) {
+		this.data_nascimento = data_nascimento;
+	}
 
 	public Boolean getIs_admin() {
 		return is_admin;
