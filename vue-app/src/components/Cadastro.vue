@@ -112,6 +112,12 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="inputEstado" class="col-sm-2 col-form-label">Estado</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputEstado" placeholder="UF (Sigla do Estado)" v-model="usuarioWrapper.usuario.uf" required maxlength="2">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="inputCidade" class="col-sm-2 col-form-label">Cidade</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputCidade" placeholder="Cidade" v-model="usuarioWrapper.usuario.cidade" required maxlength="50">
@@ -215,7 +221,10 @@ export default {
                     email: '',
                     login: '',
                     senha: '',
-                    caminho_foto: null,
+                    is_admin:false,
+                    is_premmium: false,
+                    caminho_foto: '',
+                    uf: 'PE'
                 },
             },
             confirmarSenha: '',
@@ -244,9 +253,10 @@ export default {
             Axios.get(url)
                 .then(function (response) {
                     vm.usuarioWrapper.usuario.pais = 'Brasil';
+                    vm.usuarioWrapper.usuario.uf = response.data.estado;
                     vm.usuarioWrapper.usuario.cidade = response.data.cidade;
                     vm.usuarioWrapper.usuario.bairro = response.data.bairro;
-                    vm.usuarioWrapper.rua = response.data.logradouro;
+                    vm.usuarioWrapper.usuario.rua = response.data.logradouro;
                 })
                 .catch (error => {
                     

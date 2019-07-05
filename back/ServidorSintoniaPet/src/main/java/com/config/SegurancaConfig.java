@@ -46,7 +46,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 		
 		 http.csrf().disable();
 		 
-		 http.authorizeRequests().antMatchers( "/login").hasRole("USER");
+		 http.authorizeRequests().antMatchers( "/login").hasRole("USER").and().authorizeRequests();
 		 
 	  
 	  }
