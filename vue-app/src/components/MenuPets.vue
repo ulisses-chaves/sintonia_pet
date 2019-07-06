@@ -84,7 +84,7 @@
                                         </a>
                                     </li>
                                     <li class="d-inline-block mx-2">
-                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#edit" class="card-link" href="">
+                                        <a data-toggle="modal" data-target="#edit" class="card-link" href="">
                                             <ul class="p-0">
                                                 <li class="d-inline mx-2"><img style="width: 45px" class="m-0 p-0" src="../../public/assets/pen.png" alt=""></li>
                                                 <li class="d-inline">Editar</li>
@@ -184,13 +184,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="nome">Nome</label>
-                                    <input type="text" class="form-control" id="nome" required v-model="petSelecionado.nome" minlength="2" maxlength="15">
+                                    <input type="text" class="form-control" id="nome" required v-model="petAlterado.pet.nome" minlength="2" maxlength="15">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="pelugem">Cor da Pelugem</label>
-                                    <input type="text" class="form-control" id="pelugem" required v-model="petSelecionado.cor_pelugem" minlength="2" maxlength="15">
+                                    <input type="text" class="form-control" id="pelugem" required v-model="petAlterado.pet.cor_pelugem" minlength="2" maxlength="15">
                                 </div>
                             </div>
                         </div>
@@ -198,13 +198,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="raca">Espécie/Raça</label>
-                                    <input type="text" class="form-control" id="raca" required v-model="petSelecionado.raca" minlength="2" maxlength="15">
+                                    <input type="text" class="form-control" id="raca" required v-model="petAlterado.pet.raca" minlength="2" maxlength="15">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="idade">Idade</label>
-                                    <input type="text" class="form-control" id="idade" required v-model="petSelecionado.idade" name="numbers" pattern="[0-9]+$" maxlength="3">
+                                    <input type="text" class="form-control" id="idade" required v-model="petAlterado.pet.idade" name="numbers" pattern="[0-9]+$" maxlength="3">
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                                 <div class="form-row align-items-center">
                                     <div class="col-auto my-1">
                                         <label class="mr-sm-2 color-brown" for="inlineFormCustomSelect">Sexo</label>
-                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petSelecionado.sexo">
+                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petAlterado.pet.sexo">
                                             <option value="M">Macho</option>
                                             <option value="F">Fêmea</option>
                                         </select>
@@ -224,7 +224,7 @@
                                 <div class="form-row align-items-center">
                                     <div class="col-auto my-1">
                                         <label class="mr-sm-2 color-brown" for="inlineFormCustomSelect">Porte</label>
-                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petSelecionado.porte">
+                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" v-model="petAlterado.pet.porte">
                                             <option value="P">Pequeno</option>
                                             <option value="M">Médio</option>
                                             <option value="G">Grande</option>
@@ -237,14 +237,14 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="data">Data de Nascimento</label>
-                                    <input type="date" class="form-control" id="data" required v-model="petSelecionado.data_nascimento">
+                                    <input type="date" class="form-control" id="data" required v-model="petAlterado.pet.data_nascimento">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-row align-items-center">
                                     <div class="col-auto my-1">
                                         <label class="mr-sm-2 color-brown" for="inputCastrado">Castrado</label>
-                                        <select class="custom-select mr-sm-2" id="inputCastrado" v-model="petSelecionado.castrado">
+                                        <select class="custom-select mr-sm-2" id="inputCastrado" v-model="petAlterado.pet.castrado">
                                             <option value="S">Sim</option>
                                             <option value="N">Não</option>
                                         </select>
@@ -253,7 +253,27 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col mt-4 text-sm-right text-center">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="color: #7e4732" for="inputNaturalidade">Naturalidade</label>
+                                    <input type="text" class="form-control" id="inputNaturalidade" required v-model="petAlterado.pet.naturalidade" minlength="2" maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="color: #7e4732" for="inputFiliacao">Filiação</label>
+                                    <input type="text" class="form-control" id="inputFiliacao" required v-model="petAlterado.pet.filiação" maxlength="30">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label style="color: #7e4732" for="inputPeso">Peso</label>
+                                    <input type="text" class="form-control" id="inputPeso" required v-model="petAlterado.pet.idade" name="numbers" pattern="[0-9]+$" maxlength="3">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mt-4 text-sm-right text-center">
                                 <div class="form-group mt-3">
                                     <a href="" class="card-link">Mudar Foto do Pet <img style="width: 18px" src="../../public/assets/download.png" alt=""></a>
                                 </div>
@@ -307,6 +327,25 @@ export default {
             user: {},
             pets: [],
             petSelecionado: {},
+            petAlterado: {
+                image: '',
+                pet: {
+                    nome: '',
+                    cor_pelugem: '',
+                    raca: '',
+                    idade: '',
+                    sexo: 'M',
+                    porte: 'P',
+                    data_nascimento: '',
+                    castrado: 'S',
+                    caminho_foto: '',
+                    data_exp: '',
+                    filiação: '',
+                    peso: '',
+                    naturalidade: ''
+                }
+
+            }
         }
     },
     mounted () {
@@ -384,6 +423,18 @@ export default {
     }
     .dataPet {
         margin: 242px 0 0 180px
+    }
+    .dataExp {
+        margin: 242px 0 0 298px
+    }
+    .filiacao {
+        margin: 262px 0 0 160px
+    }
+    .peso {
+        margin: 262px 0 0 286px
+    }
+    .naturalidade {
+        margin: 282px 0 0 185px
     }
     .racaPet {
         margin: 300px 0 0 148px

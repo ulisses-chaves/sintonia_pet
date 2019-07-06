@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label class="color-brown" for="inputSenha">Senha</label>
                                 <input type="password" style="font-size: 9px" class="form-control" id="inputSenha" v-model="usuario.senha" required>
-                                <a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>
+                                <!--<a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>-->
                             </div>
                            <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
