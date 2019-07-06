@@ -6,26 +6,42 @@
                     <div class="card-body mt-3">
                         <h2 style="color: #fdc536" class="card-title mt-2">Entre em contato</h2>
                         <h6 class="card-subtitle my-4 text-muted">Mande uma mensagem pra gente contando a sua dificuldade ou sugestão.</h6>
-                        <form action="">
+                        <form v-on:submit.prevent="enviarEmail">
                             <div class="row">
                                 <div class="col-md-5">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="nome" placeholder="Nome" required>
+                                        <input type="text" class="form-control" id="nome" placeholder="Nome" required v-model="email.nome">
                                     </div>
                                 </div>
                                 <div class="col-md-7">   
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="email" placeholder="Email" required>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" v-model="email.email" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" id="msg" rows="3" placeholder="Escreva sua mensagem" required></textarea>
+                                <textarea class="form-control" id="msg" rows="3" placeholder="Escreva sua mensagem" v-model="email.mensagem" required></textarea>
                             </div>
-                            <button href="#" class="btn btn-link card-link mb-3">
+                            <button type="submit" class="btn btn-link card-link mb-3">
                                 <img style="width: 18px" src="../../public/assets/email.png" alt="">
                                 <span style="vertical-align: middle" class="ml-1">Enviar mensagem</span>
                             </button>
+                            <div id="enviou" style="display: none" class="m-auto text-center alert alert-success row" role="alert">
+                                <div class="col-sm-4 text-sm-right text-center">
+                                    <img style="width: 30px" src="../../public/assets/checked.png" alt="">
+                                </div>
+                                <div class="col-sm-8 text-sm-left text-center">
+                                    Mensagem enviada
+                                </div>
+                            </div>
+                            <div id="naoEnviou" style="display: none" class="m-auto text-center alert alert-danger row" role="alert">
+                                <div class="col-sm-4 text-sm-right text-center">
+                                    <img style="width: 30px" src="../../public/assets/alert.png" alt="">
+                                </div>
+                                <div class="col-sm-8 text-sm-left text-center">
+                                    Falha no envio
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -38,7 +54,31 @@
 </template>
 
 <script>
+import { http } from '../services/config';
 export default {
-    name: 'contato'
+    name: 'contato',
+    data () {
+        return {
+            email: {
+                email: '',
+                nome: '',
+                mensagem: ''
+            }
+        }
+    },
+    methods: {
+        enviarEmail () {
+            console.log (this.email.email)
+            http.post ('email/contato', this.email)
+                .then (response => {
+                    console.log (response)
+                    document.getElementById('enviou').style.display = 'block'
+                })
+                .catch (error => {
+                    console.log (error)
+                    document.getElementById('naoEnviou').style.display = 'block'
+                })
+        }
+    }
 }
 </script>

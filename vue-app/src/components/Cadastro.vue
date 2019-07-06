@@ -188,6 +188,35 @@
         </form>
     </div>
     <rodape></rodape>
+    <!-- MODAL -->
+    <div class="modal fade" id="cadastrado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cadastro confirmado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 my-5 my-sm-3 text-center">
+                            <img src="../../public/assets/checked.png" alt="">
+                        </div>
+                        <div class="col-sm-9 text-center text-sm-left">
+                            <h6 class="mb-4" style="font-size: 19px">{{usuarioWrapper.usuario.nome}}, bem vindo ao <strong class="color-warning">Sintonia Pet</strong></h6>
+                            <p><strong>Email: </strong>{{usuarioWrapper.usuario.email}}</p>
+                            <p><strong>Login: </strong>{{usuarioWrapper.usuario.login}}</p>
+                            <p>Você está pronto para acessar usando seu Login e Senha!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -240,12 +269,14 @@ export default {
             if (this.usuarioWrapper.usuario.senha == this.confirmarSenha){
                 http.post ('usuario/add', this.usuarioWrapper)
                     .then (function (response) {
-                        alert ('user cadastrado');
-                        vm.$router.push ('principal')
+                        $('#cadastrado').modal('show')
+                        $('#cadastrado').on('hide.bs.modal', event => {
+                            vm.$router.push ('/')
+                        })
                     })
                     .catch (error => {
                         console.log(error)
-                        document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
+                        document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login, cpf ou rg já estão sendo usados";
                         document.getElementById('alertImgMsg').style.display = 'block'
                     })
             } else {

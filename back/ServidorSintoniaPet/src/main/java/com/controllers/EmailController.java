@@ -23,7 +23,7 @@ public class EmailController {
 	
 	@Autowired
 	private EmailRepository repository;
-	private String emailTo = "ramicesmoises@hotmail.com";
+	private String emailTo = "minhacontadota12@outlook.com";
 	
 	
 	@PostMapping(value = "/contato")

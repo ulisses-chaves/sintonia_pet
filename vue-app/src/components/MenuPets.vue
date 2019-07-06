@@ -314,6 +314,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="deletado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Excluído</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 my-5 my-sm-3 text-center">
+                            <img src="../../public/assets/checked.png" alt="">
+                        </div>
+                        <div class="col-sm-9 text-center text-sm-left">
+                            <h6 style="font-size: 19px">Pet excluído com <strong style="color: #5cb85c">SUCESSO</strong>!</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -399,7 +424,11 @@ export default {
                 }
             })
                 .then (function (response) {
-                    alert ('pet excluido');
+                    $('#delete').modal('hide')
+                    $('#deletado').modal('show')
+                    $('#deletado').on('hide.bs.modal', event => {
+                        window.location.reload()
+                    })
                 })
                 .catch (error => {
                     console.log (error)

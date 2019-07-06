@@ -14,11 +14,12 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'menuPets', params: { name: 'menu-pets' } }"><img style="width: 30px" src="../../public/assets/cat.png" alt=""> Gerenciar Pets</router-link>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'menuPerfil', params: { name: 'perfil' } }"><img style="width: 30px" src="../../public/assets/editar.png" alt=""> Editar Perfil</router-link>
+                                    <router-link v-if="isPremmium === true" class="dropdown-item" v-bind:to="{ name: 'painelPremium', params: { name: 'painel-premium' } }"><img style="width: 30px" src="../../public/assets/qr-code.png" alt=""> Premium</router-link>
                                     <div class="dropdown-divider"></div>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'comoUsar', params: { name: 'como-usar' } }"><img style="width: 30px" src="../../public/assets/comousar.png" alt=""> Como Usar</router-link>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'contato', params: { name: 'contato' } }"><img style="width: 30px" src="../../public/assets/contato.png" alt=""> Contato</router-link>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#/"><img style="width: 30px" src="../../public/assets/logout.png" alt=""> Sair</a>
+                                    <button class="dropdown-item" v-on:click.stop.prevent="logout"><img style="width: 30px" src="../../public/assets/logout.png" alt=""> Sair</button>
                                 </div>
                             </div>
                         </li>
@@ -30,10 +31,30 @@
 </template>
 
 <script>
+import { http } from '../services/config';
 export default {
     data () {
         return {
-            login: localStorage.getItem ('login')
+            login: '',
+            isPremmium: false,
+        }
+    },
+    created () {
+        let vm = this;
+        http.get ('usuario/get/' + localStorage.getItem ('login'))
+            .then (response => {
+                vm.login = response.data.usuario.nome
+                vm.isPremmium = response.data.usuario.isPremmium
+            })
+            .catch (error => {
+                console.log ('Problema com a comunicação na API')
+            })
+    },
+    methods: {
+        logout() {
+            localStorage.removeItem ('login')
+            localStorage.removeItem ('password')
+            this.$router.push ('/')
         }
     }
 }

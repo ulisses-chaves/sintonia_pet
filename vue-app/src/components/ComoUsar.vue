@@ -42,6 +42,23 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-4">
+            <div class="col text-center">
+                <h5>Para ler o QRCode instale um aplicativo para leitura no smartphone</h5>
+                <ul style="list-style: none">
+                    <li class="d-inline-block mx-3 mt-2">
+                        <a href="https://play.google.com/store/apps/details?id=me.scan.android.client&hl=pt" target="_blank">
+                            <img style="width: 180px" src="../../public/assets/android.jpg">
+                        </a>
+                    </li>
+                    <li class="d-inline-block mx-3 mt-2">
+                        <a href="https://apps.apple.com/br/app/qr-code-reader-by-scan/id698925807" target="_blank">
+                            <img style="width: 180px" src="../../public/assets/apple.jpg">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 

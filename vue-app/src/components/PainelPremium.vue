@@ -7,12 +7,12 @@
                     <h5 class="mb-5 text-center">Informe o token para se tornar premium</h5>
                     <form v-on:submit.prevent="premium">
                         <div class="form-group row">
-                            <label for="inputRg" class="col-sm-1 col-form-label my-2 text-center text-sm-left">RG</label>
+                            <label for="inputRg" class="col-sm-1 col-form-label my-2 text-center text-sm-left">Token</label>
                             <div class="col-sm-8 my-2">
-                                <input type="text" class="form-control" id="inputRg" placeholder="Token" name="numbers" pattern="[0-9]+$" v-model="token" required>
+                                <input type="text" class="form-control" id="inputRg" placeholder="Insira o seu Token recebido" name="numbers" pattern="[0-9]+$" v-model="token" required>
                             </div>
                             <div class="col-sm-3 my-2 text-center text-sm-left">
-                                <button class="btn btn-warning">Enviar</button>
+                                <button class="btn btn-warning">Virar Premium</button>
                             </div>
                         </div>
                     </form>
