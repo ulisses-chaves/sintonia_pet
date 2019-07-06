@@ -2,16 +2,16 @@
     <div class="container my-5">
         <div class="row mb-5">
             <div class="col-sm-6 text-center text-sm-right" >
-                <img src="../../public/assets/perfil.png" alt="" id='imagem'>
+                <img src="../../public/assets/perfil.png" alt="" >
             </div>
-            <div style="vertical-align: middle" class="col-sm-6 text-center text-sm-left pl-0 mt-3">
+            <div style="vertical-align: middle" class="col-sm-06 text-center text-sm-left pl-0 mt-3">
                 <h1>Perfil</h1>
             </div>
         </div>
         <div class="color-brown card m-auto"  style="width: 85%; background: #fdc536">
             <h2 class="text-center my-3">Edite ou atualize seus dados</h2>
             <div class="dropdown-divider"></div>
-            <img class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt="" >
+            <img class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
             <div class="card-body" style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);">
                 <form v-on:submit.prevent="atualizar">
                     <div class="row">
@@ -254,7 +254,7 @@ export default {
             {
                 vm.usuarioWrapper.imagem = event.target.result
                 document.getElementById("imagem").src = event.target.result
-               
+                document.getElementById("imagem").style.width  = "150px";
             };
 
             reader.readAsDataURL(file);
