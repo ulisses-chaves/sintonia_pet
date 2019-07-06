@@ -117,7 +117,7 @@ public class PetController {
 		usuarios.save(usuario);
 		
 		pets.delete(pet);
-		pets.save(pet);
+		
 		
 		
 		return new ResponseEntity<>(HttpStatus.OK) ;

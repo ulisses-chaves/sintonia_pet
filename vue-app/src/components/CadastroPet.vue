@@ -44,6 +44,20 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputRaca">Espécie/Raça</label>
+                            <input type="text" class="form-control" id="inputRaca" v-model="petWrapper.pet.raca" maxlength="15" required placeholder="Sua raça">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="inputIdade">Idade</label>
+                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="petWrapper.pet.idade" maxlength="2" required placeholder="Apenas números">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
@@ -138,7 +152,11 @@ export default {
                     rg_dono: '',
                     numero_rg: '',
                     castrado: 'S',
-                    caminho_foto: ''
+                    caminho_foto: '',
+                    data_exp: '',
+                    filiação: '',
+                    peso: '',
+                    naturalidade: ''
                 }
             }
         }
@@ -155,6 +173,7 @@ export default {
     },
     methods: {
         cadastro () {
+            this.data_exp = Date.now;
             let vm = this;
             http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
                 auth: {
