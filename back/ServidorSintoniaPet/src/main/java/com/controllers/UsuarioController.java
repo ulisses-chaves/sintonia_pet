@@ -50,23 +50,23 @@ public class UsuarioController
 	
 	
 	
-	@GetMapping(value="/token/usar/{login}/{tokenValor}")
-	public ResponseEntity<String> usarPremmium(@PathVariable("login") String login, @PathVariable("tokenValor") String tokenValor)
+	@GetMapping(value="/token/usar/{rg}/{tokenValor}")
+	public ResponseEntity<String> usarPremmium(@PathVariable("rg") String rg, @PathVariable("tokenValor") String tokenValor)
 	{
 		
-		Usuario usuario = repositorioUsuario.findByLogin(login); 
+		Usuario usuario = repositorioUsuario.findByRg(rg); 
 		
 		if(usuario == null)
 		{
-			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); 
+			return new ResponseEntity<>("Usuário com esse rg não existe", HttpStatus.BAD_REQUEST); 
 				
 		}
 		
-		Token token = repositorioToken.findByLogin(login);
+		Token token = repositorioToken.findByRg(rg);
 		
 		if(token == null)
 		{
-			return new ResponseEntity<>("Usuário não possui um token", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Usuário não possui um token associado", HttpStatus.BAD_REQUEST);
 				
 		}
 		
@@ -96,22 +96,15 @@ public class UsuarioController
 	
 	
 	@GetMapping(value="/token/{login}")
-	public ResponseEntity<String> gerarPremmium(@PathVariable("login") String login)
+	public ResponseEntity<String> gerarPremmium(@PathVariable("rg") String rg)
 	{
 		String tokenPremium = new String();
 		
 		
-		if(repositorioUsuario.findByLogin(login) == null)
-		{
-			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); 
-				
-		}
 		
-		
-		if(repositorioToken.findByLogin(login) != null)
+		if(repositorioToken.findByRg(rg) != null)
 		{
-			return new ResponseEntity<>("Usuário já possui um token", HttpStatus.BAD_REQUEST);
-				
+			return new ResponseEntity<>("Usuário já possui um token", HttpStatus.BAD_REQUEST);				
 		}
 		
 		
@@ -131,7 +124,7 @@ public class UsuarioController
 		}
 		
 		
-		repositorioToken.save(new Token(login, tokenPremium));
+		repositorioToken.save(new Token(rg, tokenPremium));
 		
 		return new ResponseEntity<>(tokenPremium, HttpStatus.OK); 
 		
