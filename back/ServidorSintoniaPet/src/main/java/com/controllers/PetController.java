@@ -1,5 +1,6 @@
 ﻿package com.controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.service.ServicesFoto;
 
 import com.models.Pet;
 import com.models.PetWrapper;
@@ -68,11 +69,25 @@ public class PetController {
 			
 			pet.getPet().setNumero_rg(cpfPet);
 						
-			if(!usuario.getPets().contains(pet))
+			if(!usuario.getPets().contains(pet.getPet()))
 				break;
 			
 			
 		}
+
+		pet.getPet().setRg_dono(usuario.getRg());
+
+		try
+		{
+			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pet/" + pet.getPet().getNumero_rg() + ".txt");
+			pet.getPet().setCaminho_foto("fotos/pet/");
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+						
+		}
+	
 			
 		usuario.getPets().add(pet.getPet());
 		usuarios.save(usuario);
@@ -86,18 +101,97 @@ public class PetController {
 		Usuario usuario = usuarios.findByLogin(login);
 		
 		if(usuario == null)
-			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
+			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST);
 			
-		usuario.getPets();
 		if(!usuario.getPets().contains(pet.getPet()))
 			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
 		
-		usuario.getPets().remove(pet.getPet());
-		usuario.getPets().add(pet.getPet());
+		Pet petAtualizacao = pet.getPet();
+		
+		Pet petUsuario = usuario.getPets().get(usuario.getPets().indexOf(pet.getPet()));
+		
+		
+		if(petAtualizacao.getNome() != null)
+		{
+			petUsuario.setNome(petAtualizacao.getNome());
+		}
+		
+		if(petAtualizacao.getIdade() != -1)
+		{
+			petUsuario.setIdade(petAtualizacao.getIdade());	
+		}
+		
+		if(petAtualizacao.getData_nascimento() != null)
+		{
+			petUsuario.setData_nascimento(petAtualizacao.getData_nascimento());
+		}
+		
+		if(petAtualizacao.getSexo() != 'z')
+		{
+			petUsuario.setSexo(petAtualizacao.getSexo());
+		}
+
+		if(petAtualizacao.getCastrado() != 'z')
+		{
+			petUsuario.setCastrado(petAtualizacao.getCastrado());
+		}
+		
+		if(petAtualizacao.getCor_pelugem() != null)
+		{
+			petUsuario.setCor_pelugem(petAtualizacao.getCor_pelugem());
+		}
+		
+		
+		if(petAtualizacao.getPorte() != null)
+		{
+			petUsuario.setPorte(petAtualizacao.getPorte());
+		}
+		
+		if(petAtualizacao.getRaca() != null)
+		{
+			petUsuario.setRaca(petAtualizacao.getRaca());
+		}	
+			
+		if(petAtualizacao.getFiliação() != null)
+		{
+			petUsuario.setFiliação(petAtualizacao.getFiliação());
+		}
+		
+		if(petAtualizacao.getPeso() != -1f)
+		{
+				petUsuario.setPeso(petAtualizacao.getPeso());
+		}
+		
+			
+		if(petAtualizacao.getNaturalidade() != null)
+		{
+			petUsuario.setCaminho_foto(petAtualizacao.getNaturalidade());		
+		}	
+			
+
+		try
+		{
+
+			if(pet.getFoto() == null)
+			{
+				pet.setFoto(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
+			}
+
+			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pet/" + petUsuario.getNumero_rg() + ".txt");
+			petUsuario.setCaminho_foto("fotos/pet/");
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+						
+		}
+
+		usuario.getPets().remove(petUsuario);
+		usuario.getPets().add(petUsuario);
 		usuarios.save(usuario);
 		
-		pets.delete(pet.getPet());
-		pets.save(pet.getPet());
+		pets.delete(petUsuario);
+		pets.save(petUsuario);
 		
 		return new ResponseEntity<>(HttpStatus.OK) ;	
 	}
@@ -116,9 +210,9 @@ public class PetController {
 		usuario.getPets().remove(pet);
 		usuarios.save(usuario);
 		
+		ServicesFoto.deleteFoto(pet.getCaminho_foto() + pet.getNumero_rg());
+
 		pets.delete(pet);
-		
-		
 		
 		return new ResponseEntity<>(HttpStatus.OK) ;
 	}

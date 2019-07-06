@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class ServicesFoto
 {
-	private static String caminho = "fotos/";
 	
 	
 	public static String saveFoto(String foto, String caminho) throws IOException
