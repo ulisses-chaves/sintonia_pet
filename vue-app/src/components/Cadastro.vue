@@ -244,6 +244,7 @@ export default {
                         vm.$router.push ('principal')
                     })
                     .catch (error => {
+                        console.log(error)
                         document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
                         document.getElementById('alertImgMsg').style.display = 'block'
                     })

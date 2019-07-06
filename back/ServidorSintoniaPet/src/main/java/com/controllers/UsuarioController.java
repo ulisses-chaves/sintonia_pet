@@ -151,7 +151,7 @@ public class UsuarioController
 		
 		
 		
-		Usuario usuario = usuarioWrapper.getUsuario();  
+		Usuario usuario = usuarioWrapper.getUsuario();
 		 
 		Usuario usuarioBusca =
 		repositorioUsuario.findByRgAndLoginAndCpfAndEmail(((Usuario)usuario).getRg(),
