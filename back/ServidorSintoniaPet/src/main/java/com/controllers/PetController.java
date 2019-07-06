@@ -17,19 +17,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.models.Pet;
+import com.models.PetWrapper;
 import com.models.Usuario;
+import com.repository.PetRepository;
 import com.repository.UsuarioRepository;
 
 @RestController
 @RequestMapping(value = "/pet")
-
-
 public class PetController {
 
 	
 	@Autowired
 	private UsuarioRepository usuarios;
 	
+	@Autowired
+	private PetRepository pets;
 	
 
 	
@@ -46,7 +48,7 @@ public class PetController {
 	}
 	
 	@PostMapping(value = "/add/{login}")
-	public ResponseEntity<String> add(@RequestParam("imagem") String imagem, @RequestParam("pet")Pet pet, @PathVariable("login") String login)
+	public ResponseEntity<String> add(@RequestBody PetWrapper pet, @PathVariable("login") String login)
 	{
 		
 		Usuario usuario = usuarios.findByLogin(login);
@@ -64,7 +66,7 @@ public class PetController {
 				cpfPet += Long.toString(Math.round(Math.random()) * (9-1) +1);
 			}
 			
-			pet.setNumero_rg(cpfPet);
+			pet.getPet().setNumero_rg(cpfPet);
 						
 			if(!usuario.getPets().contains(pet))
 				break;
@@ -72,14 +74,14 @@ public class PetController {
 			
 		}
 			
-		usuario.getPets().add(pet);
+		usuario.getPets().add(pet.getPet());
 		usuarios.save(usuario);
 		return new ResponseEntity<>(HttpStatus.OK) ;
 		
 	}
 	
 	@PutMapping(value = "/update/{login}")
-	public ResponseEntity<String> update(@RequestBody Pet pet, @PathVariable("login") String login)
+	public ResponseEntity<String> update(@RequestBody PetWrapper pet, @PathVariable("login") String login)
 	{
 		Usuario usuario = usuarios.findByLogin(login);
 		
@@ -87,15 +89,17 @@ public class PetController {
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
 			
 		usuario.getPets();
-		if(!usuario.getPets().contains(pet))
+		if(!usuario.getPets().contains(pet.getPet()))
 			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
 		
-		usuario.getPets().remove(pet);
-		usuario.getPets().add(pet);
+		usuario.getPets().remove(pet.getPet());
+		usuario.getPets().add(pet.getPet());
 		usuarios.save(usuario);
 		
+		pets.delete(pet.getPet());
+		pets.save(pet.getPet());
 		
-		return new ResponseEntity<>(HttpStatus.OK) ;
+		return new ResponseEntity<>(HttpStatus.OK) ;	
 	}
 	
 	@DeleteMapping(value = "/delete/{login}")
@@ -110,8 +114,11 @@ public class PetController {
 			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
 			
 		usuario.getPets().remove(pet);
-		
 		usuarios.save(usuario);
+		
+		pets.delete(pet);
+		pets.save(pet);
+		
 		
 		return new ResponseEntity<>(HttpStatus.OK) ;
 	}

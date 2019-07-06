@@ -224,7 +224,7 @@ export default {
                     is_admin:false,
                     is_premmium: false,
                     caminho_foto: '',
-                    uf: 'PE'
+                    uf: ''
                 },
             },
             confirmarSenha: '',

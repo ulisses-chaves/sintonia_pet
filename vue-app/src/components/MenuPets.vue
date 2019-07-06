@@ -337,7 +337,13 @@ export default {
         },
         excluirPet () {
             let vm = this;
-            http.delete ('pet/delete/' + localStorage.getItem ('login'), { data: this.petSelecionado })
+            http.delete ('pet/delete/' + localStorage.getItem ('login'), { 
+                data: this.petSelecionado, 
+                auth: {
+                    username: localStorage.getItem ('login'),
+                    password: localStorage.getItem ('password')
+                }
+            })
                 .then (function (response) {
                     alert ('pet excluido');
                 })

@@ -19,13 +19,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputNome">Nome</label>
-                            <input type="text" class="form-control" id="inputNome" v-model="pet.nome" maxlength="15" required placeholder="Nome do pet">
+                            <input type="text" class="form-control" id="inputNome" v-model="petWrapper.pet.nome" maxlength="15" required placeholder="Nome do pet">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputPelugem">Cor da Pelugem</label>
-                            <input type="text" class="form-control" id="inputPelugem" v-model="pet.cor_pelugem" maxlength="15" required placeholder="Cor do pelo"> 
+                            <input type="text" class="form-control" id="inputPelugem" v-model="petWrapper.pet.cor_pelugem" maxlength="15" required placeholder="Cor do pelo"> 
                         </div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputRaca">Espécie/Raça</label>
-                            <input type="text" class="form-control" id="inputRaca" v-model="pet.raca" maxlength="15" required placeholder="Sua raça">
+                            <input type="text" class="form-control" id="inputRaca" v-model="petWrapper.pet.raca" maxlength="15" required placeholder="Sua raça">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputIdade">Idade</label>
-                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="pet.idade" maxlength="2" required placeholder="Apenas números">
+                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="petWrapper.pet.idade" maxlength="2" required placeholder="Apenas números">
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
-                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="pet.sexo">
+                                <select class="custom-select mr-sm-2" id="inputSexo" v-model="petWrapper.pet.sexo">
                                     <option value="M">Macho</option>
                                     <option value="F">Fêmea</option>
                                 </select>
@@ -59,7 +59,7 @@
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputCastrado">Castrado</label>
-                                <select class="custom-select mr-sm-2" id="inputCastrado" v-model="pet.castrado">
+                                <select class="custom-select mr-sm-2" id="inputCastrado" v-model="petWrapper.pet.castrado">
                                     <option value="S">Sim</option>
                                     <option value="N">Não</option>
                                 </select>
@@ -70,7 +70,7 @@
                         <div class="form-row align-items-center">
                             <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputPorte">Porte</label>
-                                <select class="custom-select mr-sm-2" id="inputPorte" v-model="pet.porte">
+                                <select class="custom-select mr-sm-2" id="inputPorte" v-model="petWrapper.pet.porte">
                                     <option value="P">Pequeno</option>
                                     <option value="M">Médio</option>
                                     <option value="G">Grande</option>
@@ -83,7 +83,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputData">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="inputData" v-model="pet.data_nascimento" required>
+                            <input type="date" class="form-control" id="inputData" v-model="petWrapper.pet.data_nascimento" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -125,33 +125,49 @@ export default {
     name: 'cadastroPet',
     data () {
         return {
-            pet: {
-                nome: '',
-                cor_pelugem: '',
-                raca: '',
-                idade: '',
-                sexo: 'M',
-                porte: 'P',
-                data_nascimento: '',
-                rg_dono: '12',
-                numero_rg: '2',
-                castrado: 'S',
-                caminho_foto: null
+            petWrapper: {
+                image: '',    
+                pet: {
+                    nome: '',
+                    cor_pelugem: '',
+                    raca: '',
+                    idade: '',
+                    sexo: 'M',
+                    porte: 'P',
+                    data_nascimento: '',
+                    rg_dono: '',
+                    numero_rg: '',
+                    castrado: 'S',
+                    caminho_foto: ''
+                }
             }
         }
     },
     mounted() {
-        
+        let vm = this;
+        http.get('usuario/get/' + localStorage.getItem ('login'))
+            .then (function (response) {
+                vm.petWrapper.pet.rg_dono = response.data.usuario.rg
+            })
+            .catch (error => {
+                console.log (error)
+            });
     },
     methods: {
         cadastro () {
             let vm = this;
-            http.post ('pet/add/' + localStorage.getItem ('login'), this.pet)
+            http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
+                auth: {
+                    username: localStorage.getItem ('login'),
+                    password: localStorage.getItem ('password')
+                }
+            })
                 .then (function (response) {
                     alert ('pet cadastrado');
                     vm.$router.push ('menu-pets')
                 })
                 .catch (error => {
+                    console.log (error)
                     document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível cadastrar";
                     document.getElementById('alertImgMsg').style.display = 'block'
                 })

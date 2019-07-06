@@ -43,7 +43,7 @@
                         <div class="col-sm-6">   
                             <div class="form-group">
                                 <label for="inputSobrenome">Sobrenome</label>
-                                <input type="password" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome">
+                                <input type="text" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome">
                             </div>
                         </div>
                     </div>
@@ -54,9 +54,9 @@
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
                                 <select class="custom-select mr-sm-2" id="inputSexo" v-model="usuario.sexo">
                                     <option selected>Escolha...</option>
-                                    <option value="masculino">Masculino</option>
-                                    <option value="feminino">Feminino</option>
-                                    <option value="outro">Outro</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
+                                    <option value="O">Outro</option>
                                 </select>
                                 </div>
                             </div>
@@ -67,9 +67,9 @@
                                 <label class="mr-sm-2" for="inputEstadoCivil">Estado Civil</label>
                                 <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuario.estadoCivil">
                                     <option selected>Escolha...</option>
-                                    <option value="solteiro">Solteiro(a)</option>
-                                    <option value="casado">Casado(a)</option>
-                                    <option value="outro">Outro</option>
+                                    <option value="S">Solteiro(a)</option>
+                                    <option value="C">Casado(a)</option>
+                                    <option value="O">Outro</option>
                                 </select>
                                 </div>
                             </div>
@@ -181,25 +181,25 @@ export default {
     },
     mounted () {    //pra preencher nos campos os dados do usuario que está na sessao
         let vm = this;  //armazenando uma instancia do Vue
-        http.post ('')
+        http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response){
                 console.log (response.data)
-                vm.usuario.nome = response.data.nome
-                vm.usuario.sobrenome = response.data.sobrenome
-                vm.usuario.telefone = response.data.telefone
-                vm.usuario.celular = response.data.celular
-                vm.usuario.sexo = response.data.sexo
-                vm.usuario.estadoCivil = response.data.estadoCivil
-                vm.usuario.cep = response.data.cep
-                vm.usuario.pais = response.data.pais
-                vm.usuario.cidade = response.data.cidade
-                vm.usuario.bairro = response.data.bairro
-                vm.usuario.rua = response.data.rua
-                vm.usuario.email = response.data.email
-                vm.usuario.login = response.data.login
-                vm.usuario.senha = response.data.senha
-                vm.usuario.data = response.data.data
-                vm.usuario.foto = response.data.foto
+                vm.usuario.nome = response.data.usuario.nome
+                vm.usuario.sobrenome = response.data.usuario.sobrenome
+                vm.usuario.telefone = response.data.usuario.numero_fixo
+                vm.usuario.celular = response.data.usuario.numero_telefone
+                vm.usuario.sexo = response.data.usuario.sexo
+                vm.usuario.estadoCivil = response.data.usuario.estadoCivil
+                vm.usuario.cep = response.data.usuario.cep
+                vm.usuario.pais = response.data.usuario.pais
+                vm.usuario.cidade = response.data.usuario.cidade
+                vm.usuario.bairro = response.data.usuario.bairro
+                vm.usuario.rua = response.data.usuario.rua
+                vm.usuario.email = response.data.usuario.email
+                vm.usuario.login = response.data.usuario.login
+                vm.usuario.senha = response.data.usuario.senha
+                vm.usuario.data = response.data.usuario.data
+                vm.usuario.foto = response.data.usuario.foto
             })
             .catch (error => {
                 console.log (error)
