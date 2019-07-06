@@ -18,32 +18,28 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="inputLogin">Login</label>
-                                <input type="text" class="form-control" id="inputLogin" v-model="usuario.login">
+                                <input type="text" class="form-control" id="inputLogin" maxlength="15" v-model="usuario.login">
                             </div>
                         </div>
                         <div class="col-sm-6">   
                             <div class="form-group">
-                                <label for="inputSenha">Senha</label>
-                                <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha">
+                                <label for="inputEmail">Email</label>
+                                <input type="email" class="form-control" id="inputEmail" maxlength="15" v-model="usuario.email">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" v-model="usuario.email">
                     </div>
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="inputNome">Nome</label>
-                                <input type="text" class="form-control" id="inputNome" v-model="usuario.nome">
+                                <input type="text" class="form-control" id="inputNome" v-model="usuario.nome" maxlength="15" required>
                             </div>
                         </div>
                         <div class="col-sm-6">   
                             <div class="form-group">
                                 <label for="inputSobrenome">Sobrenome</label>
-                                <input type="text" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome">
+                                <input type="text" class="form-control" id="inputSobrenome" v-model="usuario.sobrenome" maxlength="15" required>
                             </div>
                         </div>
                     </div>
@@ -53,7 +49,6 @@
                                 <div class="col-auto my-1">
                                 <label class="mr-sm-2" for="inputSexo">Sexo</label>
                                 <select class="custom-select mr-sm-2" id="inputSexo" v-model="usuario.sexo">
-                                    <option selected>Escolha...</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
                                     <option value="O">Outro</option>
@@ -66,7 +61,6 @@
                                 <div class="col-auto my-1" style="width: 191.05px;">
                                 <label class="mr-sm-2" for="inputEstadoCivil">Estado Civil</label>
                                 <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuario.estadoCivil">
-                                    <option selected>Escolha...</option>
                                     <option value="S">Solteiro(a)</option>
                                     <option value="C">Casado(a)</option>
                                     <option value="O">Outro</option>
@@ -95,13 +89,13 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputTelefone">Telefone</label>
-                                <input type="text" class="form-control" id="inputTelefone" v-model="usuario.telefone">
+                                <input type="text" class="form-control" id="inputTelefone" v-model="usuario.telefone" maxlength="10" minlength="10">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputCelular">Celular</label>
-                                <input type="text" class="form-control" id="inputCelular" v-model="usuario.celular">
+                                <input type="text" class="form-control" id="inputCelular" v-model="usuario.celular" maxlength="10" minlength="10">
                             </div>
                         </div>
                     </div>
@@ -110,19 +104,19 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputCep">CEP</label>
-                                <input type="text" class="form-control" id="inputCep" v-model="usuario.cep">
+                                <input type="text" class="form-control" id="inputCep" v-model="usuario.cep" required maxlength="8" minlength="8">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputPais">País</label>
-                                <input type="text" class="form-control" id="inputPais" v-model="usuario.pais">
+                                <input type="text" class="form-control" id="inputPais" v-model="usuario.pais" required maxlength="20">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="inputCidade">Cidade</label>
-                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
+                                <label for="inputEstado">Estado</label>
+                                <input type="text" class="form-control" id="inputEstado" v-model="usuario.uf" maxlength="2">
                             </div>
                         </div>
                     </div>
@@ -130,22 +124,51 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="inputRua">Rua</label>
-                                <input type="text" class="form-control" id="inputRua" v-model="usuario.rua">
+                                <input type="text" class="form-control" id="inputRua" v-model="usuario.rua" maxlength="50">
                             </div>
                         </div>
                         <div class="col sm-6">
                             <div class="form-group">
                                 <label for="inputCidade">Cidade</label>
-                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade">
+                                <input type="text" class="form-control" id="inputCidade" v-model="usuario.cidade" maxlength="50">
                             </div>
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
                     <div>
+                        <button class="mt-2 mx-1 btn btn-light">Atualizar</button>
+                        <button data-toggle="modal" data-target="#modalAlterarSenha" class="mt-2 mx-1 btn btn-light">Alterar Senha</button>
                         <button v-on:click.stop.prevent="" class="mt-2 mx-1 btn btn-light">Voltar</button>
-                        <button class="mt-2 btn btn-light">Atualizar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="modalAlterarSenha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Título do modal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form v-on:submit.prevent="alterarSenha">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="inputModalSenhaNova" class="col-form-label">Senha Nova:</label>
+                                <input type="password" class="form-control" id="inputModalSenhaNova" v-model="usuario.senha" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputModalRepitaSenha" class="col-form-label">Repita a Nova Senha:</label>
+                                <input type="password" class="form-control" id="inputModalRepitaSenha" v-model="repitaSenhaNova" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-warning">Alterar senha</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -176,14 +199,15 @@ export default {
                 senha: '',
                 foto: '',
                 data: '',
-            }
+                uf: ''
+            },
+            repitaSenhaNova: ''
         }
     },
     mounted () {    //pra preencher nos campos os dados do usuario que está na sessao
         let vm = this;  //armazenando uma instancia do Vue
         http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response){
-                console.log (response.data)
                 vm.usuario.nome = response.data.usuario.nome
                 vm.usuario.sobrenome = response.data.usuario.sobrenome
                 vm.usuario.telefone = response.data.usuario.numero_fixo
@@ -197,9 +221,9 @@ export default {
                 vm.usuario.rua = response.data.usuario.rua
                 vm.usuario.email = response.data.usuario.email
                 vm.usuario.login = response.data.usuario.login
-                vm.usuario.senha = response.data.usuario.senha
                 vm.usuario.data = response.data.usuario.data
                 vm.usuario.foto = response.data.usuario.foto
+                vm.usuario.uf = response.data.usuario.uf
             })
             .catch (error => {
                 console.log (error)
@@ -207,14 +231,33 @@ export default {
     },
     methods: {
         atualizar () {
-            //let url = 'http://jsonplaceholder.typicode.com/put';
-            //axios.put (url, this.usuario).then (function (response) {
-
-           // })
+            http.put ('usuario/update/' + localStorage.getItem('login'), this.usuario, {
+                auth: {
+                    username: localStorage.getItem ('login'),
+                    password: localStorage.getItem ('password')
+                }
+            })
         },
         fotoSelecionada (event) {
             //this.foto.src = ''
             //this.foto = event.target.files[0]
+        },
+        alterarSenha () {
+            if (this.alterar.novaSenha == this.repitaSenhaNova) {
+                http.put ('usuario/update/' + localStorage.getItem('login'), this.usuario, {
+                    auth: {
+                        username: localStorage.getItem ('login'),
+                        password: localStorage.getItem ('password')
+                    }
+                })
+                    .then (response => {
+                        console.log (response)
+                        alert ('user att')
+                    })
+                    .catch (error => {
+                        console.log (error)
+                    })
+            }
         }
     }
 }

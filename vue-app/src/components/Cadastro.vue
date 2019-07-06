@@ -237,15 +237,21 @@ export default {
     methods: {
         cadastro () {
             let vm = this;
-            http.post ('usuario/add', this.usuarioWrapper)
-                .then (function (response) {
-                    alert ('user cadastrado');
-                    vm.$router.push ('principal')
-                })
-                .catch (error => {
-                    document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
-                    document.getElementById('alertImgMsg').style.display = 'block'
-                })
+            if (this.usuarioWrapper.usuario.senha == this.confirmarSenha){
+                http.post ('usuario/add', this.usuarioWrapper)
+                    .then (function (response) {
+                        alert ('user cadastrado');
+                        vm.$router.push ('principal')
+                    })
+                    .catch (error => {
+                        console.log(error)
+                        document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login ou senha já estão sendo usados";
+                        document.getElementById('alertImgMsg').style.display = 'block'
+                    })
+            } else {
+                document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> O campo 'Senha' e 'Repita a Senha' não estão iguais";
+                document.getElementById('alertImgMsg').style.display = 'block'
+            }
         },
         preencherCep () {
             let url = 'http://api.postmon.com.br/v1/cep/' + this.usuarioWrapper.usuario.cep;
