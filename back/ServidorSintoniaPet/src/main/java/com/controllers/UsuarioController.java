@@ -37,6 +37,7 @@ public class UsuarioController
 	private TokenRepository repositorioToken;
 	
 	
+	
 	@PostMapping(value="/mudarSenha/{login}")
 	public ResponseEntity<String> alterarSenha(@PathVariable("login") String login, @RequestBody SenhaWrapper senhaWrapper)
 	{
@@ -150,18 +151,18 @@ public class UsuarioController
 	{
 		
 		
-		
 		Usuario usuario = usuarioWrapper.getUsuario();
+
 		 
 		Usuario usuarioBusca =
 		repositorioUsuario.findByRgAndLoginAndCpfAndEmail(((Usuario)usuario).getRg(),
 		((Usuario)usuario).getLogin(), ((Usuario)usuario).getCpf(), usuario.getEmail());
 		
 		
+		if(usuarioBusca != null)
+		 return new ResponseEntity<>("Usuário já existe", HttpStatus.BAD_REQUEST);
 		
-		if(usuarioBusca != null) return new ResponseEntity<>("Usuário já existe",
-		HttpStatus.BAD_REQUEST);
-		
+
 		try
 		{
 			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin() + ".txt");
@@ -172,12 +173,12 @@ public class UsuarioController
 			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
 						
 		}
-	
+
 		usuario.setIsPremmium(false);
 		
 		repositorioUsuario.save(usuario);
 		  
-		return new ResponseEntity<>( HttpStatus.OK) ;
+		return new ResponseEntity<>(HttpStatus.OK); 
 		 
 		
 	}
