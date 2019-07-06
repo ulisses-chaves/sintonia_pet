@@ -47,6 +47,11 @@ export default new Router({
           path: '/cadastro-pet',
           name: 'cadastroPet',
           component: () => import ( './components/CadastroPet.vue' )
+        },
+        {
+          path: '/painel-premium',
+          name: 'painelPremium',
+          component: () => import ( './components/PainelPremium.vue' )
         }
       ]
     },

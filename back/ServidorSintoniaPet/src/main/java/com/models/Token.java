@@ -14,20 +14,20 @@ public class Token {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	private String login;
+	private String rg;
 	private String token;
 	private boolean usado;
 	
-	public Token(String login, String token)
+	public Token(String rg, String token)
 	{
-		this.login = login;
+		this.rg = rg;
 		this.token = token;
 		this.usado = false;
 	}
 	
 	public Token()
 	{
-		this.login = "";
+		this.rg = "";
 		this.token = "";
 		this.usado = false;
 	}
@@ -42,14 +42,14 @@ public class Token {
 		this.id = id;
 	}
 	
-	public String getLogin() 
+	public String getRg() 
 	{
-		return login;
+		return rg;
 	}
 	
-	public void setLogin(String login) 
+	public void setRg(String rg) 
 	{
-		this.login = login;
+		this.rg = rg;
 	}
 	
 	public String getToken()
@@ -75,7 +75,7 @@ public class Token {
 	@Override
 	public boolean equals(Object o)
 	{
-		return this.token.equals(((Token)o).getToken()) & this.login.equals(((Token)o).getLogin());
+		return this.token.equals(((Token)o).getToken()) & this.rg.equals(((Token)o).getRg());
 	}
 	
 }

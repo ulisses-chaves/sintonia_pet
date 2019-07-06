@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,11 +37,11 @@ public class UsuarioController
 	
 	
 	
-	@GetMapping(value="/token/usar/{login}/{tokenValor}")
+	@PostMapping(value="/token/usar/{login}/{tokenValor}")
 	public ResponseEntity<String> usarPremmium(@PathVariable("login") String login, @PathVariable("tokenValor") String tokenValor)
 	{
 		
-		Usuario usuario = repositorioUsuario.findByLogin(login); 
+		Usuario usuario = repositorioUsuario.findByLogin(login);
 		
 		if(usuario == null)
 		{
@@ -48,7 +49,7 @@ public class UsuarioController
 				
 		}
 		
-		Token token = repositorioToken.findByLogin(login);
+		Token token = repositorioToken.findByRg(usuario.getRg());
 		
 		if(token == null)
 		{
@@ -75,26 +76,20 @@ public class UsuarioController
 		repositorioUsuario.delete(usuario);
 		repositorioUsuario.save(usuario);
 		
-		return new ResponseEntity<>("", HttpStatus.OK); 
+		return new ResponseEntity<>("", HttpStatus.OK);
 		
 		
 	}
 	
 	
-	@GetMapping(value="/token/{login}")
-	public ResponseEntity<String> gerarPremmium(@PathVariable("login") String login)
+	@PostMapping(value="/token/{rg}")
+	public ResponseEntity<String> gerarPremmium(@PathVariable("rg") String rg)
 	{
 		String tokenPremium = new String();
 		
 		
-		if(repositorioUsuario.findByLogin(login) == null)
-		{
-			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); 
 				
-		}
-		
-		
-		if(repositorioToken.findByLogin(login) != null)
+		if(repositorioToken.findByRg(rg) != null)
 		{
 			return new ResponseEntity<>("Usuário já possui um token", HttpStatus.BAD_REQUEST);
 				
@@ -117,7 +112,7 @@ public class UsuarioController
 		}
 		
 		
-		repositorioToken.save(new Token(login, tokenPremium));
+		repositorioToken.save(new Token(rg, tokenPremium));
 		
 		return new ResponseEntity<>(tokenPremium, HttpStatus.OK); 
 		
@@ -132,8 +127,8 @@ public class UsuarioController
 		Usuario usuario = usuarioWrapper.getUsuario();  
 		 
 		Usuario usuarioBusca =
-		repositorioUsuario.findByRgAndLoginAndCpf(((Usuario)usuario).getRg(),
-		((Usuario)usuario).getLogin(), ((Usuario)usuario).getCpf());
+		repositorioUsuario.findByRgAndLoginAndCpfAndEmail(((Usuario)usuario).getRg(),
+		((Usuario)usuario).getLogin(), ((Usuario)usuario).getCpf(), usuario.getEmail());
 		
 		
 		
@@ -185,21 +180,124 @@ public class UsuarioController
 				
 	}
 	
-	@PutMapping(value="/update")
-	public @ResponseBody ResponseEntity<String> update(@RequestBody UsuarioWrapper usuarioWrapper)
+	@PutMapping(value="/update/{login}")
+	public @ResponseBody ResponseEntity<String> update(@RequestBody UsuarioWrapper usuarioWrapper, @RequestParam("login") String login)
 	{
 	
-		Usuario usuario = usuarioWrapper.getUsuario();
-		
-		 Usuario usuarioBusca = repositorioUsuario.findByRgAndLoginAndCpf(usuario.getRg(), usuario.getLogin(), usuario.getCpf());
+		Usuario usuarioRequisicao = usuarioWrapper.getUsuario();
+		Usuario usuarioBusca = repositorioUsuario.findByLogin(login);
 		  
 		 if(usuarioBusca == null)
-			 return new ResponseEntity<>("Não existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); ;
-				
+			 return new ResponseEntity<>("Não existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
+		
+
+		 if(usuarioRequisicao.getLogin() != null)
+		 {
+			 if(repositorioUsuario.findByLogin(usuarioRequisicao.getLogin()) != null)
+			 	return new ResponseEntity<>("Já existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
+		
+			 usuarioBusca.setLogin(login);
+		 }
+
+		 if(usuarioRequisicao.getSenha() != null)
+		 {
+			usuarioBusca.setSenha(usuarioRequisicao.getSenha());	
+		 }
+			 
+		 if(usuarioRequisicao.getUf() != null)
+		 {
+			usuarioBusca.setUf(usuarioRequisicao.getUf());	
+		 }
+
+		 if(usuarioRequisicao.getNome() != null)
+		 {
+			usuarioBusca.setNome(usuarioRequisicao.getNome());	
+		 }
+
+		 if(usuarioRequisicao.getSobrenome() != null)
+		 {
+			usuarioBusca.setSobrenome(usuarioRequisicao.getSobrenome());	
+		 }
+		
+		 if(usuarioRequisicao.getCpf() != null)
+		 {
+			if(repositorioUsuario.findByCpf(usuarioRequisicao.getCpf()) != null)
+			return new ResponseEntity<>("Já existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
+   
+			usuarioBusca.setCpf(usuarioRequisicao.getCpf());	
+		 }
+
+		 if(usuarioRequisicao.getRg() != null)
+		 {
+			if(repositorioUsuario.findByRg(usuarioRequisicao.getRg()) != null)
+			return new ResponseEntity<>("Já existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
+   
+			usuarioBusca.setRg(usuarioRequisicao.getRg());	
+		 }
+		
+		 if(usuarioRequisicao.getData_nascimento() != null)
+		 {
+			usuarioBusca.setData_nascimento(usuarioRequisicao.getData_nascimento());	
+		 }
+		
+		 if(usuarioRequisicao.getSexo() != 'z')
+		 {
+			usuarioBusca.setSexo(usuarioRequisicao.getSexo());	
+		 }
+
+		 if(usuarioRequisicao.getEstadoCivil() != 'z')
+		 {
+			usuarioBusca.setEstadoCivil(usuarioRequisicao.getEstadoCivil());	
+		 }
+			 
+		 if(usuarioRequisicao.getRua() != null)
+		 {
+			usuarioBusca.setRua(usuarioRequisicao.getRua());	
+		 }
+	
+		 if(usuarioRequisicao.getBairro() != null)
+		 {
+			usuarioBusca.setBairro(usuarioRequisicao.getBairro());	
+		 }
+
+		 if(usuarioRequisicao.getCidade() != null)
+		 {
+			usuarioBusca.setCidade(usuarioRequisicao.getCidade());	
+		 }
+
+		 if(usuarioRequisicao.getCep() != null)
+		 {
+			usuarioBusca.setCep(usuarioRequisicao.getCep());	
+		 }
+
+		 if(usuarioRequisicao.getPais() != null)
+		 {
+			usuarioBusca.setPais(usuarioRequisicao.getPais());	
+		 }
+
+		 if(usuarioRequisicao.getNumeroTelefone() != null)
+		 {
+			usuarioBusca.setNumeroTelefone(usuarioRequisicao.getNumeroTelefone());	
+		 }
+
+		 if(usuarioRequisicao.getNumeroFixo() != null)
+		 {
+			usuarioBusca.setNumeroFixo(usuarioRequisicao.getNumeroFixo());	
+		 }
+
+			 
+		if(usuarioRequisicao.getEmail() != null)
+		{
+			if(repositorioUsuario.findByEmail(usuarioRequisicao.getEmail()) != null)
+			return new ResponseEntity<>("Já existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
+	   
+			usuarioBusca.setEmail(usuarioRequisicao.getEmail());	
+		}
+		 
 		try
 		{
-			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin() + ".txt");
-			usuario.setCaminhoFoto("fotos/usuarios/");	
+			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" + usuarioBusca.getLogin() + ".txt");
+			usuarioBusca.setCaminhoFoto("fotos/usuarios/");	
 		}
 		catch(Exception e)
 		{
@@ -208,8 +306,8 @@ public class UsuarioController
 		}
  
 		
-		repositorioUsuario.delete(usuario);
-		repositorioUsuario.save(usuario);
+		repositorioUsuario.delete(usuarioBusca);
+		repositorioUsuario.save(usuarioBusca);
 		
 		
 		

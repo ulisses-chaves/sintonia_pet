@@ -6,7 +6,7 @@ import com.models.Token;
 
 public interface TokenRepository extends JpaRepository<Token, Long> {
 	
-	Token findByLogin(String login);
+	Token findByRg(String rg);
 	Token findByToken(String token);
 
 }

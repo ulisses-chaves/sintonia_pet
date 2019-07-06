@@ -53,7 +53,13 @@ export default {
     methods: {
         premium () {
             let vm = this;
-            http.put ('url', this.rg)
+            http.post ('usuario/token/' + this.rg, {}, {
+                auth: {
+                    username: localStorage.getItem ('login'),
+                    password: localStorage.getItem ('password')
+                }
+
+            })
                 .then (function (response) {
                     alert ('Usuario com o RG ' + vm.rg + ' se tornou Premium!');
                 })
