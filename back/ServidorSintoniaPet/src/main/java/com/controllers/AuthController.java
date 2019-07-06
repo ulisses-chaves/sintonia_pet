@@ -21,6 +21,7 @@ public class AuthController
 		return "Logado";
 	}
 	
+	
 	@PostMapping(value = "logout")
 	public @ResponseBody String logout(HttpSession session)
 	{

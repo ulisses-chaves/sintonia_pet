@@ -36,7 +36,11 @@ public class UsuarioController
 	@Autowired
 	private TokenRepository repositorioToken;
 	
-	
+	@PostMapping(value="/foto")	
+	public String getFoto( @RequestBody String imagem64)
+	{
+		return imagem64;
+	}
 	
 	@PostMapping(value="/mudarSenha/{login}")
 	public ResponseEntity<String> alterarSenha(@PathVariable("login") String login, @RequestBody SenhaWrapper senhaWrapper)

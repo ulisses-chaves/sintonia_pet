@@ -57,10 +57,11 @@ public class PetController {
 		if(usuario == null)
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
 			
-		
+		String cpfPet = new String();
+			
 		while(true)
 		{
-			String cpfPet = new String();
+			cpfPet = new String();
 			
 			for(int i = 0; i < 9; ++i)
 			{
@@ -79,12 +80,12 @@ public class PetController {
 
 		try
 		{
-			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pet/" + pet.getPet().getNumero_rg() + ".txt");
-			pet.getPet().setCaminho_foto("fotos/pet/");
+			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + pet.getPet().getNumero_rg() + ".txt");
+			pet.getPet().setCaminho_foto("fotos/pets/");
 		}
 		catch(Exception e)
 		{
-			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 						
 		}
 	
@@ -177,8 +178,8 @@ public class PetController {
 				pet.setFoto(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
 			}
 
-			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pet/" + petUsuario.getNumero_rg() + ".txt");
-			petUsuario.setCaminho_foto("fotos/pet/");
+			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + petUsuario.getNumero_rg() + ".txt");
+			petUsuario.setCaminho_foto("fotos/pets/");
 		}
 		catch(Exception e)
 		{
