@@ -67,7 +67,7 @@ public class Usuario
 	
 	private Boolean isPremmium;
 	
-	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pet> pets;
 	
 	public String getLogin() {
