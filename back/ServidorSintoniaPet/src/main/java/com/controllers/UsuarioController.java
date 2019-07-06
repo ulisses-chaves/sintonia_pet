@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.models.SenhaWrapper;
 import com.models.Token;
 import com.models.Usuario;
 import com.models.UsuarioWrapper;
@@ -36,6 +37,32 @@ public class UsuarioController
 	private TokenRepository repositorioToken;
 	
 	
+	@PostMapping(value="/mudarSenha/{login}")
+	public ResponseEntity<String> alterarSenha(@PathVariable("login") String login, @RequestBody SenhaWrapper senhaWrapper)
+	{
+
+		Usuario usuario = repositorioUsuario.findByLogin(login);
+		
+		if(usuario == null)
+		{
+			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); 
+				
+		}
+
+		if(!usuario.getSenha().equals(senhaWrapper.getAntigaSenha()))
+		{
+			return new ResponseEntity<>("Senhas incompativeis", HttpStatus.BAD_REQUEST); 
+			
+		}
+
+		usuario.setSenha(senhaWrapper.getNovaSenha());
+
+		this.repositorioUsuario.delete(usuario);
+		this.repositorioUsuario.save(usuario);
+
+		return new ResponseEntity<>("", HttpStatus.OK);
+	
+	}
 	
 	@PostMapping(value="/token/usar/{login}/{tokenValor}")
 	public ResponseEntity<String> usarPremmium(@PathVariable("login") String login, @PathVariable("tokenValor") String tokenValor)
