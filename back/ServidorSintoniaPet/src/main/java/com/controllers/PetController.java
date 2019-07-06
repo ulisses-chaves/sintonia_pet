@@ -1,5 +1,6 @@
 ﻿package com.controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,6 +93,76 @@ public class PetController {
 		if(!usuario.getPets().contains(pet.getPet()))
 			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
 		
+		Pet petAtualizacao = pet.getPet();
+		
+		if(petAtualizacao.getNumero_rg() == null)
+		{
+			
+		}
+		
+		if(petAtualizacao.getRg_dono() == null)
+		{
+			
+		}
+		
+		
+		if(petAtualizacao.getNome() == null)
+		{
+			
+		}
+		
+		if(petAtualizacao.getIdade() == -1)
+		{
+			
+		}
+		
+		if(petAtualizacao.getData_nascimento() == null)
+		{
+			
+		}
+		
+		if(petAtualizacao.getSexo() == 'z')
+		{
+			
+		}
+
+		if(petAtualizacao.getCastrado() == 'z')
+		{
+			
+		}
+		
+		if(petAtualizacao.getCor_pelugem() == null)
+		{
+			
+		}
+		
+		
+		if(petAtualizacao.getPorte() == null)
+		{
+			
+		}
+		
+		if(petAtualizacao.getRaca() == null)
+		{
+				
+		}	
+			
+		if(petAtualizacao.getFiliação() == null)
+		{
+				
+		}
+		
+		if(petAtualizacao.getPeso() == -1f)
+		{
+				
+		}
+		
+			
+		if(petAtualizacao.getNaturalidade() == null)
+		{
+				
+		}	
+			
 		usuario.getPets().remove(pet.getPet());
 		usuario.getPets().add(pet.getPet());
 		usuarios.save(usuario);
