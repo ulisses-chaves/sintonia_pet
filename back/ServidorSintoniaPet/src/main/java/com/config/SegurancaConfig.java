@@ -33,6 +33,8 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 		 http.authorizeRequests().antMatchers( "/pet/delete/").hasRole("USER");
 		 http.authorizeRequests().antMatchers( "/pet/all/").hasRole("USER");
 		 http.authorizeRequests().antMatchers( "/usuario/token/usar/").hasRole("USER");
+		 http.authorizeRequests().antMatchers( "/usuario/mudarSenha/").hasRole("USER");
+		 
 
 		 http.authorizeRequests().antMatchers( "/email/contato").permitAll();
 		 
