@@ -24,6 +24,7 @@
                             <div class="text-center">
                                 <button style="width: 120px" class="color-brown btn btn-light">Entrar</button>
                             </div>
+                            
                         </form>
                     </div>
                     <div style="background: white" class="card-footer text-muted p-1 pl-2">
@@ -117,6 +118,8 @@ export default {
     methods: {
         login () {
             let vm = this;
+        
+
             http.post ('login', {}, {
                 auth: {
                     username: vm.usuario.username,

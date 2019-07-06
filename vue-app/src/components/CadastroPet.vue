@@ -156,10 +156,10 @@ export default {
                     idade: '',
                     sexo: 'M',
                     porte: 'P',
-                    data_nascimento: '',
+                    data_nascimento: null,
                     castrado: 'S',
                     caminho_foto: '',
-                    data_exp: '',
+                    data_exp: null,
                     filiação: '',
                     peso: '',
                     naturalidade: ''
