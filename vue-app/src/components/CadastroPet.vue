@@ -33,7 +33,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="inputRaca">Espécie/Raça</label>
-                            <input type="text" class="form-control" id="inputRaca" v-model="petWrapper.pet.raca" maxlength="15" required placeholder="Sua raça">
+                            <input type="text" class="form-control" id="inputRaca" v-model="petWrapper.pet.raca" maxlength="15" required placeholder="A raça do seu Pet">
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -46,14 +46,22 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="inputRaca">Espécie/Raça</label>
-                            <input type="text" class="form-control" id="inputRaca" v-model="petWrapper.pet.raca" maxlength="15" required placeholder="Sua raça">
+                            <label for="inputNaturalidade">Naturalidade</label>
+                            <input type="text" class="form-control" id="inputNaturalidade" v-model="petWrapper.pet.naturalidade" maxlength="15" required placeholder="Naturalidade do Pet">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="inputIdade">Idade</label>
-                            <input type="text" class="form-control" id="inputIdade" name="numbers" pattern="[0-9]+$" v-model="petWrapper.pet.idade" maxlength="2" required placeholder="Apenas números">
+                            <label for="inputPeso">Peso</label>
+                            <input type="text" class="form-control" id="inputPeso" name="numbers" pattern="[0-9]+$" v-model="petWrapper.pet.peso" maxlength="3" required placeholder="Apenas números">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="inputFiliacao">Filiação</label>
+                            <input type="text" class="form-control" id="inputFiliacao" v-model="petWrapper.pet.filiação" maxlength="60" required placeholder="Pais do Pet">
                         </div>
                     </div>
                 </div>
@@ -149,8 +157,6 @@ export default {
                     sexo: 'M',
                     porte: 'P',
                     data_nascimento: '',
-                    rg_dono: '',
-                    numero_rg: '',
                     castrado: 'S',
                     caminho_foto: '',
                     data_exp: '',
@@ -161,19 +167,9 @@ export default {
             }
         }
     },
-    mounted() {
-        let vm = this;
-        http.get('usuario/get/' + localStorage.getItem ('login'))
-            .then (function (response) {
-                vm.petWrapper.pet.rg_dono = response.data.usuario.rg
-            })
-            .catch (error => {
-                console.log (error)
-            });
-    },
     methods: {
         cadastro () {
-            this.data_exp = Date.now;
+            this.petWrapper.pet.data_exp = Date.now();
             let vm = this;
             http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
                 auth: {
@@ -182,6 +178,7 @@ export default {
                 }
             })
                 .then (function (response) {
+                    console.log (response)
                     alert ('pet cadastrado');
                     vm.$router.push ('menu-pets')
                 })
@@ -194,7 +191,7 @@ export default {
         fotoSelecionada (event) {
             //this.foto.src = ''
             this.foto = event.target.files[0]
-        },
+        }
     }
 }
 </script>

@@ -46,6 +46,7 @@
                                                 <li v-if="pet.porte === 'G'" class="list-group-item"><strong>Porte:</strong> Grande</li>
                                                 <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.data_nascimento }}</li>
                                                 <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.cor_pelugem}}</li>
+                                                <li class="list-group-item"><strong>Peso:</strong> {{pet.peso}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -64,7 +65,8 @@
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong>Número do RG:</strong> {{pet.numero_rg}}</li>
-                                                <li class="list-group-item"><strong>Cadastro:</strong> {{pet.cadastro}}</li>
+                                                <li class="list-group-item"><strong>RG do Dono:</strong> {{pet.rg_dono}}</li>
+                                                <li class="list-group-item"><strong>Data de Expedição:</strong> {{ pet.data_exp }}</li>
                                                 <li class="list-group-item"><strong>QR code ??:</strong> imagem</li>
                                             </ul>
                                         </div>
@@ -132,20 +134,20 @@
                         </div>
                         <label class="nomePet positions" for="">{{petSelecionado.nome}}</label>
                         <label class="dataPet positions" for="">{{petSelecionado.data_nascimento}}</label>
-                        <label class="positions" for="">dataexp</label>
-                        <label class="positions" for="">filiacao</label>
-                        <label class="positions" for="">{{petSelecionado.peso}}</label>
-                        <label class="positions" for="">naturalidade</label>
+                        <label class="dataExp positions" for="">{{petSelecionado.data_exp}}</label>
+                        <label class="filiacao positions" for="">{{petSelecionado.filiação}}</label>
+                        <label class="peso positions" for="">{{petSelecionado.peso}}</label>
+                        <label class="naturalidade positions" for="">{{petSelecionado.naturalidade}}</label>
                         <label class="racaPet positions" for="">{{petSelecionado.raca}}</label>
                         <label class="sexoPet positions" for="">{{petSelecionado.sexo}}</label>
                         <label class="pelugemPet positions" for="">{{petSelecionado.cor_pelugem}}</label>
-                        <label class="usuario positions" for="">usuario</label>
-                        <label class="rua positions" for="">Endereço</label>
-                        <label class="cidade positions" for="">Cidade</label>
-                        <label class="bairro positions" for="">Bairro</label>
-                        <label class="uf positions" for="">UF</label>
-                        <label class="cep positions" for="">CEP</label>
-                        <label class="telefone positions" for="">Tel</label>
+                        <label class="usuario positions" for="">{{user.nome}}</label>
+                        <label class="rua positions" for="">{{user.rua}}</label>
+                        <label class="cidade positions" for="">{{user.cidade}}</label>
+                        <label class="bairro positions" for="">{{user.bairro}}</label>
+                        <label class="uf positions" for="">{{user.uf}}</label>
+                        <label class="cep positions" for="">{{user.cep}}</label>
+                        <label class="telefone positions" for="">{{user.numero_fixo}}</label>
                     </div>
                 </div>
                 <div class="modal-footer m-auto">
@@ -302,6 +304,7 @@ export default {
     name: 'menuPets',
     data () {
         return {
+            user: {},
             pets: [],
             petSelecionado: {},
         }
@@ -312,11 +315,23 @@ export default {
             .then (function (response) {
                 vm.pets = response.data
             })
+        http.get ('usuario/get/' + localStorage.getItem ('login'))
+            .then (function (response) {
+                vm.user = response.data.usuario
+            })
+            .catch(error => {
+                console.log (error)
+            })
     },
     methods: {
         atualizarPet() {
             let vm = this;
-            http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado) //acho que falta o auth aqui
+            http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado, {
+                auth: {
+                    username: localStorage.getItem ('login'),
+                    password: localStorage.getItem ('password')
+                }
+            })
                 .then ( function (response) {
                     alert ('pet atualizado');
                     vm.$router.push ('menu-pets')
