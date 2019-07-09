@@ -275,7 +275,7 @@ export default {
                         })
                     })
                     .catch (error => {
-                        console.log(error)
+                        console.log(error.response)
                         document.getElementById('msg').innerHTML = "Não foi possível cadastrar <br> Email, login, cpf ou rg já estão sendo usados";
                         document.getElementById('alertImgMsg').style.display = 'block'
                     })

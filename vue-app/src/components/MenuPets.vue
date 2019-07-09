@@ -124,7 +124,7 @@
                         <span>&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div id="impressao" class="modal-body">
                     <div class="row">
                         <div v-if="petSelecionado.sexo === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
@@ -405,11 +405,7 @@ export default {
                 })
         },
         imprimirRG () {
-            let img = document.getElementById("minhaImagem").innerHTML; 
-            let rgPet = window.open ('', '', 'height=500,width=500');
-            rgPet.document.write (img);
-            rgPet.document.close ();
-            rgPet.print ();
+            window.print ();
         },
         pegarPet (pet) {
             this.petSelecionado = pet;
@@ -439,6 +435,18 @@ export default {
 </script>
 
 <style scoped>
+    @media print {
+        body *{
+            visibility: hidden;
+            
+        }
+        #impressao, #impressao * { 
+            visibility:visible; 
+            } 
+        #impressao { 
+            position:absolute; left:0; top:0;
+        }
+    }
     .rgPet {
         z-index: 1;
     }

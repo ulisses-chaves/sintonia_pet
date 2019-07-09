@@ -26,21 +26,17 @@
                                 <img style="width: 18px" src="../../public/assets/email.png" alt="">
                                 <span style="vertical-align: middle" class="ml-1">Enviar mensagem</span>
                             </button>
-                            <div id="enviou" style="display: none" class="m-auto text-center alert alert-success row" role="alert">
-                                <div class="col-sm-4 text-sm-right text-center">
-                                    <img style="width: 30px" src="../../public/assets/checked.png" alt="">
-                                </div>
-                                <div class="col-sm-8 text-sm-left text-center">
-                                    Mensagem enviada
-                                </div>
+                            <div id="enviou" style="display:none" class="mt-3 mb-0 alert alert-danger text-center" role="alert">
+                                <ul class="p-0 m-0">
+                                    <li class="d-inline-block"><img style="width: 30px" src="../../public/assets/checked.png" alt=""></li>
+                                    <li class="d-inline-block ml-2">Mensagem enviada</li>
+                                </ul>
                             </div>
-                            <div id="naoEnviou" style="display: none" class="m-auto text-center alert alert-danger row" role="alert">
-                                <div class="col-sm-4 text-sm-right text-center">
-                                    <img style="width: 30px" src="../../public/assets/alert.png" alt="">
-                                </div>
-                                <div class="col-sm-8 text-sm-left text-center">
-                                    Falha no envio
-                                </div>
+                            <div id="naoEnviou" style="display:none" class="mt-3 mb-0 alert alert-danger text-center" role="alert">
+                                <ul class="p-0 m-0">
+                                    <li class="d-inline-block"><img style="width: 30px" src="../../public/assets/alert.png" alt=""></li>
+                                    <li class="d-inline-block ml-2">Falha no envio</li>
+                                </ul>
                             </div>
                         </form>
                     </div>
@@ -75,7 +71,7 @@ export default {
                     document.getElementById('enviou').style.display = 'block'
                 })
                 .catch (error => {
-                    console.log (error)
+                    console.log (error.response)
                     document.getElementById('naoEnviou').style.display = 'block'
                 })
         }

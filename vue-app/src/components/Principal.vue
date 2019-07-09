@@ -24,8 +24,13 @@
                             <div class="text-center">
                                 <button style="width: 120px" class="color-brown btn btn-light">Entrar</button>
                             </div>
-                            
                         </form>
+                        <div id="loginSenhaIncorretos" style="display:none" class="mt-3 mb-0 alert alert-danger" role="alert">
+                            <ul class="p-0 m-0">
+                                <li class="d-inline-block"><img style="width: 30px" src="../../public/assets/delete.png" alt=""></li>
+                                <li class="d-inline-block ml-2">Login ou Senha incorretos!</li>
+                            </ul>
+                        </div>
                     </div>
                     <div style="background: white" class="card-footer text-muted p-1 pl-2">
                         <p class="m-0 color-brown">É novo por aqui? <router-link class="card-link" to="cadastro">Crie sua conta</router-link></p>
@@ -132,7 +137,7 @@ export default {
                     vm.$router.push('menu-pets')
                 })
                 .catch (error => {
-                    console.log (error)
+                    document.getElementById('loginSenhaIncorretos').style.display = 'block';
                 })
         },
         recovery () {
