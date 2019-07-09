@@ -59,6 +59,11 @@ export default new Router({
       path: '/painel-admin',
       name: 'painelAdmin',
       component: () => import ( './components/PainelAdmin.vue' )
+    },
+    {
+      path: '/pagina-pet',
+      name: 'paginaPet',
+      component: () => import ( './components/PaginaPet.vue' )
     }
   ]
 })

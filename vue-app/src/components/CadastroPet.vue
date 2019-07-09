@@ -142,6 +142,32 @@
                 </div>
             </form>
         </div>
+        <!-- MODAL -->
+        <div class="modal fade" id="cadastrado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Pet Cadastrado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/checked.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px">Seu pet <strong class="color-warning">{{petWrapper.pet.nome}}</strong>, foi cadastrado com <strong style="color: #5cb85c">SUCESSO</strong> nosso sitema!</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -201,9 +227,10 @@ export default {
                 }
             })
                 .then (function (response) {
-                    console.log (response)
-                    alert ('pet cadastrado');
-                    vm.$router.push ('menu-pets')
+                    $('#cadastrado').modal('show')
+                        $('#cadastrado').on('hide.bs.modal', event => {
+                            vm.$router.push ('menu-pets')
+                        })
                 })
                 .catch (error => {
                     console.log (error)
