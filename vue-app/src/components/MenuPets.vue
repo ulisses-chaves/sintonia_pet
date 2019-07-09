@@ -19,8 +19,8 @@
                         </router-link>
                     </li>
                     <li> 
-                            <div v-for="pet of pets" :key="pet.id" class="card">
-                            <img id = "fotoPet" class="card-img-top" width = "120" height= "360"   v-bind:src = "pet.imagem">
+                        <div v-for="pet of pets" :key="pet.id" class="card mb-5">
+                            <img id="fotoPet" class="card-img-top" v-bind:src="pet.imagem">
                             <div class="card-body">
                                 <h4 class="card-title">{{ pet.pet.nome }}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ pet.pet.raca }}</h6>
@@ -126,21 +126,22 @@
                 </div>
                 <div id="impressao" class="modal-body">
                     <div class="row">
-                        <div v-if="petSelecionado.sexo === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
+                        <div v-if="petSelecionado.pet.sexo === 'M'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetM.jpeg" alt="">
                         </div>
-                        <div v-if="petSelecionado.sexo === 'F'" style="position: relative" id="minhaImagem" class="col text-center">
+                        <div v-if="petSelecionado.pet.sexo === 'F'" style="position: relative" id="minhaImagem" class="col text-center">
                             <img class="rgPet" style="width: 70%" src="../../public/assets/rgPetF.jpeg" alt="">
                         </div>
-                        <label class="nomePet positions" for="">{{petSelecionado.nome}}</label>
-                        <label class="dataPet positions" for="">{{petSelecionado.data_nascimento}}</label>
-                        <label class="dataExp positions" for="">{{petSelecionado.data_exp}}</label>
-                        <label class="filiacao positions" for="">{{petSelecionado.filiação}}</label>
-                        <label class="peso positions" for="">{{petSelecionado.peso}}</label>
-                        <label class="naturalidade positions" for="">{{petSelecionado.naturalidade}}</label>
-                        <label class="racaPet positions" for="">{{petSelecionado.raca}}</label>
-                        <label class="sexoPet positions" for="">{{petSelecionado.sexo}}</label>
-                        <label class="pelugemPet positions" for="">{{petSelecionado.cor_pelugem}}</label>
+                        <img class="imagemPet positions" v-bind:src="petSelecionado.imagem">
+                        <label class="nomePet positions" for="">{{petSelecionado.pet.nome}}</label>
+                        <label class="dataPet positions" for="">{{petSelecionado.pet.data_nascimento}}</label>
+                        <label class="dataExp positions" for="">{{petSelecionado.pet.data_exp}}</label>
+                        <label class="filiacao positions" for="">{{petSelecionado.pet.filiação}}</label>
+                        <label class="peso positions" for="">{{petSelecionado.pet.peso}}</label>
+                        <label class="naturalidade positions" for="">{{petSelecionado.pet.naturalidade}}</label>
+                        <label class="racaPet positions" for="">{{petSelecionado.pet.raca}}</label>
+                        <label class="sexoPet positions" for="">{{petSelecionado.pet.sexo}}</label>
+                        <label class="pelugemPet positions" for="">{{petSelecionado.pet.cor_pelugem}}</label>
                         <label class="usuario positions" for="">{{user.nome}}</label>
                         <label class="rua positions" for="">{{user.rua}}</label>
                         <label class="cidade positions" for="">{{user.cidade}}</label>
@@ -351,7 +352,10 @@ export default {
         return {
             user: {},
             pets: [],
-            petSelecionado: {},
+            petSelecionado: {
+                image: null,
+                pet: {}
+            },
             petAlterado: {
                 image: null,
                 pet: {
@@ -379,7 +383,6 @@ export default {
         http.get ('pet/all/' + localStorage.getItem('login'))
             .then (function (response) {
                 vm.pets = response.data
-
             })
         http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response) {
@@ -431,7 +434,7 @@ export default {
                 .catch (error => {
                     console.log (error)
                 }) 
-        }
+        },
     }
 }
 </script>
@@ -440,7 +443,6 @@ export default {
     @media print {
         body *{
             visibility: hidden;
-            
         }
         #impressao, #impressao * { 
             visibility:visible; 
@@ -449,6 +451,9 @@ export default {
             position:absolute; left:0; top:0;
         }
     }
+    #fotoPet {
+        /*max-height: 350px;*/
+    }
     .rgPet {
         z-index: 1;
     }
@@ -456,6 +461,11 @@ export default {
         z-index: 2;
         position: absolute;
         font-size: 13px;
+    }
+    .imagemPet {
+        margin: 60px 0 0 175px;
+        height: 151px;
+        max-width: 150px;
     }
     .nomePet {
         margin: 223px 0 0 150px
