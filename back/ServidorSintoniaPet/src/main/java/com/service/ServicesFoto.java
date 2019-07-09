@@ -9,21 +9,21 @@ import java.io.IOException;
 
 public class ServicesFoto
 {
-	
+	private static String  formato = ".txt";
 	
 	public static String saveFoto(String foto, String caminho) throws IOException
 	{
-		
-		FileWriter writer = new FileWriter(caminho);
+		deleteFoto(caminho +formato);
+
+		FileWriter writer = new FileWriter(caminho + formato) ;
 		BufferedWriter bWriter = new BufferedWriter(writer);		
-		deleteFoto(caminho);
 		
-		
+
 		bWriter.write(foto);
-		
 		
 		bWriter.close();
 		writer.close();
+		
 		
 		return caminho;
 	}
@@ -38,12 +38,12 @@ public class ServicesFoto
 	public static String readFoto(String caminho, String nome) throws IOException
 	{
 		String foto = new String();
-		FileReader reader = new FileReader(caminho);
+		FileReader reader = new FileReader(caminho + nome + formato);
 		
 		BufferedReader bReader = new BufferedReader(reader);
 		foto = bReader.readLine();
 		
-		
+		bReader.close();
 		return foto;
 	}
 	

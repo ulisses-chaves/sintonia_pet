@@ -89,13 +89,13 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputTelefone">Telefone</label>
-                                <input type="text" class="form-control" id="inputTelefone" v-model="usuarioWrapper.usuario.telefone" maxlength="10" minlength="10">
+                                <input type="text" class="form-control" id="inputTelefone" v-model="usuarioWrapper.usuario.numero_fixo" maxlength="10" minlength="10">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="inputCelular">Celular</label>
-                                <input type="text" class="form-control" id="inputCelular" v-model="usuarioWrapper.usuario.celular" maxlength="10" minlength="10">
+                                <input type="text" class="form-control" id="inputCelular" v-model="usuarioWrapper.usuario.numero_telefone" maxlength="10" minlength="10">
                             </div>
                         </div>
                     </div>
@@ -186,24 +186,28 @@ export default {
             usuarioWrapper: 
             { 
             imagem: '',
-            usuario: {
-                nome: '',
-                sobrenome: '',
-                telefone: '',
-                celular: '',
-                sexo: '',
-                estadoCivil: '',
-                cep: '',
-                pais: '',
-                cidade: '',
-                bairro: '',
-                rua: '',
-                email: '',
-                login: '',
-                senha: '',
-                foto: '',
-                data: '',
-                uf: ''
+                usuario: {
+                    rg: null,
+                    cpf: null,
+                    nome: null,
+                    sobrenome: null,
+                    numero_fixo: null,
+                    numero_telefone: null,
+                    data_nascimento: null,
+                    sexo: 'z',
+                    estado_civil: 'z',
+                    cep: null,
+                    pais: null,
+                    cidade: null,
+                    bairro: null,
+                    rua: null,
+                    email: null,
+                    login: null,
+                    senha: null,
+                    is_admin:false,
+                    is_premmium: false,
+                    caminho_foto: null,
+                    uf: null
             }},
             repitaSenhaNova: ''
         }
@@ -212,22 +216,24 @@ export default {
         let vm = this;  //armazenando uma instancia do Vue
         http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response){
+                document.getElementById("imagem").src = response.data.imagem;
+                 document.getElementById("imagem").style.width  = "150px";
+               
                 vm.usuarioWrapper.usuario.nome = response.data.usuario.nome
                 vm.usuarioWrapper.usuario.sobrenome = response.data.usuario.sobrenome
-                vm.usuarioWrapper.usuario.telefone = response.data.usuario.numero_fixo
-                vm.usuarioWrapper.usuario.celular = response.data.usuario.numero_telefone
+                vm.usuarioWrapper.usuario.numero_fixo = response.data.usuario.numero_fixo
+                vm.usuarioWrapper.usuario.numero_telefone = response.data.usuario.numero_telefone
                 vm.usuarioWrapper.usuario.sexo = response.data.usuario.sexo
-                vm.usuarioWrapper.usuario.estadoCivil = response.data.usuario.estadoCivil
+                vm.usuarioWrapper.usuario.estado_civil = response.data.usuario.estado_civil
                 vm.usuarioWrapper.usuario.cep = response.data.usuario.cep
                 vm.usuarioWrapper.usuario.pais = response.data.usuario.pais
                 vm.usuarioWrapper.usuario.cidade = response.data.usuario.cidade
                 vm.usuarioWrapper.usuario.bairro = response.data.usuario.bairro
                 vm.usuarioWrapper.usuario.rua = response.data.usuario.rua
-                vm.usuarioWrapper.usuario.email = response.data.usuario.email
-                vm.usuarioWrapper.usuario.login = response.data.usuario.login
                 vm.usuarioWrapper.usuario.data = response.data.usuario.data
-                vm.usuarioWrapper.usuario.foto = response.data.usuario.foto
+                vm.usuarioWrapper.usuario.caminho_foto = response.data.usuario.caminho_foto
                 vm.usuarioWrapper.usuario.uf = response.data.usuario.uf
+                
             })
             .catch (error => {
                 console.log (error)
@@ -236,11 +242,17 @@ export default {
     methods: {
         atualizar () {
 
-            http.put ('usuario/update/' + localStorage.getItem('login'), this.usuarioWrapper, {
+            http.post ('usuario/update/' + localStorage.getItem ('login')  , this.usuarioWrapper, {
                 auth: {
                     username: localStorage.getItem ('login'),
                     password: localStorage.getItem ('password')
                 }
+            }).then(response=>{
+                console.log("Entrou")
+            })
+            .catch(error=>{
+
+                console.log(error.response)
             })
         },
         fotoSelecionada (event) {
@@ -252,17 +264,19 @@ export default {
             
             reader.onload = function (event) 
             {
-                vm.usuarioWrapper.imagem = event.target.result
-                document.getElementById("imagem").src = event.target.result
+                document.getElementById("imagem").src = event.target.result;
                 document.getElementById("imagem").style.width  = "150px";
+                vm.usuarioWrapper.imagem = document.getElementById("imagem").src.toString();
+            
+            
             };
-
+                
             reader.readAsDataURL(file);
                
         },
         alterarSenha () {
             if (this.alterar.novaSenha == this.repitaSenhaNova) {
-                http.put ('usuario/update/' + localStorage.getItem('login'), this.usuario, {
+                http.put ('usuario/update/' + localStorage.getItem('login'), this.usuarioWrapper, {
                     auth: {
                         username: localStorage.getItem ('login'),
                         password: localStorage.getItem ('password')

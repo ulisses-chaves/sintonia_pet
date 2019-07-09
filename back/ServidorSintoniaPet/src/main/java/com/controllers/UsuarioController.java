@@ -197,31 +197,31 @@ public class UsuarioController
 		
 		usuarioBusca.setSenha("");
 		
-		String foto = new String();
+		String imagem = new String();
 		try
 		{
-			foto = ServicesFoto.readFoto(usuarioBusca.getCaminhoFoto(), usuarioBusca.getLogin());
+			imagem = ServicesFoto.readFoto(usuarioBusca.getCaminhoFoto(), usuarioBusca.getLogin());
 			
 		}
 		catch(Exception e)
 		{
-			
+			imagem = e.getMessage();
 		}
 		
-		return new ResponseEntity<>(new UsuarioWrapper(foto, usuarioBusca), HttpStatus.OK) ;
+		return new ResponseEntity<>(new UsuarioWrapper(imagem, usuarioBusca), HttpStatus.OK) ;
 				
 	}
 	
-	@PutMapping(value="/update/{login}")
-	public @ResponseBody ResponseEntity<String> update(@RequestBody UsuarioWrapper usuarioWrapper, @RequestParam("login") String login)
+	@PostMapping(value="/update/{login}")
+	public  @ResponseBody ResponseEntity<String> update(@RequestBody UsuarioWrapper usuarioWrapper, @PathVariable String login)
 	{
-	
+
 		Usuario usuarioRequisicao = usuarioWrapper.getUsuario();
 		Usuario usuarioBusca = repositorioUsuario.findByLogin(login);
 		  
 		 if(usuarioBusca == null)
 			 return new ResponseEntity<>("Não existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
-		
+
 
 		 if(usuarioRequisicao.getLogin() != null)
 		 {
@@ -229,9 +229,10 @@ public class UsuarioController
 			 	return new ResponseEntity<>("Já existe um usuário com os dados cadastrados", HttpStatus.BAD_REQUEST); 
 		
 			 usuarioBusca.setLogin(login);
+			 
 		 }
 
-		 if(usuarioRequisicao.getSenha() != null)
+		 	if(usuarioRequisicao.getSenha() != null)
 		 {
 			usuarioBusca.setSenha(usuarioRequisicao.getSenha());	
 		 }
@@ -326,25 +327,28 @@ public class UsuarioController
 			usuarioBusca.setEmail(usuarioRequisicao.getEmail());	
 		}
 		 
-		try
+		
+		if(usuarioWrapper.getImagem() != null)
 		{
-			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" + usuarioBusca.getLogin() + ".txt");
-			usuarioBusca.setCaminhoFoto("fotos/usuarios/");	
-		}
-		catch(Exception e)
-		{
-			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
-								
-		}
- 
+			
+			try
+			{
+				
+				ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" + usuarioBusca.getLogin());
+				usuarioBusca.setCaminhoFoto("fotos/usuarios/");	
+			}
+			catch(Exception e)
+			{
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+									
+			}
+	}
 		
 		repositorioUsuario.delete(usuarioBusca);
 		repositorioUsuario.save(usuarioBusca);
 		
-		
-		
-		return new ResponseEntity<>(HttpStatus.OK) ;
-		
+	
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 

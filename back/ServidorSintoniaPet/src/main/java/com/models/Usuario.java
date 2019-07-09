@@ -67,6 +67,12 @@ public class Usuario
 	
 	private Boolean isPremmium;
 	
+	public Usuario()
+	{
+		this.isPremmium = false;
+		this.is_admin = false;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Pet> pets;
 	
