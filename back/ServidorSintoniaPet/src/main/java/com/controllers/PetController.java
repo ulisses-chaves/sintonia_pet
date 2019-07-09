@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.service.ServicesFoto;
+import java.util.LinkedList;
 
 import com.models.Pet;
 import com.models.PetWrapper;
@@ -37,15 +39,36 @@ public class PetController {
 
 	
 	@GetMapping(value = "/all/{login}")
-	public ResponseEntity<List<Pet>> getAll(@PathVariable("login") String login)
+	public @ResponseBody ResponseEntity<List<PetWrapper>> getAll(@PathVariable("login") String login)
 	{
 		Usuario usuario = usuarios.findByLogin(login);
 		
 		if(usuario == null)
-			return new ResponseEntity<>(new ArrayList<Pet>(), HttpStatus.BAD_REQUEST); ;
+			return new ResponseEntity<>(new ArrayList<PetWrapper>(), HttpStatus.BAD_REQUEST) ;
 		
 		
-		return new ResponseEntity<>(usuario.getPets(), HttpStatus.OK) ;
+		List<Pet> pets = usuario.getPets();
+		List<PetWrapper> petWrappers = new ArrayList<PetWrapper>();
+
+		
+		for(int i = 0; i < pets.size(); ++i)
+		{
+			String imagem = new String();
+
+			try
+			{	
+				imagem = ServicesFoto.readFoto(pets.get(i).getCaminho_foto(), pets.get(i).getNumero_rg());
+			
+			}
+			catch(Exception e)
+			{
+				
+			}
+
+			petWrappers.add( new PetWrapper(imagem, pets.get(i)));	
+		}
+		
+		return new ResponseEntity<>(petWrappers, HttpStatus.OK) ;
 			
 	}
 	
@@ -57,7 +80,10 @@ public class PetController {
 		
 		if(usuario == null)
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
-			
+		
+		if(usuario.getPets() == null)
+			usuario.setPets(new LinkedList<Pet>());
+
 		String cpfPet = new String();
 			
 		while(true)
@@ -69,6 +95,8 @@ public class PetController {
 				cpfPet += Long.toString(Math.round(Math.random()) * (9-1) +1);
 			}
 			
+
+
 			pet.getPet().setNumero_rg(cpfPet);
 						
 			if(!usuario.getPets().contains(pet.getPet()))

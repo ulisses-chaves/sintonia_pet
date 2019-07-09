@@ -180,6 +180,8 @@ export default {
             petWrapper: {
                 imagem: null,    
                 pet: {
+                    numero_rg: null,
+                    rg_dono: null,
                     nome: null,
                     cor_pelugem: null,
                     raca: null,
@@ -191,7 +193,7 @@ export default {
                     caminho_foto: null,
                     data_exp: null,
                     filiação: null,
-                    peso: null,
+                    peso: -1.0,
                     naturalidade: null
                 }
             }
@@ -228,11 +230,11 @@ export default {
                 .then (function (response) {
                     $('#cadastrado').modal('show')
                         $('#cadastrado').on('hide.bs.modal', event => {
-                            vm.$router.push ('menu-pets')
+                            //vm.$router.push ('menu-pets')
                         })
                 })
                 .catch (error => {
-                    console.log (error)
+                    console.log (error.response)
                     document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível cadastrar";
                     document.getElementById('alertImgMsg').style.display = 'block'
                 })

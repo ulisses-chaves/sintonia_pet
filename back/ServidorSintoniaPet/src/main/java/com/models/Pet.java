@@ -28,6 +28,26 @@ public class Pet
 	private float peso;
 	private String naturalidade;
 	
+
+	public Pet()
+	{
+		numero_rg = new String();
+		rg_dono = new String();
+		nome = new String();
+		idade = -1;
+		data_nascimento = new Date(0);
+		sexo = 'z';
+		castrado = 'z';
+		cor_pelugem = new String();
+		porte = new String();
+		raca = new String();
+		caminho_foto = new String();
+		data_exp = new Date(0);
+		filiação = new String();
+		peso = -1.f;
+		naturalidade = new String();
+	}
+
 	@Override
 	public boolean equals(Object pet)
 	{

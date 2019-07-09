@@ -19,11 +19,11 @@
                         </router-link>
                     </li>
                     <li> 
-                        <div v-for="pet of pets" :key="pet.id" class="card">
-                            <img id = "fotoPet" class="card-img-top" src="../../public/assets/ralf.jpg" alt="">
+                            <div v-for="pet of pets" :key="pet.id" class="card">
+                            <img id = "fotoPet" class="card-img-top" width = "120" height= "360"   v-bind:src = "pet.imagem">
                             <div class="card-body">
-                                <h4 class="card-title">{{ pet.nome }}</h4>
-                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.raca }}</h6>
+                                <h4 class="card-title">{{ pet.pet.nome }}</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ pet.pet.raca }}</h6>
                                 <p class="card-text">Alguma frase?</p>
                             </div>
                             <div class="accordion" id="accordionExample">
@@ -38,15 +38,15 @@
                                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><strong>Idade:</strong> {{pet.idade}}</li>
-                                                <li v-if="pet.sexo === 'M'" class="list-group-item"><strong>Sexo:</strong> Macho</li>
+                                                <li class="list-group-item"><strong>Idade:</strong> {{pet.pet.idade}}</li>
+                                                <li v-if="pet.pet.sexo === 'M'" class="list-group-item"><strong>Sexo:</strong> Macho</li>
                                                 <li v-else class="list-group-item"><strong>Sexo:</strong> Fêmea</li>
-                                                <li v-if="pet.porte === 'P'" class="list-group-item"><strong>Porte:</strong> Pequeno</li>
-                                                <li v-if="pet.porte === 'M'" class="list-group-item"><strong>Porte:</strong> Médio</li>
-                                                <li v-if="pet.porte === 'G'" class="list-group-item"><strong>Porte:</strong> Grande</li>
-                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.data_nascimento }}</li>
-                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.cor_pelugem}}</li>
-                                                <li class="list-group-item"><strong>Peso:</strong> {{pet.peso}}</li>
+                                                <li v-if="pet.pet.porte === 'P'" class="list-group-item"><strong>Porte:</strong> Pequeno</li>
+                                                <li v-if="pet.pet.porte === 'M'" class="list-group-item"><strong>Porte:</strong> Médio</li>
+                                                <li v-if="pet.pet.porte === 'G'" class="list-group-item"><strong>Porte:</strong> Grande</li>
+                                                <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ pet.pet.data_nascimento }}</li>
+                                                <li class="list-group-item"><strong>Cor da Pelugem:</strong> {{pet.pet.cor_pelugem}}</li>
+                                                <li class="list-group-item"><strong>Peso:</strong> {{pet.pet.peso}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -379,6 +379,7 @@ export default {
         http.get ('pet/all/' + localStorage.getItem('login'))
             .then (function (response) {
                 vm.pets = response.data
+
             })
         http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response) {
