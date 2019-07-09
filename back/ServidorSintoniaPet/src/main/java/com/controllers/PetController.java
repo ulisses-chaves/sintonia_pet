@@ -44,6 +44,7 @@ public class PetController {
 		if(usuario == null)
 			return new ResponseEntity<>(new ArrayList<Pet>(), HttpStatus.BAD_REQUEST); ;
 		
+		
 		return new ResponseEntity<>(usuario.getPets(), HttpStatus.OK) ;
 			
 	}
@@ -78,12 +79,13 @@ public class PetController {
 
 		pet.getPet().setRg_dono(usuario.getRg());
 
-		if(pet.getFoto() != null)
+		if(pet.getImagem() != null)
 		{
 			try
 			{
-				ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + pet.getPet().getNumero_rg());
+				ServicesFoto.saveFoto(pet.getImagem(), "fotos/pets/" + pet.getPet().getNumero_rg());
 				pet.getPet().setCaminho_foto("fotos/pets/");
+				
 			}
 			catch(Exception e)
 			{
@@ -172,13 +174,13 @@ public class PetController {
 		}	
 			
 
-		if(pet.getFoto() != null)
+		if(pet.getImagem() != null)
 		{
 			try
 			{
-				pet.setFoto(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
+				pet.setImagem(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
 
-				ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + petUsuario.getNumero_rg());
+				ServicesFoto.saveFoto(pet.getImagem(), "fotos/pets/" + petUsuario.getNumero_rg());
 				petUsuario.setCaminho_foto("fotos/pets/");
 			}
 			catch(Exception e)

@@ -169,7 +169,7 @@ public class UsuarioController
 
 		try
 		{
-			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin() + ".txt");
+			ServicesFoto.saveFoto(usuarioWrapper.getImagem(), "fotos/usuarios/" +usuario.getLogin());
 			usuario.setCaminhoFoto("fotos/usuarios/");	
 		}
 		catch(Exception e)
@@ -179,6 +179,7 @@ public class UsuarioController
 		}
 
 		usuario.setIsPremmium(false);
+		usuario.setAdmin(false);
 		
 		repositorioUsuario.save(usuario);
 		  

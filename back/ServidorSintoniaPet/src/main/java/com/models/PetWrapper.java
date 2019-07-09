@@ -5,17 +5,11 @@ public class PetWrapper
 	
 	private String imagem;
 	private Pet pet;
-	
-	public PetWrapper()
-	{
-		imagem = "";
-		pet = new Pet();
-	}
-	
-	public String getFoto() {
+		
+	public String getImagem() {
 		return imagem;
 	}
-	public void setFoto(String imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 	public Pet getPet() {

@@ -15,6 +15,7 @@ public class ServicesFoto
 
 	public static String saveFoto(String foto, String caminho) throws IOException
 	{
+		
 		deleteFoto(caminho +formato);
 
 		FileWriter writer = new FileWriter(caminho + formato) ;
@@ -33,7 +34,9 @@ public class ServicesFoto
 	public static void deleteFoto(String caminho)
 	{
 		File file = new File(caminho);
-		file.delete();
+		
+		if(file.exists())
+			file.delete();
 		
 	}
 	

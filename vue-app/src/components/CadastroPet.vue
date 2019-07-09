@@ -158,7 +158,7 @@
                                 <img src="../../public/assets/checked.png" alt="">
                             </div>
                             <div class="col-sm-9 text-center">
-                                <h6 class="mb-4" style="font-size: 19px">Seu pet <strong class="color-warning">{{petWrapper.pet.nome}}</strong>, foi cadastrado com <strong style="color: #5cb85c">SUCESSO</strong> nosso sitema!</h6>
+                                <h6 class="mb-4" style="font-size: 19px">Seu pet <strong class="color-warning">{{petWrapper.pet.nome}}</strong>, foi cadastrado com <strong style="color: #5cb85c">SUCESSO</strong> no nosso sitema!</h6>
                             </div>
                         </div>
                     </div>
@@ -219,7 +219,6 @@ export default {
         cadastro () {
             this.petWrapper.pet.data_exp = Date.now();
             let vm = this;
-            
             http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
                 auth: {
                     username: localStorage.getItem ('login'),

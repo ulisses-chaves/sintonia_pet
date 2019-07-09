@@ -18,9 +18,9 @@
                             <span class="ml-2" style="vertical-align: middle">Adicionar Pet</span>
                         </router-link>
                     </li>
-                    <li>
+                    <li> 
                         <div v-for="pet of pets" :key="pet.id" class="card">
-                            <img class="card-img-top" src="../../public/assets/ralf.jpg" alt="">
+                            <img id = "fotoPet" class="card-img-top" src="../../public/assets/ralf.jpg" alt="">
                             <div class="card-body">
                                 <h4 class="card-title">{{ pet.nome }}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ pet.raca }}</h6>
@@ -374,6 +374,7 @@ export default {
         }
     },
     mounted () {
+               
         let vm = this;
         http.get ('pet/all/' + localStorage.getItem('login'))
             .then (function (response) {
