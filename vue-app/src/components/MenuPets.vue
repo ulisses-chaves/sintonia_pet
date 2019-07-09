@@ -353,21 +353,21 @@ export default {
             pets: [],
             petSelecionado: {},
             petAlterado: {
-                image: '',
+                image: null,
                 pet: {
-                    nome: '',
-                    cor_pelugem: '',
-                    raca: '',
-                    idade: '',
-                    sexo: 'M',
-                    porte: 'P',
-                    data_nascimento: '',
-                    castrado: 'S',
-                    caminho_foto: '',
-                    data_exp: '',
-                    filiação: '',
-                    peso: '',
-                    naturalidade: ''
+                    nome: null,
+                    cor_pelugem: null,
+                    raca: null,
+                    idade: null,
+                    sexo: 'z',
+                    porte: null,
+                    data_nascimento: null,
+                    castrado: 'z',
+                    caminho_foto: null,
+                    data_exp: null,
+                    filiação: null,
+                    peso: -1.0,
+                    naturalidade: null
                 }
 
             }
@@ -388,7 +388,7 @@ export default {
             })
     },
     methods: {
-        atualizarPet() {
+       atualizarPet() {
             let vm = this;
             http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado, {
                 auth: {

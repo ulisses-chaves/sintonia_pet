@@ -11,6 +11,8 @@ public class ServicesFoto
 {
 	private static String  formato = ".txt";
 	
+
+
 	public static String saveFoto(String foto, String caminho) throws IOException
 	{
 		deleteFoto(caminho +formato);
@@ -45,6 +47,11 @@ public class ServicesFoto
 		
 		bReader.close();
 		return foto;
+	}
+
+	public static String getFormato()
+	{
+		return formato;
 	}
 	
 }

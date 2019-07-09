@@ -14,9 +14,13 @@
                     <hr>
                 </div>
             </div>
+           <img  class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
+                
             <form v-on:submit.prevent="cadastro">
                 <div class="row mt-5">
+                    
                     <div class="col-sm-6">
+            
                         <div class="form-group">
                             <label for="inputNome">Nome</label>
                             <input type="text" class="form-control" id="inputNome" v-model="petWrapper.pet.nome" maxlength="15" required placeholder="Nome do pet">
@@ -148,29 +152,48 @@ export default {
     data () {
         return {
             petWrapper: {
-                image: '',    
+                imagem: null,    
                 pet: {
-                    nome: '',
-                    cor_pelugem: '',
-                    raca: '',
-                    idade: '',
-                    sexo: 'M',
-                    porte: 'P',
+                    nome: null,
+                    cor_pelugem: null,
+                    raca: null,
+                    idade: -1,
+                    sexo: 'z',
+                    porte: null,
                     data_nascimento: null,
-                    castrado: 'S',
-                    caminho_foto: '',
+                    castrado: 'z',
+                    caminho_foto: null,
                     data_exp: null,
-                    filiação: '',
-                    peso: '',
-                    naturalidade: ''
+                    filiação: null,
+                    peso: null,
+                    naturalidade: null
                 }
             }
         }
     },
     methods: {
+         fotoSelecionada (event) {
+            
+            var file = event.target.files[0]
+            
+            var reader = new FileReader();
+            let vm = this;
+            
+            reader.onload = function (event)
+            {
+                document.getElementById("imagem").src = event.target.result;
+                document.getElementById("imagem").style.width  = "150px";
+                vm.petWrapper.imagem = document.getElementById("imagem").src.toString();
+            };
+            
+            reader.readAsDataURL(file);
+               
+        },
+        
         cadastro () {
             this.petWrapper.pet.data_exp = Date.now();
             let vm = this;
+            
             http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
                 auth: {
                     username: localStorage.getItem ('login'),
@@ -187,10 +210,6 @@ export default {
                     document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível cadastrar";
                     document.getElementById('alertImgMsg').style.display = 'block'
                 })
-        },
-        fotoSelecionada (event) {
-            //this.foto.src = ''
-            this.foto = event.target.files[0]
         }
     }
 }

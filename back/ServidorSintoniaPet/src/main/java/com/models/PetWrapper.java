@@ -3,20 +3,20 @@ package com.models;
 public class PetWrapper 
 {
 	
-	private String foto;
+	private String imagem;
 	private Pet pet;
 	
 	public PetWrapper()
 	{
-		foto = "";
+		imagem = "";
 		pet = new Pet();
 	}
 	
 	public String getFoto() {
-		return foto;
+		return imagem;
 	}
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setFoto(String imagem) {
+		this.imagem = imagem;
 	}
 	public Pet getPet() {
 		return pet;

@@ -78,17 +78,19 @@ public class PetController {
 
 		pet.getPet().setRg_dono(usuario.getRg());
 
-		try
+		if(pet.getFoto() != null)
 		{
-			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + pet.getPet().getNumero_rg() + ".txt");
-			pet.getPet().setCaminho_foto("fotos/pets/");
+			try
+			{
+				ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + pet.getPet().getNumero_rg());
+				pet.getPet().setCaminho_foto("fotos/pets/");
+			}
+			catch(Exception e)
+			{
+				return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+							
+			}
 		}
-		catch(Exception e)
-		{
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-						
-		}
-	
 			
 		usuario.getPets().add(pet.getPet());
 		usuarios.save(usuario);
@@ -170,21 +172,20 @@ public class PetController {
 		}	
 			
 
-		try
+		if(pet.getFoto() != null)
 		{
-
-			if(pet.getFoto() == null)
+			try
 			{
 				pet.setFoto(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
-			}
 
-			ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + petUsuario.getNumero_rg() + ".txt");
-			petUsuario.setCaminho_foto("fotos/pets/");
-		}
-		catch(Exception e)
-		{
-			return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
-						
+				ServicesFoto.saveFoto(pet.getFoto(), "fotos/pets/" + petUsuario.getNumero_rg());
+				petUsuario.setCaminho_foto("fotos/pets/");
+			}
+			catch(Exception e)
+			{
+				return new ResponseEntity<>("Erro salvando a foto. Contate	o suporte", HttpStatus.BAD_REQUEST);
+							
+			}
 		}
 
 		usuario.getPets().remove(petUsuario);
@@ -211,7 +212,7 @@ public class PetController {
 		usuario.getPets().remove(pet);
 		usuarios.save(usuario);
 		
-		ServicesFoto.deleteFoto(pet.getCaminho_foto() + pet.getNumero_rg());
+		ServicesFoto.deleteFoto(pet.getCaminho_foto() + pet.getNumero_rg() + ServicesFoto.getFormato());
 
 		pets.delete(pet);
 		
