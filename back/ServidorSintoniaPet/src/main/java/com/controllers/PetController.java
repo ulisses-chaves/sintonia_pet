@@ -135,9 +135,12 @@ public class PetController {
 		
 		if(usuario == null)
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST);
+		
+		if(usuario.getPets() == null)
+			usuario.setPets(new LinkedList<Pet>());
 			
 		if(!usuario.getPets().contains(pet.getPet()))
-			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
+			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); 
 		
 		Pet petAtualizacao = pet.getPet();
 		
@@ -198,7 +201,7 @@ public class PetController {
 			
 		if(petAtualizacao.getNaturalidade() != null)
 		{
-			petUsuario.setCaminho_foto(petAtualizacao.getNaturalidade());		
+			petUsuario.setNaturalidade(petAtualizacao.getNaturalidade());		
 		}	
 			
 
@@ -206,8 +209,6 @@ public class PetController {
 		{
 			try
 			{
-				pet.setImagem(ServicesFoto.readFoto(petUsuario.getCaminho_foto(), petUsuario.getNumero_rg()));
-
 				ServicesFoto.saveFoto(pet.getImagem(), "fotos/pets/" + petUsuario.getNumero_rg());
 				petUsuario.setCaminho_foto("fotos/pets/");
 			}
@@ -223,7 +224,7 @@ public class PetController {
 		usuarios.save(usuario);
 		
 		pets.delete(petUsuario);
-		pets.save(petUsuario);
+		pets.save(petUsuario);	
 		
 		return new ResponseEntity<>(HttpStatus.OK) ;	
 	}
@@ -236,6 +237,9 @@ public class PetController {
 		if(usuario == null)
 			return new ResponseEntity<>("Usuário com esse login não existe", HttpStatus.BAD_REQUEST); ;
 			
+		if(usuario.getPets() == null)
+			usuario.setPets(new LinkedList<Pet>());	
+		
 		if(!usuario.getPets().contains(pet))
 			return new ResponseEntity<>("Pet não existe", HttpStatus.BAD_REQUEST); ;
 			
