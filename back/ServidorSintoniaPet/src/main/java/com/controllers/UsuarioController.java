@@ -329,7 +329,7 @@ public class UsuarioController
 		}
 		 
 		
-		if(usuarioWrapper.getImagem() != null)
+		if(usuarioWrapper.getImagem() != null & !usuarioWrapper.getImagem().equals("")) 
 		{
 			
 			try

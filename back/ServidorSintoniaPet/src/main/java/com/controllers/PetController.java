@@ -205,7 +205,7 @@ public class PetController {
 		}	
 			
 
-		if(pet.getImagem() != null)
+		if(pet.getImagem() != null & !pet.getImagem().equals("")) 
 		{
 			try
 			{
@@ -226,7 +226,7 @@ public class PetController {
 		pets.delete(petUsuario);
 		pets.save(petUsuario);	
 		
-		return new ResponseEntity<>(HttpStatus.OK) ;	
+		return new ResponseEntity<>(pet.getImagem(), HttpStatus.OK) ;	
 	}
 	
 	@DeleteMapping(value = "/delete/{login}")

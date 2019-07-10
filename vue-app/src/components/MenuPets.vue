@@ -179,10 +179,18 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                        
                 <div class="modal-body">
                     <form >
+                        
                         <div class="row">
+                            <div class="col-sm-12">
+                                <img id = 'imagem' class="" v-bind:src="petAlterado.imagem">
+                                </div>
+               
+                          
                             <div class="col-sm-6">
+
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="nome">Nome</label>
                                     <input type="text" class="form-control" id="nome" required v-model="petAlterado.pet.nome" minlength="2" maxlength="15">
@@ -276,8 +284,11 @@
                             </div>
                             <div class="col-sm-6 mt-4 text-sm-right text-center">
                                 <div class="form-group mt-3">
-                                    <a href="" class="card-link">Mudar Foto do Pet <img style="width: 18px" src="../../public/assets/download.png" alt=""></a>
+                                    <label href="" class="card-link">Mudar Foto do Pet <img style="width: 18px" src="../../public/assets/download.png" alt=""></label>
+                                    <input type="file" accept="image/png, image/jpeg" v-on:change="fotoSelecionada">
+                        
                                 </div>
+
                             </div>
                         </div>
                     </form>
@@ -395,10 +406,28 @@ export default {
             })
     },
     methods: {
+          fotoSelecionada (event) {
+            
+            var file = event.target.files[0]
+            
+            var reader = new FileReader();
+            let vm = this;
+            
+            reader.onload = function (event)
+            {
+                document.getElementById("imagem").src = event.target.result;
+                document.getElementById("imagem").style.width  = "150px";
+                vm.petAlterado.imagem = document.getElementById("imagem").src.toString();
+            };
+            
+            reader.readAsDataURL(file);
+               
+        },
+       
        atualizarPet() {
             let vm = this;
             vm.petAlterado.pet.numero_rg = vm.petSelecionado.pet.numero_rg;
-            http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado, {
+            http.put ('pet/update/' + localStorage.getItem ('login'), this.petAlterado, {
                 auth: {
                     
                     username: localStorage.getItem ('login'),
@@ -406,8 +435,10 @@ export default {
                 }
             })
                 .then ( function (response) {
-                    alert ('pet atualizado');
+                    //alert ('pet atualizado');
                     vm.$router.push ('menu-pets')
+
+                    
                 })
                 .catch (error => {
                     console.log (error.response)
