@@ -87,7 +87,7 @@
                                         <a data-toggle="modal" data-target="#edit" class="card-link" href="">
                                             <ul class="p-0">
                                                 <li class="d-inline mx-2"><img style="width: 45px" class="m-0 p-0" src="../../public/assets/pen.png" alt=""></li>
-                                                <li class="d-inline">Editar</li>
+                                                <li v-on:click.prevent="pegarPet(pet)" class="d-inline">Editar</li>
                                             </ul>
                                         </a>
                                     </li>
@@ -180,7 +180,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form v-on:submit.prevent="atualizarPet">
+                    <form >
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -359,10 +359,12 @@ export default {
             petAlterado: {
                 image: null,
                 pet: {
+                    numero_rg: null,
+                    rg_dono: null,
                     nome: null,
                     cor_pelugem: null,
                     raca: null,
-                    idade: null,
+                    idade: -1,
                     sexo: 'z',
                     porte: null,
                     data_nascimento: null,
@@ -395,8 +397,10 @@ export default {
     methods: {
        atualizarPet() {
             let vm = this;
+            vm.petAlterado.pet.numero_rg = vm.petSelecionado.pet.numero_rg;
             http.put ('pet/update/' + localStorage.getItem ('login'), this.petSelecionado, {
                 auth: {
+                    
                     username: localStorage.getItem ('login'),
                     password: localStorage.getItem ('password')
                 }
@@ -406,7 +410,7 @@ export default {
                     vm.$router.push ('menu-pets')
                 })
                 .catch (error => {
-                    console.log (error)
+                    console.log (error.response)
                 })
         },
         imprimirRG () {
