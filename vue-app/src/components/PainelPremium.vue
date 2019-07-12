@@ -42,6 +42,7 @@ export default {
 
             })
                 .then (function (response) {
+                    //AQUI ENTRA A CRIAÇÃO DO QRCODE E O PREENCHIMENTO DOS CAMPOS DE PAGINA PET
                     alert ('Usuario se tornou Premium!');
                 })
                 .catch (error => {

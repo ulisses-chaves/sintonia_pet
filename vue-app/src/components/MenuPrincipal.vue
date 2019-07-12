@@ -25,10 +25,12 @@ export default {
         'rodape': RodapeVue
     },
     created () {
-        this.$router.push ({ 
-            name: 'menuPets', 
-            params: { name: 'menu-pets' },
-        });
+        if (this.$route.name == 'menu-principal') {
+            this.$router.push ({ 
+                name: 'menuPets', 
+                params: { name: 'menu-pets' },
+            });
+        }
     },
     methods: {
         

@@ -14,7 +14,9 @@
                     <hr>
                 </div>
             </div>
-           <img  class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
+            <div class="text-center">
+                <img  class="m-auto pt-4" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
+            </div>
                 
             <form v-on:submit.prevent="cadastro">
                 <div class="row mt-5">
@@ -230,7 +232,7 @@ export default {
                 .then (function (response) {
                     $('#cadastrado').modal('show')
                         $('#cadastrado').on('hide.bs.modal', event => {
-                            //vm.$router.push ('menu-pets')
+                            vm.$router.push ('menu-pets')
                         })
                 })
                 .catch (error => {

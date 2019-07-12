@@ -13,7 +13,7 @@
             <div class="dropdown-divider"></div>
             <img class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
             <div class="card-body" style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);">
-                <form v-on:submit.prevent="atualizar">
+                <form v-on:submit.prevent="atualizar" class="mb-3">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -60,7 +60,7 @@
                             <div class="form-row align-items-center">
                                 <div class="col-auto my-1" style="width: 191.05px;">
                                 <label class="mr-sm-2" for="inputEstadoCivil">Estado Civil</label>
-                                <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuarioWrapper.usuario.estadoCivil">
+                                <select class="custom-select mr-sm-2" id="inputEstadoCivil" v-model="usuarioWrapper.usuario.estado_civil">
                                     <option value="S">Solteiro(a)</option>
                                     <option value="C">Casado(a)</option>
                                     <option value="O">Outro</option>
@@ -135,10 +135,20 @@
                         </div>
                     </div>
                     <div class="dropdown-divider"></div>
+                     <div id="alertImgMsg" style="width: 50%; display: none" class="m-auto text-center alert alert-danger" role="alert">
+                        <div class="row">
+                            <div class="col-md-4 text-md-right text-center">
+                                <img style="width: 50px" src="../../public/assets/alert.png" alt="">
+                            </div>
+                            <div id ="msg" class="col-md-6 text-center">
+
+                            </div>
+                        </div>
+                    </div>
                     <div>
-                        <button class="mt-2 mx-1 btn btn-light">Atualizar</button>
-                        <button data-toggle="modal" data-target="#modalAlterarSenha" class="mt-2 mx-1 btn btn-light">Alterar Senha</button>
-                        <button v-on:click.stop.prevent="" class="mt-2 mx-1 btn btn-light">Voltar</button>
+                        <button class="mt-3 mx-1 btn btn-light">Atualizar</button>
+                        <button data-toggle="modal" data-target="#modalAlterarSenha" class="mt-3 mx-1 btn btn-light">Alterar Senha</button>
+                        <router-link to="/menu-pets" class="mt-3 mx-1 btn btn-light">Voltar</router-link>
                     </div>
                 </form>
             </div>
@@ -169,6 +179,31 @@
                             <button type="submit" class="btn btn-warning">Alterar senha</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="atualizado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Perfil Atualizado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/checked.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px">Seus dados foram atualizados com <strong style="color: #5cb85c">SUCESSO</strong> no nosso sitema!</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -217,8 +252,10 @@ export default {
         http.get ('usuario/get/' + localStorage.getItem ('login'))
             .then (function (response){
                 document.getElementById("imagem").src = response.data.imagem;
-                 document.getElementById("imagem").style.width  = "150px";
-               
+                document.getElementById("imagem").style.width  = "150px";
+                
+                vm.usuarioWrapper.usuario.login = response.data.usuario.login
+                vm.usuarioWrapper.usuario.email = response.data.usuario.email
                 vm.usuarioWrapper.usuario.nome = response.data.usuario.nome
                 vm.usuarioWrapper.usuario.sobrenome = response.data.usuario.sobrenome
                 vm.usuarioWrapper.usuario.numero_fixo = response.data.usuario.numero_fixo
@@ -248,11 +285,15 @@ export default {
                     password: localStorage.getItem ('password')
                 }
             }).then(response=>{
-                console.log("Entrou")
+                $('#atualizado').modal('show')
+                    $('#atualizado').on('hide.bs.modal', event => {
+                    //vm.$router.push ('menu-pets')
+                })
             })
             .catch(error=>{
-
-                console.log(error.response)
+                console.log(error.response) //*
+                document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível atualizar";
+                document.getElementById('alertImgMsg').style.display = 'block' 
             })
         },
         fotoSelecionada (event) {

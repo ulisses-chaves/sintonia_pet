@@ -88,10 +88,19 @@
 </template>
 <script>
 import RodapeVue from '../views/Rodape.vue';
+import { http } from '../services/config';
 export default {
     name: 'paginaPet',
     components: {
         'rodape': RodapeVue,
-    }
+    },
+    data () {
+        return { 
+            petWrapper: {
+                pet: {},
+                imagem: ''
+            }
+        }
+    },
 }
 </script>

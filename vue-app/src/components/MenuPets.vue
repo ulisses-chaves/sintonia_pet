@@ -19,8 +19,10 @@
                         </router-link>
                     </li>
                     <li> 
-                        <div v-for="pet of pets" :key="pet.id" class="card mb-5">
-                            <img id="fotoPet" class="card-img-top" v-bind:src="pet.imagem">
+                        <div id="petCard" v-for="pet of pets" :key="pet.id" class="card mb-5">
+                            <div class="text-center">
+                                <img class="foto-pet" v-bind:src="pet.imagem">
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">{{ pet.pet.nome }}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ pet.pet.raca }}</h6>
@@ -182,15 +184,11 @@
                         
                 <div class="modal-body">
                     <form >
-                        
+                        <div class="text-center my-3">
+                            <img id = 'imagem' class="" v-bind:src="petAlterado.imagem">
+                        </div>
                         <div class="row">
-                            <div class="col-sm-12">
-                                <img id = 'imagem' class="" v-bind:src="petAlterado.imagem">
-                                </div>
-               
-                          
                             <div class="col-sm-6">
-
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="nome">Nome</label>
                                     <input type="text" class="form-control" id="nome" required v-model="petAlterado.pet.nome" minlength="2" maxlength="15">
@@ -279,12 +277,11 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label style="color: #7e4732" for="inputPeso">Peso</label>
-                                    <input type="text" class="form-control" id="inputPeso" required v-model="petAlterado.pet.idade" name="numbers" pattern="[0-9]+$" maxlength="3">
+                                    <input type="text" class="form-control" id="inputPeso" required v-model="petAlterado.pet.peso" name="numbers" pattern="[0-9]+$" maxlength="3">
                                 </div>
                             </div>
                             <div class="col-sm-6 mt-4 text-sm-right text-center">
                                 <div class="form-group mt-3">
-                                    <label href="" class="card-link">Mudar Foto do Pet <img style="width: 18px" src="../../public/assets/download.png" alt=""></label>
                                     <input type="file" accept="image/png, image/jpeg" v-on:change="fotoSelecionada">
                         
                                 </div>
@@ -292,6 +289,16 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div id="erroAtt" style="width: 50%; display: none" class="m-auto text-center alert alert-danger" role="alert">
+                    <div class="row">
+                        <div class="col-md-4 text-md-right text-center">
+                            <img style="width: 50px" src="../../public/assets/alert.png" alt="">
+                        </div>
+                        <div id ="msgAtt" class="col-md-6 text-center">
+
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button v-on:click.stop.prevent="atualizarPet" style="color: #7e4732" type="button" class="btn btn-warning">Salvar mudanças</button>
@@ -351,6 +358,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="atualizado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pet Atualizado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 my-5 my-sm-3 text-center">
+                            <img src="../../public/assets/checked.png" alt="">
+                        </div>
+                        <div class="col-sm-9 text-center">
+                            <h6 class="mb-4" style="font-size: 19px">Seu pet foi atualizado com <strong style="color: #5cb85c">SUCESSO</strong> no nosso sitema!</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </template>
 
@@ -390,8 +422,7 @@ export default {
             }
         }
     },
-    mounted () {
-               
+    mounted () {   
         let vm = this;
         http.get ('pet/all/' + localStorage.getItem('login'))
             .then (function (response) {
@@ -435,13 +466,15 @@ export default {
                 }
             })
                 .then ( function (response) {
-                    //alert ('pet atualizado');
-                    vm.$router.push ('menu-pets')
-
-                    
+                    $('#atualizado').modal('show')
+                    $('#atualizado').on('hide.bs.modal', event => {
+                        window.location.reload()
+                    })
                 })
                 .catch (error => {
-                    console.log (error.response)
+                    console.log (error.response); //*
+                    document.getElementById('msgAtt').innerHTML = "Algum problema ocorreu <br> Não foi possível atualizar";
+                    document.getElementById('erroAtt').style.display = 'block'
                 })
         },
         imprimirRG () {
@@ -486,8 +519,8 @@ export default {
             position:absolute; left:0; top:0;
         }
     }
-    #fotoPet {
-        /*max-height: 350px;*/
+    .foto-pet {
+        max-width: 785px;
     }
     .rgPet {
         z-index: 1;
@@ -501,6 +534,7 @@ export default {
         margin: 60px 0 0 175px;
         height: 151px;
         max-width: 150px;
+        object-fit: cover
     }
     .nomePet {
         margin: 223px 0 0 150px
