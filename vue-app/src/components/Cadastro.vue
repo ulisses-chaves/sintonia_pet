@@ -114,7 +114,7 @@
                     <div class="form-group row">
                         <label for="inputEstado" class="col-sm-2 col-form-label">Estado</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEstado" placeholder="UF (Sigla do Estado)" v-model="usuarioWrapper.usuario.uf" required maxlength="2">
+                            <input type="text" class="form-control" id="inputEstado" placeholder="UF (Sigla do Estado)" v-model="usuarioWrapper.usuario.uf" required minlength="2" maxlength="2">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -146,25 +146,25 @@
                     <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email" v-model="usuarioWrapper.usuario.email" maxlength="30" required>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Seu email" v-model="usuarioWrapper.usuario.email" maxlength="50" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login" v-model="usuarioWrapper.usuario.login" maxlength="15" minlength="5" required>
+                            <input type="text" class="form-control" id="inputLogin" placeholder="Defina seu login" v-model="usuarioWrapper.usuario.login" maxlength="20" minlength="5" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputSenha" class="col-sm-2 col-form-label">Senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números" v-model="usuarioWrapper.usuario.senha" maxlength="15" minlength="5" required>
+                            <input type="password" class="form-control" id="inputSenha" placeholder="Senha com letras e números" v-model="usuarioWrapper.usuario.senha" maxlength="20" minlength="5" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="inputConSenha" class="col-sm-2 col-form-label">Repita a senha</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="confirmarSenha" maxlength="15" minlength="5" required>
+                            <input type="password" class="form-control" id="inputConSenha" placeholder="Confirme sua senha" v-model="confirmarSenha" maxlength="20" minlength="5" required>
                         </div>
                     </div>
                     <div id="alertImgMsg" style="width: 70%; display: none" class="m-auto text-center alert alert-danger" role="alert">

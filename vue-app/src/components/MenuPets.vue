@@ -528,7 +528,7 @@ export default {
     .positions { 
         z-index: 2;
         position: absolute;
-        font-size: 13px;
+        font-size: 11px;
     }
     .imagemPet {
         margin: 60px 0 0 175px;
@@ -567,21 +567,21 @@ export default {
         margin: 318px 0 0 168px
     }
     .rua {
-        margin: 345px 0 0 170px
+        margin: 346px 0 0 170px
     }
     .cidade {
-        margin: 364px 0 0 155px
+        margin: 365px 0 0 155px
     }
     .bairro {
-        margin: 364px 0 0 295px
+        margin: 365px 0 0 295px
     }
     .uf {
-        margin: 382px 0 0 138px
+        margin: 383px 0 0 138px
     }
     .cep {
-        margin: 382px 0 0 190px
+        margin: 383px 0 0 190px
     }
     .telefone {
-        margin: 382px 0 0 280px
+        margin: 383px 0 0 280px
     }
 </style>

@@ -3,16 +3,16 @@
         <div style= "box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.5)">
             <nav id="altura-nav" style="background-image: linear-gradient(to bottom, #fdad00 , #fdc536);" class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
-                    <a href="/">
+                    <router-link to="/painel-admin">
                         <img style="height: 65px;" src="../../public/assets/logo-titulo branco.png" alt="">
-                    </a>
+                    </router-link>
                     <button style="background: #7e4732" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSite">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active mx-2">
-                                <router-link style="color: #7e4732;" class="btn btn-outline-light nav-link" to="/">Sair</router-link>
+                                <button v-on:click.prevent="sair" style="color: #7e4732;" class="btn btn-outline-light nav-link" to="/">Sair</button>
                             </li>
                         </ul>
                     </div>
@@ -35,6 +35,59 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <!-- MODAL -->
+        <div class="modal fade" id="premium" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ação concluída</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/checked.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center text-sm-left">
+                                <h6 style="font-size: 19px">O usuario com RG {{rg}} se tornou <strong class="color-warning">PREMIUM</strong>!</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="falha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Falha na atualização</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/delete.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center text-sm-left">
+                                <h6 style="font-size: 19px">Não foi possível tornar esse usuário em <strong class="color-warning">PREMIUM</strong></h6>
+                                <p>O RG {{rg}} está incorreto ou não existe no sistema!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                        <button type="button" v-on:click.stop.prevent="excluirPet" class="btn btn-danger">Deletar</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,11 +114,21 @@ export default {
 
             })
                 .then (function (response) {
-                    alert ('Usuario com o RG ' + vm.rg + ' se tornou Premium!');
+                    $('#premium').modal('show')
                 })
                 .catch (error => {
-                    console.log (error)
+                    $('#falha').modal('show')
                 })
+        },
+        sair () {
+            if (!localStorage.getItem ('login') && !localStorage.getItem ('password')) {
+                sessionStorage.removeItem ('login')
+                sessionStorage.removeItem ('password')
+            }else {
+                localStorage.removeItem ('login')
+                sessionStorage.removeItem ('password')   
+            }
+            this.$router.push ('/')
         }
     }
 }

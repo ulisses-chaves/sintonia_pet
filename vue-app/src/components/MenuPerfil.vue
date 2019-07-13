@@ -287,7 +287,7 @@ export default {
             }).then(response=>{
                 $('#atualizado').modal('show')
                     $('#atualizado').on('hide.bs.modal', event => {
-                    //vm.$router.push ('menu-pets')
+                    vm.$router.push ('menu-pets')
                 })
             })
             .catch(error=>{

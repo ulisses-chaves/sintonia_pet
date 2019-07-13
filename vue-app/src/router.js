@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Principal from './components/Principal.vue'
+import { isLogged } from './services/config';
 
 Vue.use(Router)
 
@@ -11,17 +12,39 @@ export default new Router({
     {
       path: '/',
       name: 'principal',
-      component: Principal
+      component: Principal,
+      /*beforeEnter: (to, from, next) => { 
+          if (isLogged()) {
+              next()
+              return
+          }
+          next ('/menu')
+      },*/
+      
     },
     {
       path: '/cadastro',
       name: 'cadastro',
-      component: () => import ( './components/Cadastro.vue' )
+      component: () => import ( './components/Cadastro.vue' ),
+      /*beforeEnter: (to, from, next) => { 
+          if (isLogged()) {
+              next()
+              return
+          }
+          next ('/menu')
+      },*/
     },
     {
       path: '/menu',
       name: 'menu-principal',
       component: () => import ( './components/MenuPrincipal.vue' ),
+      /*beforeEnter: (to, from, next) => {
+          if (!isLogged()) {
+              next()
+              return
+          }
+          next ('/')
+      },*/
       children: [
         {
           path: '/menu-pets',
@@ -58,12 +81,27 @@ export default new Router({
     {
       path: '/painel-admin',
       name: 'painelAdmin',
-      component: () => import ( './components/PainelAdmin.vue' )
+      component: () => import ( './components/PainelAdmin.vue' ),
+      /*beforeEnter: (to, from, next) => { 
+          if (!isLogged()) {
+              next()
+              return
+          }
+          next ('/menu')
+      },*/
     },
     {
       path: '/pagina-pet',
       name: 'paginaPet',
-      component: () => import ( './components/PaginaPet.vue' )
+      component: () => import ( './components/PaginaPet.vue' ),
+      /*beforeEnter: (to, from, next) => { 
+          if (!isLogged()) {
+              next()
+              return
+          }
+          next ('/menu')
+      },*/
     }
-  ]
+  ],
+
 })
