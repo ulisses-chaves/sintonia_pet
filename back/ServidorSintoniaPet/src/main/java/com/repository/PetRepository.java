@@ -7,4 +7,5 @@ import com.models.Pet;
 
 public interface PetRepository extends  JpaRepository<Pet, String> {
 
+   
 }
