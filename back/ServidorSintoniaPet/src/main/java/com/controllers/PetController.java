@@ -36,8 +36,6 @@ public class PetController {
 	@Autowired
 	private PetRepository pets;
 	
-
-	
 	@GetMapping(value = "/all/{login}")
 	public @ResponseBody ResponseEntity<List<PetWrapper>> getAll(@PathVariable("login") String login)
 	{
