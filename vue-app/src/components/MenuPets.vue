@@ -151,6 +151,7 @@
                         <label class="uf positions" for="">{{user.uf}}</label>
                         <label class="cep positions" for="">{{user.cep}}</label>
                         <label class="telefone positions" for="">{{user.numero_fixo}}</label>
+                        <img class="qrCodePet positions" v-bind:src="qrCode">
                     </div>
                 </div>
                 <div class="modal-footer m-auto">
@@ -418,8 +419,8 @@ export default {
                     peso: -1.0,
                     naturalidade: null
                 }
-
-            }
+            },
+            qrCode: null
         }
     },
     mounted () {   
@@ -482,6 +483,11 @@ export default {
         },
         pegarPet (pet) {
             this.petSelecionado = pet;
+            if (this.user.isPremmium) {
+                this.qrCode = document.createElement('img');
+                this.qrCode = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://192.168.25.213:8080/pagina/pet/' + this.petSelecionado.pet.numero_rg
+                console.log (this.qrCode)
+            }
         },
         excluirPet () {
             let vm = this;
@@ -583,5 +589,8 @@ export default {
     }
     .telefone {
         margin: 383px 0 0 280px
+    }
+    .qrCodePet {
+        margin: 405px 0 0 175px
     }
 </style>

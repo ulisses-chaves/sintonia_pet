@@ -14,12 +14,12 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'menuPets', params: { name: 'menu-pets' } }"><img style="width: 30px" src="../../public/assets/cat.png" alt=""> Gerenciar Pets</router-link>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'menuPerfil', params: { name: 'perfil' } }"><img style="width: 30px" src="../../public/assets/editar.png" alt=""> Editar Perfil</router-link>
-                                    <router-link v-if="isPremmium === true" class="dropdown-item" v-bind:to="{ name: 'painelPremium', params: { name: 'painel-premium' } }"><img style="width: 30px" src="../../public/assets/qr-code.png" alt=""> Premium</router-link>
+                                    <router-link class="dropdown-item" v-bind:to="{ name: 'painelPremium', params: { name: 'painel-premium' } }"><img style="width: 30px" src="../../public/assets/qr-code.png" alt=""> Premium</router-link>
                                     <div class="dropdown-divider"></div>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'comoUsar', params: { name: 'como-usar' } }"><img style="width: 30px" src="../../public/assets/comousar.png" alt=""> Como Usar</router-link>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'contato', params: { name: 'contato' } }"><img style="width: 30px" src="../../public/assets/contato.png" alt=""> Contato</router-link>
                                     <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item" v-on:click.stop.prevent="logout"><img style="width: 30px" src="../../public/assets/logout.png" alt=""> Sair</button>
+                                    <button style="cursor: pointer" class="dropdown-item" v-on:click.stop.prevent="sair"><img style="width: 30px;" src="../../public/assets/logout.png" alt=""> Sair</button>
                                 </div>
                             </div>
                         </li>
@@ -51,9 +51,14 @@ export default {
             })
     },
     methods: {
-        logout() {
-            localStorage.removeItem ('login')
-            localStorage.removeItem ('password')
+        sair () {
+            if (!localStorage.getItem ('login') && !localStorage.getItem ('password')) {
+                sessionStorage.removeItem ('login')
+                sessionStorage.removeItem ('password')
+            }else {
+                localStorage.removeItem ('login')
+                localStorage.removeItem ('password')   
+            }
             this.$router.push ('/')
         }
     }

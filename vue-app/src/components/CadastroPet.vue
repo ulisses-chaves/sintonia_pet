@@ -187,15 +187,15 @@ export default {
                     nome: null,
                     cor_pelugem: null,
                     raca: null,
-                    idade: -1,
-                    sexo: 'z',
-                    porte: null,
+                    idade: null,
+                    sexo: 'M',
+                    porte: 'P',
                     data_nascimento: null,
-                    castrado: 'z',
+                    castrado: 'S',
                     caminho_foto: null,
                     data_exp: null,
                     filiação: null,
-                    peso: -1.0,
+                    peso: null,
                     naturalidade: null
                 }
             }

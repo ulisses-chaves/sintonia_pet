@@ -1,86 +1,83 @@
 <template>
     <div class="container">
-        <div class="text-center my-5">
+        <div class="">
             <a href="/"><img style="width: 160px" src="../../public/assets/logo-titulo.png" alt=""></a> 
         </div>
-        <div class="form-row">
+        <img src="" alt=""> <!--foto pet???-->
+        <div class="">
             <div class="form-group col-md-6">
-                <label for="foto">Foto</label>
-                <img src="" alt=""> <!--foto pet???-->
-            </div>
-            <div class="form-group col-md-6">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" readonly>
+                <label for="nome">Nome: </label>
+                <label id="nome" th:text="${nome}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="raca">Raça</label>
-                <input type="text" class="form-control" id="nome" readonly>
+                <label class="form-control" id="nome" readonly th:text="${raca}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="data">Data Nascimento</label>
-                <input type="date" class="form-control" id="data" readonly>
+                <label class="form-control" id="data" readonly th:text="${data_nascimento}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="peso">Peso</label>
-                <input type="text" class="form-control" id="peso" readonly>
+                <label class="form-control" id="peso" readonly th:text="${peso}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="idade">Idade</label>
-                <input type="text" class="form-control" id="idade" readonly>
+                <label class="form-control" id="idade" readonly th:text="${idade}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="sexo">Sexo</label>
-                <input type="text" class="form-control" id="sexo" readonly>
+                <label class="form-control" id="sexo" readonly th:text="${sexo}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="cor">Cor</label>
-                <input type="text" class="form-control" id="cor" readonly>
+                <label class="form-control" id="cor" readonly th:text="${cor_pelugem}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="dono">Dono</label>
-                <input type="text" class="form-control" id="dono" readonly>
+                <label class="form-control" id="dono" readonly th:text="${dono_rg}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="rg">RG Pet</label>
-                <input type="text" class="form-control" id="rg" readonly>
+                <label class="form-control" id="rg" readonly th:text="${numero_rg}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="telefone">Telefone</label>
-                <input type="text" class="form-control" id="telefone" readonly>
+                <label class="form-control" id="telefone" readonly th:text="${numero_fixo}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="cep">CEP</label>
-                <input type="text" class="form-control" id="cep" readonly>
+                <label class="form-control" id="cep" readonly th:text="${cep}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="estado">Estado</label>
-                <input type="text" class="form-control" id="estado" readonly>
+                <label class="form-control" id="estado" readonly th:text="${estado}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="cidade">Cidade</label>
-                <input type="text" class="form-control" id="cidade" readonly>
+                <label class="form-control" id="cidade" readonly th:text="${cidade}"></label>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="bairro">Bairro</label>
-                <input type="text" class="form-control" id="bairro" readonly>
+                <label class="form-control" id="bairro" readonly th:text="${bairro}"></label>
             </div>
             <div class="form-group col-md-6">
                 <label for="endereco">Endereco</label>
-                <input type="text" class="form-control" id="endereco" readonly>
+                <label class="form-control" id="endereco" readonly th:text="${rua}"></label>
             </div>
         </div>
         <rodape></rodape>
@@ -104,3 +101,8 @@ export default {
     },
 }
 </script>
+
+<style>
+    .container { padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto; } @media (min-width: 768px) { .container { width: 750px; } } @media (min-width: 992px) { .container { width: 970px; } } @media (min-width: 1200px) { .container { width: 1170px; } }
+</style>
+

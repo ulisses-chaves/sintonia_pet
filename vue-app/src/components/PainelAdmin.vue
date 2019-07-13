@@ -126,7 +126,7 @@ export default {
                 sessionStorage.removeItem ('password')
             }else {
                 localStorage.removeItem ('login')
-                sessionStorage.removeItem ('password')   
+                localStorage.removeItem ('password')   
             }
             this.$router.push ('/')
         }

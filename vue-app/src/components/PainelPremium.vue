@@ -95,7 +95,9 @@ export default {
 
             })
                 .then (function (response) {
-                    //AQUI ENTRA A CRIAÇÃO DO QRCODE E O PREENCHIMENTO DOS CAMPOS DE PAGINA PET
+                    //qrCode = document.createElement ("img");
+                    //qrCode.src = 
+
                     $('#premium').modal('show')
                 })
                 .catch (error => {

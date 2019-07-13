@@ -14,7 +14,7 @@
             <img class="m-auto py-3" src="../../public/assets/perfil.png" style="width: 64px" alt=""  id='imagem'>
             <div class="card-body" style="background-image: linear-gradient(to bottom , #fdc536, #fdad00);">
                 <form v-on:submit.prevent="atualizar" class="mb-3">
-                    <div class="row">
+                    <!--<div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="inputLogin">Login</label>
@@ -24,10 +24,10 @@
                         <div class="col-sm-6">   
                             <div class="form-group">
                                 <label for="inputEmail">Email</label>
-                                <input type="email" class="form-control" id="inputEmail" maxlength="15" v-model="usuarioWrapper.usuario.email">
+                                <input type="email" class="form-control" id="inputEmail" maxlength="50" v-model="usuarioWrapper.usuario.email">
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="dropdown-divider"></div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -147,7 +147,7 @@
                     </div>
                     <div>
                         <button class="mt-3 mx-1 btn btn-light">Atualizar</button>
-                        <button data-toggle="modal" data-target="#modalAlterarSenha" class="mt-3 mx-1 btn btn-light">Alterar Senha</button>
+                        <a data-toggle="modal" style="color: #000000" data-target="#modalAlterarSenha" class="mt-3 mx-1 btn btn-light">Alterar Senha</a>
                         <router-link to="/menu-pets" class="mt-3 mx-1 btn btn-light">Voltar</router-link>
                     </div>
                 </form>
@@ -167,8 +167,12 @@
                     <form v-on:submit.prevent="alterarSenha">
                         <div class="modal-body">
                             <div class="form-group">
+                                <label for="inputModalSenhaAtual" class="col-form-label">Senha Atual:</label>
+                                <input type="password" class="form-control" id="inputModalSenhaAtual" v-model="senhaWrapper.antigaSenha" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="inputModalSenhaNova" class="col-form-label">Senha Nova:</label>
-                                <input type="password" class="form-control" id="inputModalSenhaNova" v-model="usuarioWrapper.usuario.senha" required>
+                                <input type="password" class="form-control" id="inputModalSenhaNova" v-model="senhaWrapper.novaSenha" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputModalRepitaSenha" class="col-form-label">Repita a Nova Senha:</label>
@@ -198,6 +202,61 @@
                             </div>
                             <div class="col-sm-9 text-center">
                                 <h6 class="mb-4" style="font-size: 19px">Seus dados foram atualizados com <strong style="color: #5cb85c">SUCESSO</strong> no nosso sitema!</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="senhaAtualizada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Senha Atualizada</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/checked.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px">Sua senha foi atualizada com <strong style="color: #5cb85c">SUCESSO</strong>!</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="falhaAttSenha" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Falha na Atualização</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/alert.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px"><strong style="color: #d9534f">Falha</strong> na atualização da senha!</h6>
+                                <p>Verifique:</p>
+                                <ul class="ml-0 text-left">
+                                    <li class="ml-0">Se a senha informada no campo 'Senha Atual' está correta</li>
+                                    <li>Se os campos 'Nova Senha' e 'Repita Nova Senha' estão iguais</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -244,7 +303,11 @@ export default {
                     caminho_foto: null,
                     uf: null
             }},
-            repitaSenhaNova: ''
+            senhaWrapper: {
+                novaSenha: '',
+                antigaSenha: ''
+            },
+            repitaSenhaNova: '',
         }
     },
     mounted () {    //pra preencher nos campos os dados do usuario que está na sessao
@@ -254,8 +317,8 @@ export default {
                 document.getElementById("imagem").src = response.data.imagem;
                 document.getElementById("imagem").style.width  = "150px";
                 
-                vm.usuarioWrapper.usuario.login = response.data.usuario.login
-                vm.usuarioWrapper.usuario.email = response.data.usuario.email
+                //vm.usuarioWrapper.usuario.login = response.data.usuario.login
+                //vm.usuarioWrapper.usuario.email = response.data.usuario.email
                 vm.usuarioWrapper.usuario.nome = response.data.usuario.nome
                 vm.usuarioWrapper.usuario.sobrenome = response.data.usuario.sobrenome
                 vm.usuarioWrapper.usuario.numero_fixo = response.data.usuario.numero_fixo
@@ -278,7 +341,7 @@ export default {
     },
     methods: {
         atualizar () {
-
+            let vm = this;
             http.post ('usuario/update/' + localStorage.getItem ('login')  , this.usuarioWrapper, {
                 auth: {
                     username: localStorage.getItem ('login'),
@@ -286,12 +349,12 @@ export default {
                 }
             }).then(response=>{
                 $('#atualizado').modal('show')
-                    $('#atualizado').on('hide.bs.modal', event => {
-                    vm.$router.push ('menu-pets')
+                $('#atualizado').on('hide.bs.modal', event => {
+                vm.$router.push ('menu-pets')
                 })
             })
             .catch(error=>{
-                console.log(error.response) //*
+                console.log(error.response)
                 document.getElementById('msg').innerHTML = "Algum problema ocorreu <br> Não foi possível atualizar";
                 document.getElementById('alertImgMsg').style.display = 'block' 
             })
@@ -316,20 +379,23 @@ export default {
                
         },
         alterarSenha () {
-            if (this.alterar.novaSenha == this.repitaSenhaNova) {
-                http.put ('usuario/update/' + localStorage.getItem('login'), this.usuarioWrapper, {
+            if (this.senhaWrapper.novaSenha == this.repitaSenhaNova) {
+                let vm = this;
+                http.post ('usuario/mudarSenha/' + localStorage.getItem('login'), this.senhaWrapper, {
                     auth: {
                         username: localStorage.getItem ('login'),
                         password: localStorage.getItem ('password')
                     }
                 })
                     .then (response => {
-                        console.log (response)
-                        alert ('user att')
+                        $('#modalAlterarSenha').modal('hide')
+                        $('#senhaAtualizada').modal('show')
                     })
                     .catch (error => {
-                        console.log (error)
+                        $('#falhaAttSenha').modal('show')
                     })
+            }else {
+                $('#falhaAttSenha').modal('show')
             }
         }
     }
