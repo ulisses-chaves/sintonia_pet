@@ -20,7 +20,7 @@
 	<description>Servidor do Sintonia Pet</description>
 
 	<properties>
-		<java.version>1.8.0_171</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 
