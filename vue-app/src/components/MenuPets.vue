@@ -162,12 +162,12 @@
                                 Imprimir RG
                             </a>
                         </li>
-                        <li class="d-inline-block mx-2">
+                        <!--<li class="d-inline-block mx-2">
                             <a href="">
                                 <img style="width: 25px" src="../../public/assets/sendEmail.png" alt="email">
                                 Enviar para o email
                             </a>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -388,7 +388,7 @@
 </template>
 
 <script>
-import { http } from '../services/config';
+import { http, getLogin, getSenha } from '../services/config';
 
 export default {
     name: 'menuPets',
@@ -408,15 +408,15 @@ export default {
                     nome: null,
                     cor_pelugem: null,
                     raca: null,
-                    idade: -1,
-                    sexo: 'z',
+                    idade: null,
+                    sexo: null,
                     porte: null,
                     data_nascimento: null,
-                    castrado: 'z',
+                    castrado: null,
                     caminho_foto: null,
                     data_exp: null,
                     filiação: null,
-                    peso: -1.0,
+                    peso: null,
                     naturalidade: null
                 }
             },
@@ -425,11 +425,11 @@ export default {
     },
     mounted () {   
         let vm = this;
-        http.get ('pet/all/' + localStorage.getItem('login'))
+        http.get ('pet/all/' + getLogin())
             .then (function (response) {
                 vm.pets = response.data
             })
-        http.get ('usuario/get/' + localStorage.getItem ('login'))
+        http.get ('usuario/get/' + getLogin())
             .then (function (response) {
                 vm.user = response.data.usuario
             })
@@ -459,11 +459,10 @@ export default {
        atualizarPet() {
             let vm = this;
             vm.petAlterado.pet.numero_rg = vm.petSelecionado.pet.numero_rg;
-            http.put ('pet/update/' + localStorage.getItem ('login'), this.petAlterado, {
+            http.put ('pet/update/' + getLogin(), this.petAlterado, {
                 auth: {
-                    
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin(),
+                    password: getSenha()
                 }
             })
                 .then ( function (response) {
@@ -491,11 +490,11 @@ export default {
         },
         excluirPet () {
             let vm = this;
-            http.delete ('pet/delete/' + localStorage.getItem ('login'), { 
+            http.delete ('pet/delete/' + getLogin (), { 
                 data: this.petSelecionado, 
                 auth: {
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin (),
+                    password: getSenha ()
                 }
             })
                 .then (function (response) {
@@ -527,6 +526,8 @@ export default {
     }
     .foto-pet {
         max-width: 785px;
+        object-fit: cover;
+        max-height: 600px;
     }
     .rgPet {
         z-index: 1;
@@ -539,7 +540,7 @@ export default {
     .imagemPet {
         margin: 60px 0 0 175px;
         height: 151px;
-        max-width: 150px;
+        width: 150px;
         object-fit: cover
     }
     .nomePet {

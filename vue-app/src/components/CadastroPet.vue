@@ -174,7 +174,7 @@
 </template>
 
 <script>
-import { http } from '../services/config';
+import { http, getLogin, getSenha } from '../services/config';
 export default {
     name: 'cadastroPet',
     data () {
@@ -223,10 +223,10 @@ export default {
         cadastro () {
             this.petWrapper.pet.data_exp = Date.now();
             let vm = this;
-            http.post ('pet/add/' + localStorage.getItem ('login'), this.petWrapper, {
+            http.post ('pet/add/' + getLogin(), this.petWrapper, {
                 auth: {
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin(),
+                    password: getSenha ()
                 }
             })
                 .then (function (response) {

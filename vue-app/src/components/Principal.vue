@@ -14,12 +14,12 @@
                             </div>
                             <div class="form-group">
                                 <label class="color-brown" for="inputSenha">Senha</label>
-                                <input type="password" style="font-size: 9px" class="form-control" id="inputSenha" v-model="usuario.senha" required>
+                                <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha" required>
                                 <!--<a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>-->
                             </div>
                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                <label class="custom-control-label color-brown" for="customControlAutosizing">Lembrar-me</label>
+                                <input type="checkbox" class="custom-control-input" id="lembrar" v-model="lembrar">
+                                <label class="custom-control-label color-brown" for="lembrar">Lembrar-me</label>
                             </div>
                             <div class="text-center">
                                 <button style="width: 120px" class="color-brown btn btn-light">Entrar</button>
@@ -107,7 +107,8 @@ export default {
             lost: {
                 username: '',
                 email: ''
-            }
+            },
+            lembrar: false
         }
     },
     components: {
@@ -116,15 +117,9 @@ export default {
         'contato': ContatoVue,
         'comoUsar': ComoUsarVue
     },
-    created () {
-        console.log (localStorage.getItem ('login'))
-        console.log (localStorage.getItem ('password'))
-    },
     methods: {
         login () {
             let vm = this;
-        
-
             http.post ('login', {}, {
                 auth: {
                     username: vm.usuario.username,
@@ -132,8 +127,13 @@ export default {
                 }
             })
                 .then (function (response) {
-                    localStorage.setItem ('login', vm.usuario.username), //JSON.stringify (vm.usuario.username))
-                    localStorage.setItem ('password', vm.usuario.senha)
+                    if (vm.lembrar == true) {
+                        localStorage.setItem ('login', vm.usuario.username),
+                        localStorage.setItem ('password', vm.usuario.senha)
+                    }else {
+                        sessionStorage.setItem ('login', vm.usuario.username),
+                        sessionStorage.setItem ('password', vm.usuario.senha)
+                    }
                     vm.$router.push('menu-pets')
                 })
                 .catch (error => {
@@ -143,7 +143,7 @@ export default {
         recovery () {
             let url = 'http://jsonplaceholder.typicode.com/posts';
             axios.post (url, this.lost).then (function (response) {
-                console.log (response) //apenas teste
+                console.log (response) //FALTA IMPLEMENTAR
             })
         }
     }

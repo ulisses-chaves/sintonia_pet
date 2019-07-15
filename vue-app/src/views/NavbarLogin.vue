@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { http } from '../services/config';
+import { http, getLogin } from '../services/config';
 export default {
     data () {
         return {
@@ -41,7 +41,7 @@ export default {
     },
     created () {
         let vm = this;
-        http.get ('usuario/get/' + localStorage.getItem ('login'))
+        http.get ('usuario/get/' + getLogin ())
             .then (response => {
                 vm.login = response.data.usuario.nome
                 vm.isPremmium = response.data.usuario.isPremmium

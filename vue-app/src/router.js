@@ -102,7 +102,7 @@ export default new Router({
           next ('/')
       },
     },
-    {
+    /*{
       path: '/pagina-pet',
       name: 'paginaPet',
       component: () => import ( './components/PaginaPet.vue' ),
@@ -112,8 +112,8 @@ export default new Router({
               return
           }
           next ('/menu')
-      },*/
-    }
+      },
+    }*/
   ],
 
 })

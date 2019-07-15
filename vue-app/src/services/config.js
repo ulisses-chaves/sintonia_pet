@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const http = Axios.create ({
-    baseURL: 'http://192.168.25.213:8080/',
+    baseURL: 'http://localhost:8080/',
 })
 
 export function isLogged () {
@@ -11,4 +11,18 @@ export function isLogged () {
         }
     }
     return true;
+}
+
+export function getLogin () {
+    if (!localStorage.getItem ('login')) {
+        return sessionStorage.getItem ('login')
+    }
+    return localStorage.getItem ('login')
+}
+
+export function getSenha () {
+    if (!localStorage.getItem ('password')) {
+        return sessionStorage.getItem ('password')
+    }
+    return localStorage.getItem ('password')
 }

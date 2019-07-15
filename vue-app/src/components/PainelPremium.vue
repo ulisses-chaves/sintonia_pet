@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { http } from '../services/config';
+import { http, getLogin, getSenha } from '../services/config';
 export default {
     name: 'painelPremium',
     data () {
@@ -87,10 +87,10 @@ export default {
     methods: {
         premium () {
             let vm = this;
-            http.post ('usuario/token/usar/' + localStorage.getItem ('login') +"/"+ this.token, {}, {
+            http.post ('usuario/token/usar/' + getLogin () +"/"+ this.token, {}, {
                 auth: {
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin (),
+                    password: getSenha ()
                 }
 
             })

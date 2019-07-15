@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { http } from '../services/config';
+import { http, getLogin, getSenha } from '../services/config';
 export default {
     name: 'painelAdmin',
     data () {
@@ -108,8 +108,8 @@ export default {
             let vm = this;
             http.post ('usuario/token/' + this.rg, {}, {
                 auth: {
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin (),
+                    password: getSenha ()
                 }
 
             })

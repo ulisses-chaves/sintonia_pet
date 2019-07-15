@@ -270,7 +270,7 @@
 </template>
 
 <script>
-import { http } from '../services/config.js'
+import { http, getLogin, getSenha } from '../services/config.js'
 
 export default {
     name: 'menuPerfil',
@@ -312,7 +312,7 @@ export default {
     },
     mounted () {    //pra preencher nos campos os dados do usuario que está na sessao
         let vm = this;  //armazenando uma instancia do Vue
-        http.get ('usuario/get/' + localStorage.getItem ('login'))
+        http.get ('usuario/get/' + getLogin ())
             .then (function (response){
                 document.getElementById("imagem").src = response.data.imagem;
                 document.getElementById("imagem").style.width  = "150px";
@@ -342,10 +342,10 @@ export default {
     methods: {
         atualizar () {
             let vm = this;
-            http.post ('usuario/update/' + localStorage.getItem ('login')  , this.usuarioWrapper, {
+            http.post ('usuario/update/' + getLogin ()  , this.usuarioWrapper, {
                 auth: {
-                    username: localStorage.getItem ('login'),
-                    password: localStorage.getItem ('password')
+                    username: getLogin (),
+                    password: getSenha ()
                 }
             }).then(response=>{
                 $('#atualizado').modal('show')
@@ -381,10 +381,10 @@ export default {
         alterarSenha () {
             if (this.senhaWrapper.novaSenha == this.repitaSenhaNova) {
                 let vm = this;
-                http.post ('usuario/mudarSenha/' + localStorage.getItem('login'), this.senhaWrapper, {
+                http.post ('usuario/mudarSenha/' + getLogin (), this.senhaWrapper, {
                     auth: {
-                        username: localStorage.getItem ('login'),
-                        password: localStorage.getItem ('password')
+                        username: getLogin (),
+                        password: getSenha ()
                     }
                 })
                     .then (response => {
