@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.models.SenhaWrapper;
+/*import com.models.SenhaWrapper;
 import com.models.Token;
 import com.models.Usuario;
 import com.models.UsuarioWrapper;
 import com.repository.TokenRepository;
 import com.repository.UsuarioRepository;
-import com.service.ServicesFoto;
+import com.service.ServicesFoto;*/
 
 @RestController
 @RequestMapping(path="/usuario")
@@ -30,8 +30,13 @@ import com.service.ServicesFoto;
 
 public class UsuarioController
 {
-	
-	@Autowired
+	@GetMapping(value="/")
+	public @ResponseBody String get()
+	{
+		return "Eae";
+	}
+
+	/*@Autowired
 	private UsuarioRepository repositorioUsuario;	
 	@Autowired
 	private TokenRepository repositorioToken;
@@ -350,7 +355,7 @@ public class UsuarioController
 		
 	
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	}*/
 	
 
 }
