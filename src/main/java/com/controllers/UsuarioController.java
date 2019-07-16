@@ -33,7 +33,7 @@ public class UsuarioController
 	@GetMapping(value="/")
 	public @ResponseBody String get()
 	{
-		return "Eae";
+		return "Ok";
 	}
 
 	@Autowired
