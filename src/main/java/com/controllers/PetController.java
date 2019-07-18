@@ -3,6 +3,7 @@ package com.controllers;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,14 +84,14 @@ public class PetController {
 			usuario.setPets(new LinkedList<Pet>());
 
 		String cpfPet = new String();
-			
+		Random rand = new Random();
 		while(true)
 		{
 			cpfPet = new String();
 			
 			for(int i = 0; i < 9; ++i)
 			{
-				cpfPet += Long.toString(Math.round(Math.random()) * (9-1) +1);
+				cpfPet += Long.toString(Math.round(rand.nextInt(9)));
 			}
 			
 

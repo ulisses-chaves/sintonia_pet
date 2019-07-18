@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.models.Email;
 import com.repository.EmailRepository;
+import com.service.Constants;
 
 @RestController
 @RequestMapping("/email")
@@ -23,7 +24,6 @@ public class EmailController {
 	
 	@Autowired
 	private EmailRepository repository;
-	private String emailTo = "ramicesmoises@hotmail.com";
 	
 	
 	@PostMapping(value = "/contato")
@@ -35,7 +35,7 @@ public class EmailController {
 		{
 			SimpleMailMessage message = new SimpleMailMessage();
 	        message.setText(email.getMensagem());
-	        message.setTo(emailTo);
+	        message.setTo(Constants.emailTo);
 	        message.setFrom(email.getEmail());
 	
 	        sender.send(message);

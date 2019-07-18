@@ -3,6 +3,8 @@ package com.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import com.models.UsuarioWrapper;
 import com.repository.TokenRepository;
 import com.repository.UsuarioRepository;
 import com.service.ServicesFoto;
+import com.service.Constants;
 
 @RestController
 @RequestMapping(path="/usuario")
@@ -36,6 +39,10 @@ public class UsuarioController
 	private UsuarioRepository repositorioUsuario;	
 	@Autowired
 	private TokenRepository repositorioToken;
+	
+	@Autowired
+	private JavaMailSender sender;
+	
 
 	
 	@GetMapping(value="/")
@@ -48,24 +55,49 @@ public class UsuarioController
 	
 
 	@PostMapping(value="/mudar")	
-	public String mudarSenha( @RequestBody ChangeWrapper wrapper)
+	public ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
 	{
 
 		Usuario usuario = repositorioUsuario.findByLogin(wrapper.getLogin());
 
 		if(usuario == null)
-		{
-			return "Não existe";
-		}
+			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
+		
 
 		usuario = repositorioUsuario.findByEmail(wrapper.getEmail());
 
 		if(usuario == null)
-		return "Não existe";
+			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
 	
 		Random rand = new Random();
+		String novaSenha = new String();
+		
+		for(int i = 0; i < 11; ++i)
+		{
+			novaSenha += Long.toString(rand.nextInt(9));
+		}
+			
+		usuario.setSenha(novaSenha);
+		this.repositorioUsuario.delete(usuario);
+		this.repositorioUsuario.save(usuario);
 
-		return String.valueOf(rand.nextInt(10));
+		try
+		{
+			SimpleMailMessage message = new SimpleMailMessage();
+	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha);
+	        message.setTo(usuario.getEmail());
+	        message.setFrom(Constants.emailTo);
+	
+	        sender.send(message);
+	        
+	       
+			return new ResponseEntity<>("Sucesso", HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	
@@ -154,12 +186,12 @@ public class UsuarioController
 				
 		}
 		
-		
+		Random rand = new Random();
 		while(true)
 		{
 			for(int i = 0; i < 11; ++i)
 			{
-				tokenPremium += Long.toString(Math.round(Math.random()) * (9-1) +1);
+				tokenPremium += Long.toString(rand.nextInt(9));
 			}
 			
 			
