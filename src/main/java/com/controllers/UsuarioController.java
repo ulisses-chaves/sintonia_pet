@@ -1,7 +1,5 @@
 package com.controllers;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.models.ChangeWrapper;
 import com.models.SenhaWrapper;
 import com.models.Token;
 import com.models.Usuario;
@@ -30,22 +29,40 @@ import com.service.ServicesFoto;
 
 public class UsuarioController
 {
-	@GetMapping(value="/")
-	public @ResponseBody String get()
-	{
-		return "Ok";
-	}
 
 	@Autowired
 	private UsuarioRepository repositorioUsuario;	
 	@Autowired
 	private TokenRepository repositorioToken;
+
 	
-	@PostMapping(value="/foto")	
-	public String getFoto( @RequestBody String imagem64)
+	@GetMapping(value="/")
+	public @ResponseBody String get()
 	{
-		return imagem64;
+		return "Ok";
+
 	}
+	
+
+	@PostMapping(value="/mudar")	
+	public String mudarSenha( @RequestBody ChangeWrapper wrapper)
+	{
+
+		Usuario usuario = repositorioUsuario.findByLogin(wrapper.getLogin());
+
+		if(usuario == null)
+		{
+			return "Não existe";
+		}
+
+		usuario = repositorioUsuario.findByEmail(wrapper.getEmail());
+
+		if(usuario == null)
+		return "Não existe";
+	
+		return "Existe";
+	}
+
 	
 	@PostMapping(value="/mudarSenha/{login}")
 	public ResponseEntity<String> alterarSenha(@PathVariable("login") String login, @RequestBody SenhaWrapper senhaWrapper)
