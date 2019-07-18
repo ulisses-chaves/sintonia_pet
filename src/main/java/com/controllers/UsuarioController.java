@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 import com.models.ChangeWrapper;
 import com.models.SenhaWrapper;
 import com.models.Token;
@@ -39,7 +41,8 @@ public class UsuarioController
 	@GetMapping(value="/")
 	public @ResponseBody String get()
 	{
-		return "Ok";
+		
+		return "ok";
 
 	}
 	
@@ -60,7 +63,9 @@ public class UsuarioController
 		if(usuario == null)
 		return "Não existe";
 	
-		return "Existe";
+		Random rand = new Random();
+
+		return String.valueOf(rand.nextInt(10));
 	}
 
 	
