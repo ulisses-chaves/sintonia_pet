@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label class="color-brown" for="inputSenha">Senha</label>
                                 <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha" required>
-                                <!--<a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>-->
+                                <a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>
                             </div>
                            <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="lembrar" v-model="lembrar">
@@ -70,11 +70,11 @@
                             <p>Não lembra sua senha? Podemos ajudá-lo!</p>
                             <div class="form-group">
                                 <label for="inputModalLogin" class="col-form-label">Login:</label>
-                                <input type="text" class="form-control" id="inputModalLogin" v-model="lost.username" required>
+                                <input type="text" class="form-control" id="inputModalLogin" v-model="changeWrapper.login" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputModalEmail" class="col-form-label">Email:</label>
-                                <input type="text" class="form-control" id="inputModalEmail" v-model="lost.email" required>
+                                <input type="text" class="form-control" id="inputModalEmail" v-model="changeWrapper.email" required>
                                 <span class="ml-2" style="font-size: 12px">Uma nova senha será enviada para o seu email.</span>
                             </div>
                         </div>
@@ -82,6 +82,58 @@
                             <button class="btn btn-warning">Recuperar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="enviado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Enviado!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/checked.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px">Uma nova senha foi redefinida!</h6>
+                                <p>A nova senha foi enviada para <strong class="color-warning">{{ changeWrapper.email }}</strong>. Verifique na caixa de entrada ou no lixo eletrônico. <br> <strong>Lembre-se, você pode alterá-la sempre que quiser assim que estiver logado no sistema!</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="erro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Falha!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/delete.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center">
+                                <h6 class="mb-4" style="font-size: 19px">Não foi possível recuperar a sua senha!</h6>
+                                <p>E-mail e/ou login estão incorretos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,8 +156,8 @@ export default {
                 username: '',
                 senha: ''
             },
-            lost: {
-                username: '',
+            changeWrapper: {
+                login: '',
                 email: ''
             },
             lembrar: false
@@ -141,10 +193,16 @@ export default {
                 })
         },
         recovery () {
-            let url = 'http://jsonplaceholder.typicode.com/posts';
-            axios.post (url, this.lost).then (function (response) {
-                console.log (response) //FALTA IMPLEMENTAR
-            })
+            http.post ('usuario/mudar', this.changeWrapper)
+                .then (response => {
+                    $('#enviado').modal('show')
+                    $('#enviado').on('hide.bs.modal', event => {
+                        window.location.reload()
+                    })
+                })
+                .catch (error => {
+                    $('#erro').modal('show')
+                })
         }
     }
 }

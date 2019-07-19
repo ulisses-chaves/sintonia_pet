@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const http = Axios.create ({
-    baseURL: 'http://localhost:8080/',
+    baseURL: 'https://aw-sintonia-pet-api.herokuapp.com/',
 })
 
 export function isLogged () {
