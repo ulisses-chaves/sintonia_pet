@@ -3,19 +3,19 @@ package com.models;
 public class ChangeWrapper
 {
     private String email;
-    private String cpf;
+    private String rg;
 
     public ChangeWrapper() {
         this.email = new String();
         this.cpf = new String();
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getRg() {
+        return rg;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setRg(String rg) {
+        this.rg = rg;
     }
 
     public String getEmail() {

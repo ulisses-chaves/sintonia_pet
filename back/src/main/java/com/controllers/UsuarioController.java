@@ -58,7 +58,7 @@ public class UsuarioController
 	public ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
 	{
 
-		Usuario usuario = repositorioUsuario.findByCpf(wrapper.getCpf());
+		Usuario usuario = repositorioUsuario.findByRg(wrapper.getRg());
 
 		if(usuario == null)
 			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
