@@ -26,7 +26,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{ pet.pet.nome }}</h4>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ pet.pet.raca }}</h6>
-                                <p class="card-text">Alguma frase?</p>
+                                <!--<p class="card-text">Alguma frase?</p>-->
                             </div>
                             <div class="accordion" id="accordionExample">
                                 <div class="card">
@@ -66,10 +66,9 @@
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><strong>Número do RG:</strong> {{pet.numero_rg}}</li>
-                                                <li class="list-group-item"><strong>RG do Dono:</strong> {{pet.rg_dono}}</li>
-                                                <li class="list-group-item"><strong>Data de Expedição:</strong> {{ pet.data_exp }}</li>
-                                                <li class="list-group-item"><strong>QR code ??:</strong> imagem</li>
+                                                <li class="list-group-item"><strong>Número do RG:</strong> {{pet.pet.numero_rg}}</li>
+                                                <li class="list-group-item"><strong>RG do Dono:</strong> {{pet.pet.rg_dono}}</li>
+                                                <li class="list-group-item"><strong>Data de Expedição:</strong> {{ pet.pet.data_exp }}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -78,7 +77,7 @@
                             <div class="card-footer text-muted">
                                 <ul class="p-0">
                                     <li class="d-inline-block mx-2">
-                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#rg" class="card-link" href="">
+                                        <a v-on:click.prevent="pegarPet(pet), resolucao()" data-toggle="modal" data-target="#rg" class="card-link" href="">
                                             <ul class="p-0">
                                                 <li class="d-inline mx-2"><img class="m-0 p-0" style="width: 64px" src="../../public/assets/rg.png" alt=""></li>
                                                 <li class="d-inline">RG</li>
@@ -86,10 +85,10 @@
                                         </a>
                                     </li>
                                     <li class="d-inline-block mx-2">
-                                        <a data-toggle="modal" data-target="#edit" class="card-link" href="">
+                                        <a v-on:click.prevent="pegarPet(pet)" data-toggle="modal" data-target="#edit" class="card-link" href="">
                                             <ul class="p-0">
                                                 <li class="d-inline mx-2"><img style="width: 45px" class="m-0 p-0" src="../../public/assets/pen.png" alt=""></li>
-                                                <li v-on:click.prevent="pegarPet(pet)" class="d-inline">Editar</li>
+                                                <li class="d-inline">Editar</li>
                                             </ul>
                                         </a>
                                     </li>
@@ -329,7 +328,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-                    <button type="button" v-on:click.stop.prevent="excluirPet" class="btn btn-danger">Deletar</button>
+                    <button type="button" v-on:click.prevent="excluirPet" class="btn btn-danger">Deletar</button>
                 </div>
             </div>
         </div>
@@ -375,6 +374,32 @@
                         </div>
                         <div class="col-sm-9 text-center">
                             <h6 class="mb-4" style="font-size: 19px">Seu pet foi atualizado com <strong style="color: #5cb85c">SUCESSO</strong> no nosso sitema!</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="atencao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Atenção!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-3 my-5 my-sm-3 text-center">
+                            <img src="../../public/assets/alert.png" alt="">
+                        </div>
+                        <div class="col-sm-9 text-center">
+                            <h6 class="mb-4" style="font-size: 19px">Você está acessando nosso sistema por um smartphone!</h6>
+                            <p>Para visualizar melhor o RG Pet, acesse o <strong class="color-warning">SintoniaPet</strong> através de um computador ou tablet</p>
                         </div>
                     </div>
                 </div>
@@ -431,11 +456,17 @@ export default {
             })
         http.get ('usuario/get/' + getLogin())
             .then (function (response) {
+                response.data.usuario.isPremmium = true,
                 vm.user = response.data.usuario
             })
             .catch(error => {
                 console.log (error)
             })
+    },
+    updated () {
+        $('#edit').on('hide.bs.modal', event => {
+            window.location.reload()
+        })
     },
     methods: {
           fotoSelecionada (event) {
@@ -458,7 +489,20 @@ export default {
        
        atualizarPet() {
             let vm = this;
-            vm.petAlterado.pet.numero_rg = vm.petSelecionado.pet.numero_rg;
+            this.petAlterado.pet.numero_rg = this.petSelecionado.pet.numero_rg;
+            if (this.petAlterado.pet.idade == null) {
+                this.petAlterado.pet.idade = -1
+            }
+            if (this.petAlterado.pet.sexo == null) {
+                this.petAlterado.pet.sexo = 'z'
+            }
+            if (this.petAlterado.pet.castrado == null) {
+                this.petAlterado.pet.castrado = 'z'
+            }
+            if (this.petAlterado.pet.peso == null) {
+                this.petAlterado.pet.peso = -1
+            }
+            console.log (this.petAlterado)
             http.put ('pet/update/' + getLogin(), this.petAlterado, {
                 auth: {
                     username: getLogin(),
@@ -482,16 +526,15 @@ export default {
         },
         pegarPet (pet) {
             this.petSelecionado = pet;
+            this.petAlterado = pet;
             if (this.user.isPremmium) {
                 this.qrCode = document.createElement('img');
-                this.qrCode = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://192.168.25.213:8080/pagina/pet/' + this.petSelecionado.pet.numero_rg
-                console.log (this.qrCode)
+                this.qrCode = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://aw-sintonia-pet-api.herokuapp.com/pagina/pet/' + this.petSelecionado.pet.numero_rg
             }
         },
         excluirPet () {
             let vm = this;
-            http.delete ('pet/delete/' + getLogin (), { 
-                data: this.petSelecionado, 
+            http.delete ('pet/delete/' + getLogin (), { data: this.petSelecionado.pet }, {
                 auth: {
                     username: getLogin (),
                     password: getSenha ()
@@ -508,6 +551,12 @@ export default {
                     console.log (error)
                 }) 
         },
+        resolucao () {
+            console.log ('rola')
+            if (window.innerWidth < 576) {
+                $('#atencao').modal('show')
+            }
+        }
     }
 }
 </script>
@@ -524,11 +573,6 @@ export default {
             position:absolute; left:0; top:0;
         }
     }
-    .foto-pet {
-        max-width: 785px;
-        object-fit: cover;
-        max-height: 600px;
-    }
     .rgPet {
         z-index: 1;
     }
@@ -537,61 +581,369 @@ export default {
         position: absolute;
         font-size: 11px;
     }
-    .imagemPet {
-        margin: 60px 0 0 175px;
-        height: 151px;
-        width: 150px;
-        object-fit: cover
+    @media (max-width:354px) {
+        .foto-pet {
+            max-width: 260px;
+            object-fit: cover;
+            max-height: 600px;
+        }
+        .positions {
+            font-size: 7px;
+        }
+        .imagemPet {
+            margin: 37px 0 0 110px;
+            height: 100px;
+            width: 103px;
+            object-fit: cover;
+            border-radius: 50%
+        }
+        .nomePet {
+            margin: 142px 0 0 100px
+        }
+        .dataPet {
+            margin: 154px 0 0 120px
+        }
+        .dataExp {
+            margin: 154px 0 0 190px
+        }
+        .filiacao {
+            margin: 165px 0 0 110px
+        }
+        .peso {
+            margin: 165px 0 0 190px
+        }
+        .naturalidade {
+            margin: 176px 0 0 120px
+        }
+        .racaPet {
+            margin: 189px 0 0 100px
+        }
+        .sexoPet {
+            margin: 189px 0 0 185px
+        }
+        .pelugemPet {
+            margin: 189px 0 0 215px
+        }
+        .usuario {
+            margin: 200px 0 0 110px
+        }
+        .rua {
+            margin: 219px 0 0 115px
+        }
+        .cidade {
+            margin: 230px 0 0 105px
+        }
+        .bairro {
+            margin: 230px 0 0 190px
+        }
+        .uf {
+            margin: 243px 0 0 93px
+        }
+        .cep {
+            margin: 243px 0 0 125px
+        }
+        .telefone {
+            margin: 243px 0 0 190px
+        }
+        .qrCodePet {
+            margin: 279px 0 0 125px;
+            height: 85px;
+        }
     }
-    .nomePet {
-        margin: 223px 0 0 150px
+    @media (min-width:355px) {
+        .foto-pet {
+            max-width: 260px;
+            object-fit: cover;
+            max-height: 600px;
+        }
+        .positions {
+            font-size: 8px;
+        }
+        .imagemPet {
+            margin: 40px 0 0 116px;
+            height: 110px;
+            width: 110px;
+            object-fit: cover;
+            border-radius: 50%
+        }
+        .nomePet {
+            margin: 150px 0 0 105px
+        }
+        .dataPet {
+            margin: 163px 0 0 124px
+        }
+        .dataExp {
+            margin: 163px 0 0 200px
+        }
+        .filiacao {
+            margin: 174px 0 0 115px
+        }
+        .peso {
+            margin: 174px 0 0 200px
+        }
+        .naturalidade {
+            margin: 188px 0 0 130px
+        }
+        .racaPet {
+            margin: 201px 0 0 105px
+        }
+        .sexoPet {
+            margin: 201px 0 0 198px
+        }
+        .pelugemPet {
+            margin: 201px 0 0 226px
+        }
+        .usuario {
+            margin: 214px 0 0 117px
+        }
+        .rua {
+            margin: 231px 0 0 120px
+        }
+        .cidade {
+            margin: 244px 0 0 108px
+        }
+        .bairro {
+            margin: 244px 0 0 201px
+        }
+        .uf {
+            margin: 257px 0 0 100px
+        }
+        .cep {
+            margin: 257px 0 0 130px
+        }
+        .telefone {
+            margin: 257px 0 0 195px
+        }
+        .qrCodePet {
+            margin: 279px 0 0 125px;
+            height: 85px;
+        }
     }
-    .dataPet {
-        margin: 242px 0 0 180px
+    @media (min-width:375px) {
+        .foto-pet {
+            max-width: 260px;
+            object-fit: cover;
+            max-height: 600px;
+        }
+        .positions {
+            font-size: 9px;
+        }
+        .imagemPet {
+            margin: 40px 0 0 120px;
+            height: 115px;
+            width: 115px;
+            object-fit: cover;
+            border-radius: 50%
+        }
+        .nomePet {
+            margin: 158px 0 0 110px
+        }
+        .dataPet {
+            margin: 171px 0 0 129px
+        }
+        .dataExp {
+            margin: 171px 0 0 208px
+        }
+        .filiacao {
+            margin: 182px 0 0 121px
+        }
+        .peso {
+            margin: 182px 0 0 204px
+        }
+        .naturalidade {
+            margin: 196px 0 0 135px
+        }
+        .racaPet {
+            margin: 209px 0 0 110px
+        }
+        .sexoPet {
+            margin: 209px 0 0 203px
+        }
+        .pelugemPet {
+            margin: 209px 0 0 233px
+        }
+        .usuario {
+            margin: 223px 0 0 120px
+        }
+        .rua {
+            margin: 242px 0 0 122px
+        }
+        .cidade {
+            margin: 255px 0 0 109px
+        }
+        .bairro {
+            margin: 256px 0 0 205px
+        }
+        .uf {
+            margin: 269px 0 0 100px
+        }
+        .cep {
+            margin: 268px 0 0 135px
+        }
+        .telefone {
+            margin: 269px 0 0 200px
+        }
+        .qrCodePet {
+            margin: 291px 0 0 132px;
+            height: 90px;
+        }
     }
-    .dataExp {
-        margin: 242px 0 0 298px
+    @media (min-width:387px){
+        .foto-pet {
+            max-width: 260px;
+            object-fit: cover;
+            max-height: 600px;
+        }
+        .positions {
+            font-size: 9px;
+        }
+        .imagemPet {
+            margin: 42px 0 0 125px;
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+            border-radius: 50%
+        }
+        .nomePet {
+            margin: 165px 0 0 112px
+        }
+        .dataPet {
+            margin: 178px 0 0 132px
+        }
+        .dataExp {
+            margin: 178px 0 0 220px
+        }
+        .filiacao {
+            margin: 193px 0 0 125px
+        }
+        .peso {
+            margin: 193px 0 0 220px
+        }
+        .naturalidade {
+            margin: 205px 0 0 140px
+        }
+        .racaPet {
+            margin: 219px 0 0 110px
+        }
+        .sexoPet {
+            margin: 219px 0 0 212px
+        }
+        .pelugemPet {
+            margin: 219px 0 0 245px
+        }
+        .usuario {
+            margin: 235px 0 0 126px
+        }
+        .rua {
+            margin: 254px 0 0 125px
+        }
+        .cidade {
+            margin: 268px 0 0 113px
+        }
+        .bairro {
+            margin: 268px 0 0 220px
+        }
+        .uf {
+            margin: 281px 0 0 105px
+        }
+        .cep {
+            margin: 281px 0 0 140px
+        }
+        .telefone {
+            margin: 281px 0 0 210px
+        }
+        .qrCodePet {
+            margin: 306px 0 0 140px;
+            height: 90px;
+        }
     }
-    .filiacao {
-        margin: 262px 0 0 160px
+    @media (min-width: 400px) {
+        .foto-pet {
+            max-width: 260px;
+            object-fit: cover;
+            max-height: 600px;
+        }
+        .positions {
+            font-size: 11px
+        }
+        .imagemPet {
+            margin: 57px 0 0 166px;
+            height: 164px;
+            width: 164px;
+            object-fit: cover
+        }
+        .nomePet {
+            margin: 223px 0 0 150px
+        }
+        .dataPet {
+            margin: 242px 0 0 180px
+        }
+        .dataExp {
+            margin: 242px 0 0 298px
+        }
+        .filiacao {
+            margin: 262px 0 0 160px
+        }
+        .peso {
+            margin: 262px 0 0 286px
+        }
+        .naturalidade {
+            margin: 282px 0 0 185px
+        }
+        .racaPet {
+            margin: 300px 0 0 148px
+        }
+        .sexoPet {
+            margin: 300px 0 0 286px
+        }
+        .pelugemPet {
+            margin: 300px 0 0 332px
+        }
+        .usuario {
+            margin: 318px 0 0 168px
+        }
+        .rua {
+            margin: 346px 0 0 170px
+        }
+        .cidade {
+            margin: 365px 0 0 155px
+        }
+        .bairro {
+            margin: 365px 0 0 295px
+        }
+        .uf {
+            margin: 383px 0 0 138px
+        }
+        .cep {
+            margin: 383px 0 0 190px
+        }
+        .telefone {
+            margin: 383px 0 0 280px
+        }
+        .qrCodePet {
+            margin: 405px 0 0 175px;
+            height: 150px;
+        }
     }
-    .peso {
-        margin: 262px 0 0 286px
+    @media (min-width: 576px) {
+        .foto-pet {
+            max-width: 470px;
+            object-fit: cover;
+            max-height: 600px;
+        }
     }
-    .naturalidade {
-        margin: 282px 0 0 185px
+    @media (min-width: 768px) {
+        .foto-pet {
+            max-width: 650px;
+            object-fit: cover;
+            max-height: 600px;
+        }
     }
-    .racaPet {
-        margin: 300px 0 0 148px
-    }
-    .sexoPet {
-        margin: 300px 0 0 286px
-    }
-    .pelugemPet {
-        margin: 300px 0 0 332px
-    }
-    .usuario {
-        margin: 318px 0 0 168px
-    }
-    .rua {
-        margin: 346px 0 0 170px
-    }
-    .cidade {
-        margin: 365px 0 0 155px
-    }
-    .bairro {
-        margin: 365px 0 0 295px
-    }
-    .uf {
-        margin: 383px 0 0 138px
-    }
-    .cep {
-        margin: 383px 0 0 190px
-    }
-    .telefone {
-        margin: 383px 0 0 280px
-    }
-    .qrCodePet {
-        margin: 405px 0 0 175px
+    @media (min-width: 1200px) {
+        .foto-pet {
+            max-width: 785px;
+            object-fit: cover;
+            max-height: 600px;
+        }
     }
 </style>
