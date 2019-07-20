@@ -7,7 +7,12 @@ public class ChangeWrapper
 
     public ChangeWrapper() {
         this.email = new String();
-        this.cpf = new String();
+        this.rg = new String();
+    }
+
+    public ChangeWrapper(String email, String rg) {
+        this.email =  email;
+        this.rg = rg;
     }
 
     public String getRg() {
