@@ -58,7 +58,7 @@ public class UsuarioController
 	public ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
 	{
 
-		Usuario usuario = repositorioUsuario.findByLogin(wrapper.getLogin());
+		Usuario usuario = repositorioUsuario.findByCpf(wrapper.getCpf());
 
 		if(usuario == null)
 			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
@@ -84,9 +84,7 @@ public class UsuarioController
 		try
 		{
 			SimpleMailMessage message = new SimpleMailMessage();
-	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha);
-	        message.setTo(usuario.getEmail());
-	        message.setFrom(Constants.emailTo);
+	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha + "\nApenas para lembrete, seu login é: " + usuario.getLogin());
 	
 	        sender.send(message);
 	        
