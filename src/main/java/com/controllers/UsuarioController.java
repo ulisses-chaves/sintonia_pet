@@ -95,7 +95,7 @@ public class UsuarioController
 		}
 		catch(Exception e)
 		{
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Error: " +e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}
