@@ -37,7 +37,6 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 		 
 
 		 http.authorizeRequests().antMatchers( "/email/contato").permitAll();
-		 http.authorizeRequests().antMatchers( "/usuario/mudar").permitAll();
 		 
 		 http.authorizeRequests().antMatchers( "/usuario/token").hasRole("ADMIN");
 		 
