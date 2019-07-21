@@ -55,7 +55,7 @@ public class UsuarioController
 	
 
 	@PostMapping(value="/mudar")	
-	public ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
+	public @ResponseBody ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
 	{
 
 		Usuario usuario = repositorioUsuario.findByRg(wrapper.getRg());
