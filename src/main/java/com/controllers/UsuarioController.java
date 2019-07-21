@@ -85,7 +85,8 @@ public class UsuarioController
 		{
 			SimpleMailMessage message = new SimpleMailMessage();
 	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha + "\nApenas para lembrete, seu login é: " + usuario.getLogin());
-	
+			message.setTo(usuario.getEmail());
+			message.setSubject("Nova senha Sintonia Pet");
 	        sender.send(message);
 	        
 	       
