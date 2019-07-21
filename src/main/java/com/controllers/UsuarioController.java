@@ -77,17 +77,18 @@ public class UsuarioController
 			novaSenha += Long.toString(rand.nextInt(9));
 		}
 			
-		usuario.setSenha(novaSenha);
-		this.repositorioUsuario.delete(usuario);
-		this.repositorioUsuario.save(usuario);
+
 
 		try
 		{
 			SimpleMailMessage message = new SimpleMailMessage();
 	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha + "\nApenas para lembrete, seu login é: " + usuario.getLogin());
-			//message.setFrom(Constants.emailFrom);
-			//message.setTo(usuario.getEmail());
+			message.setFrom(Constants.emailFrom);
+			message.setTo(usuario.getEmail());
 			sender.send(message);
+			usuario.setSenha(novaSenha);
+			this.repositorioUsuario.delete(usuario);
+			this.repositorioUsuario.save(usuario);
 	        
 	       
 			return new ResponseEntity<>("Sucesso", HttpStatus.OK);
