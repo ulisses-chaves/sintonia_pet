@@ -49,7 +49,7 @@ public class UsuarioController
 	public @ResponseBody String getRgTeste()
 	{
 		
-		return "ok";
+		return "Compilou";
 
 	}
 	
