@@ -55,19 +55,19 @@ public class UsuarioController
 	
 
 	@PostMapping(value="/mudar")	
-	public  String mudarSenha( @RequestBody ChangeWrapper wrapper)
+	public @ResponseBody ResponseEntity<String> mudarSenha( @RequestBody ChangeWrapper wrapper)
 	{
 
 		Usuario usuario = repositorioUsuario.findByRg(wrapper.getRg());
 
 		if(usuario == null)
-			return "RG";
+			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
 		
 
 		usuario = repositorioUsuario.findByEmail(wrapper.getEmail());
 
 		if(usuario == null)
-			return "Senha";
+			return new ResponseEntity<>("Não existe", HttpStatus.BAD_REQUEST);
 	
 		Random rand = new Random();
 		String novaSenha = new String();
@@ -81,7 +81,23 @@ public class UsuarioController
 		this.repositorioUsuario.delete(usuario);
 		this.repositorioUsuario.save(usuario);
 
-		return "Passou";
+		try
+		{
+			SimpleMailMessage message = new SimpleMailMessage();
+	        message.setText("Aqui está sua nova senha. Use-a quando for logar a próxima vez: " + novaSenha + "\nApenas para lembrete, seu login é: " + usuario.getLogin());
+			message.setFrom(Constants.emailFrom);
+			//message.setTo(usuario.getEmail());
+			//message.setSubject("Nova senha Sintonia Pet");
+	        sender.send(message);
+	        
+	       
+			return new ResponseEntity<>("Sucesso", HttpStatus.OK);
+		}
+		catch(Exception e)
+		{
+			return new ResponseEntity<>("Error: " +e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
 	}
 
 	
