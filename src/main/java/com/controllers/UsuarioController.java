@@ -46,7 +46,7 @@ public class UsuarioController
 
 	
 	@GetMapping(value="/{rg}")
-	public @ResponseBody String getRgTeste(@PathVariable("rg")String rg)
+	public @ResponseBody Usuario getRgTeste(@PathVariable("rg")String rg)
 	{
 		
 		return repositorioUsuario.findByRg(rg);
