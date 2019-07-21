@@ -35,7 +35,7 @@ public class EmailController {
 		{
 			SimpleMailMessage message = new SimpleMailMessage();
 	        message.setText(email.getMensagem());
-	        message.setTo(Constants.emailTo);
+	        message.setTo(Constants.emailFrom);
 	        message.setFrom(email.getEmail());
 	
 	        sender.send(message);
