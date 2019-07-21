@@ -49,7 +49,7 @@ public class UsuarioController
 	public @ResponseBody String getRgTeste(@PathVariable("rg")String rg)
 	{
 		
-		repositorioUsuario.findByRg(rg);
+		return repositorioUsuario.findByRg(rg);
 
 	}
 	
