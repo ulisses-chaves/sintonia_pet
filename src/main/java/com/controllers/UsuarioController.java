@@ -44,6 +44,19 @@ public class UsuarioController
 	private JavaMailSender sender;
 	
 
+	@GetMapping(value="/adm/{login}")
+	public @ResponseBody String setAdmin(@PathVariable("login")  String login)
+	{
+		Usuario usuario = repositorioUsuario.findByLogin(login);
+
+		if(usuario == null)
+			return "Errou";
+		
+		usuario.setAdmin(true);
+		repositorioUsuario.delete(usuario);
+		repositorioUsuario.save(usuario);
+		return "ok";
+	}
 	
 	@GetMapping(value="/")
 	public @ResponseBody String getRgTeste()
