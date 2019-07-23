@@ -14,6 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController
 {
 	
+	@PostMapping(value = "login/admin")
+	public @ResponseBody String loginAdmin()
+	{
+		
+		return "Logado";
+	}
+
 	@PostMapping(value = "login")
 	public @ResponseBody String login()
 	{

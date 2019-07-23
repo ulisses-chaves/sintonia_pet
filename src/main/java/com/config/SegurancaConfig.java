@@ -18,7 +18,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 
 	  @Override
 	  protected void configure(HttpSecurity http) throws Exception 
-	  {
+		  {
 		
 		 http.cors();
 		 http.httpBasic();  	
@@ -39,6 +39,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter implements App
 		 http.authorizeRequests().antMatchers( "/email/contato").permitAll();
 		 
 		 http.authorizeRequests().antMatchers( "/usuario/token").hasRole("ADMIN");
+		 http.authorizeRequests().antMatchers( "/login/admin").hasRole("ADMIN").and().authorizeRequests();
 		 
 		
 		 http.csrf().disable();
