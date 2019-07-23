@@ -62,7 +62,6 @@ public class Usuario
 	
 	private String caminho_foto;
 
-	
 	private Boolean is_admin;
 	
 	private Boolean isPremmium;
