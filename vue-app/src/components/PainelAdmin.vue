@@ -55,6 +55,7 @@
                             </div>
                             <div class="col-sm-9 text-center text-sm-left">
                                 <h6 style="font-size: 19px">O usuario com RG {{rg}} se tornou <strong class="color-warning">PREMIUM</strong>!</h6>
+                                <p>Informe o Token: <strong class="color-warning">{{ token }}</strong> ao usuário!</p>
                             </div>
                         </div>
                     </div>
@@ -85,8 +86,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-                        <button type="button" v-on:click.stop.prevent="excluirPet" class="btn btn-danger">Deletar</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
             </div>
@@ -100,8 +100,18 @@ export default {
     name: 'painelAdmin',
     data () {
         return {
-            rg: ''
+            rg: '',
+            token: '',
         }
+    },
+    beforeCreate() {
+        let vm = this
+        http.get ('usuario/get/' + getLogin())
+            .then (function (response) {
+                if (!response.data.usuario.is_admin) {
+                    vm.$router.push ('/menu')
+                }
+            })
     },
     methods: {
         premium () {
@@ -114,6 +124,7 @@ export default {
 
             })
                 .then (function (response) {
+                    vm.token = response.data
                     $('#premium').modal('show')
                 })
                 .catch (error => {

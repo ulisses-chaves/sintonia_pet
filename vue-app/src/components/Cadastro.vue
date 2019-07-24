@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <label for="inputCelular" class="col-sm-2 col-form-label">Celular</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + Celular" v-model="usuarioWrapper.usuario.numero_telefone" maxlength="10" minlength="10" name="numbers" pattern="[0-9]+$" required>
+                            <input type="text" class="form-control" id="inputCelular" placeholder="DDD + 9 + Celular" v-model="usuarioWrapper.usuario.numero_telefone" maxlength="11" minlength="11" name="numbers" pattern="[0-9]+$" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -251,7 +251,7 @@ export default {
                     login: '',
                     senha: '',
                     is_admin:false,
-                    is_premmium: false,
+                    isPremmium: false,
                     caminho_foto: '',
                     uf: ''
                 },

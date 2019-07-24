@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Principal from './components/Principal.vue'
-import { isLogged, http } from './services/config';
+import { isLogged } from './services/config';
 
 Vue.use(Router)
 
@@ -39,7 +39,7 @@ export default new Router({
       name: 'menu-principal',
       component: () => import ( './components/MenuPrincipal.vue' ),
       beforeEnter: (to, from, next) => {
-          if (isLogged()) {
+        if (isLogged()) {
               next()
               return
           }
@@ -82,22 +82,10 @@ export default new Router({
       path: '/painel-admin',
       name: 'painelAdmin',
       component: () => import ( './components/PainelAdmin.vue' ),
-      beforeEnter: (to, from, next) => { 
+      beforeEnter: (to, from, next) => {
           if (isLogged()) {
-            http.get ('usuario/get/' + localStorage.getItem ('login'))
-              .then (response => {
-                console.log (response.data.usuario.is_admin)
-                  if (response.data.usuario.is_admin) {
-                      next()
-                      return
-                  } else {
-                      next('/menu-pets')
-                      return
-                  }
-              })
-              .catch (error => {
-                  console.log ('Problema na comunicação com a API')
-              })
+            next()
+            return     
           }
           next ('/')
       },

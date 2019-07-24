@@ -456,7 +456,6 @@ export default {
             })
         http.get ('usuario/get/' + getLogin())
             .then (function (response) {
-                response.data.usuario.isPremmium = true,
                 vm.user = response.data.usuario
             })
             .catch(error => {
@@ -552,7 +551,6 @@ export default {
                 }) 
         },
         resolucao () {
-            console.log ('rola')
             if (window.innerWidth < 576) {
                 $('#atencao').modal('show')
             }

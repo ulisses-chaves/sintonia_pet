@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label class="color-brown" for="inputSenha">Senha</label>
                                 <input type="password" class="form-control" id="inputSenha" v-model="usuario.senha" required>
-                                <a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu a senha?</a>
+                                <a style="font-size: 13px" class="card-link"  data-toggle="modal" data-target="#modalRecuperar" href="">Esqueceu o login ou a senha?</a>
                             </div>
                            <div class="custom-control custom-checkbox mb-3">
                                 <input type="checkbox" class="custom-control-input" id="lembrar" v-model="lembrar">
@@ -69,8 +69,8 @@
                         <div class="modal-body">
                             <p>Não lembra sua senha? Podemos ajudá-lo!</p>
                             <div class="form-group">
-                                <label for="inputModalLogin" class="col-form-label">Login:</label>
-                                <input type="text" class="form-control" id="inputModalLogin" v-model="changeWrapper.login" required>
+                                <label for="inputModalLogin" class="col-form-label">RG:</label>
+                                <input type="text" class="form-control" id="inputModalLogin" v-model="changeWrapper.rg" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputModalEmail" class="col-form-label">Email:</label>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="col-sm-9 text-center">
                                 <h6 class="mb-4" style="font-size: 19px">Uma nova senha foi redefinida!</h6>
-                                <p>A nova senha foi enviada para <strong class="color-warning">{{ changeWrapper.email }}</strong>. Verifique na caixa de entrada ou no lixo eletrônico. <br> <strong>Lembre-se, você pode alterá-la sempre que quiser assim que estiver logado no sistema!</strong></p>
+                                <p>Seu login e uma nova senha foram enviados para <strong class="color-warning">{{ changeWrapper.email }}</strong>. Verifique na caixa de entrada ou no lixo eletrônico. <br> <strong>Lembre-se, você pode alterar a senha sempre que quiser assim que estiver logado no sistema!</strong></p>
                             </div>
                         </div>
                     </div>
@@ -126,13 +126,32 @@
                                 <img src="../../public/assets/delete.png" alt="">
                             </div>
                             <div class="col-sm-9 text-center">
-                                <h6 class="mb-4" style="font-size: 19px">Não foi possível recuperar a sua senha!</h6>
-                                <p>E-mail e/ou login estão incorretos</p>
+                                <h6 class="mb-4" style="font-size: 19px">Não foi possível recuperar!</h6>
+                                <p>E-mail e/ou RG estão incorretos</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Ok!</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" id="carregando" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Aguarde</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3 my-5 my-sm-3 text-center">
+                                <img src="../../public/assets/cachorro-sentado-direita.png" alt="">
+                            </div>
+                            <div class="col-sm-9 text-center mt-5">
+                                <h6 class="mb-4" style="font-size: 19px">Estamos conferindo e carregando seus dados!</h6>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,7 +176,7 @@ export default {
                 senha: ''
             },
             changeWrapper: {
-                login: '',
+                rg: '',
                 email: ''
             },
             lembrar: false
@@ -171,6 +190,7 @@ export default {
     },
     methods: {
         login () {
+            $('#carregando').modal('show')
             let vm = this;
             http.post ('login', {}, {
                 auth: {
@@ -186,9 +206,11 @@ export default {
                         sessionStorage.setItem ('login', vm.usuario.username),
                         sessionStorage.setItem ('password', vm.usuario.senha)
                     }
-                    vm.$router.push('menu-pets')
+                    $('#carregando').modal('hide')
+                    vm.$router.push('menu')
                 })
                 .catch (error => {
+                    $('#carregando').modal('hide')
                     document.getElementById('loginSenhaIncorretos').style.display = 'block';
                 })
         },

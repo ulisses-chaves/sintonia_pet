@@ -66,8 +66,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
-                        <button type="button" v-on:click.stop.prevent="excluirPet" class="btn btn-danger">Deletar</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Ok</button>
                     </div>
                 </div>
             </div>
@@ -101,6 +100,7 @@ export default {
                     $('#premium').modal('show')
                 })
                 .catch (error => {
+                    console.log(error.response)
                     $('#falha').modal('show')
                     $('#falha').on('hide.bs.modal', event => {
                         vm.$router.push ('menu-pets')

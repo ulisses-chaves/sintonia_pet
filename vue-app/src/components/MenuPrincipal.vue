@@ -12,6 +12,8 @@
 <script>
 import NavbarLoginVue from '../views/NavbarLogin.vue';
 import RodapeVue from '../views/Rodape.vue';
+import { http, getLogin } from '../services/config';
+import { setTimeout } from 'timers';
 
 export default {
     name: 'menu-principal',
@@ -24,13 +26,24 @@ export default {
         'navbarLogin': NavbarLoginVue,
         'rodape': RodapeVue
     },
+    beforeCreate () {
+        let vm = this
+        http.get ('usuario/get/' + getLogin())
+            .then (function (response) {
+                if (response.data.usuario.is_admin) {
+                    vm.$router.push ('painel-admin')
+                }
+            })
+    },
     created () {
-        if (this.$route.name == 'menu-principal') {
-            this.$router.push ({ 
-                name: 'menuPets', 
-                params: { name: 'menu-pets' },
-            });
-        }
+        setTimeout( () => {
+            if (this.$route.name == 'menu-principal') {
+                this.$router.push ({ 
+                    name: 'menuPets', 
+                    params: { name: 'menu-pets' },
+                });
+            }
+        }, 1000)
     },
     methods: {
         
