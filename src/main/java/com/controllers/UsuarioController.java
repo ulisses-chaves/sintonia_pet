@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.qos.logback.core.joran.conditional.ElseAction;
+
 import java.util.Random;
 
 import com.models.ChangeWrapper;
@@ -141,6 +143,19 @@ public class UsuarioController
 
 		return new ResponseEntity<>("", HttpStatus.OK);
 	
+	}
+	
+	@PostMapping(value="/token/pegar/{rg}")
+	public ResponseEntity<String> getToken(@PathVariable("rg") String rg)
+	{
+		Token token = repositorioToken.findByRg(rg);
+
+		if(token == null)
+			return new ResponseEntity<>("Token com esse rg não existe", HttpStatus.BAD_REQUEST); 
+			
+
+			return new ResponseEntity<>(token.getToken(), HttpStatus.BAD_REQUEST); 
+			
 	}
 	
 	@PostMapping(value="/token/usar/{login}/{tokenValor}")
