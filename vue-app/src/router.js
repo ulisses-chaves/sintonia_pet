@@ -75,6 +75,11 @@ export default new Router({
           path: '/painel-premium',
           name: 'painelPremium',
           component: () => import ( './components/PainelPremium.vue' )
+        },
+        {
+          path: '/pagina-perfil',
+          name: 'paginaPerfil',
+          component: () => import ( './components/PaginaPerfil.vue')
         }
       ]
     },
@@ -90,18 +95,15 @@ export default new Router({
           next ('/')
       },
     },
-    /*{
-      path: '/pagina-pet',
-      name: 'paginaPet',
-      component: () => import ( './components/PaginaPet.vue' ),
-      /*beforeEnter: (to, from, next) => { 
-          if (!isLogged()) {
-              next()
-              return
-          }
-          next ('/menu')
-      },
-    }*/
   ],
-
+  scrollBehavior (to, from, savedPosition) {      
+    if ( savedPosition ) { 
+      return savedPosition 
+    } 
+    else { 
+      return { 
+        x : 0 , y : 0 
+      } 
+    }
+  }
 })

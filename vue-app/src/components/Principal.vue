@@ -56,6 +56,7 @@
     <contato></contato>
     <rodape></rodape>
     <!-- MODAL -->
+    <div class="container">
         <div class="modal fade" id="modalRecuperar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -141,7 +142,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Aguarde</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Autenticando...</h5>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -149,12 +150,14 @@
                                 <img src="../../public/assets/cachorro-sentado-direita.png" alt="">
                             </div>
                             <div class="col-sm-9 text-center mt-5">
-                                <h6 class="mb-4" style="font-size: 19px">Estamos conferindo e carregando seus dados!</h6>
+                                <h6 class="mb-4" style="font-size: 19px"><strong class="color-warning">Aguarde um momento!</strong></h6>
+                                <p>Estamos conferindo e carregando seus dados!</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </template>

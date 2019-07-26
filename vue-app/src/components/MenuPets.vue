@@ -11,7 +11,7 @@
         </div>
         <div class="row mt-4">
             <div class="col-lg-9 m-auto">
-                <ul style="list-style: none">
+                <ul style="list-style: none" class="pl-0">
                     <li class="mb-3">
                         <router-link style="color: black" v-bind:to="{ name: 'cadastroPet', params: { name: 'cadastro-pet' } }">
                             <img style="width: 25px" src="../../public/assets/plus.png" alt="">
@@ -28,7 +28,7 @@
                                 <h6 class="card-subtitle mb-2 text-muted">{{ pet.pet.raca }}</h6>
                                 <!--<p class="card-text">Alguma frase?</p>-->
                             </div>
-                            <div class="accordion" id="accordionExample">
+                            <div class="accordion" id="accordionExample1">
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
                                         <h5 class="mb-0">
@@ -37,7 +37,7 @@
                                         </button>
                                         </h5>
                                     </div>
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample1">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong>Idade:</strong> {{pet.pet.idade}}</li>
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="accordion" id="accordionExample">
+                            <div class="accordion" id="accordionExample2">
                                 <div class="card">
                                     <div class="card-header" id="headingTwo">
                                         <h5 class="mb-0">
@@ -63,7 +63,7 @@
                                         </button>
                                         </h5>
                                     </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample2">
                                         <div class="card-body">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><strong>Número do RG:</strong> {{pet.pet.numero_rg}}</li>
@@ -939,7 +939,7 @@ export default {
     }
     @media (min-width: 1200px) {
         .foto-pet {
-            max-width: 785px;
+            max-width: 823px;
             object-fit: cover;
             max-height: 600px;
         }

@@ -43,7 +43,7 @@ export default {
                     params: { name: 'menu-pets' },
                 });
             }
-        }, 1000)
+        }, 1500)
     },
     methods: {
         

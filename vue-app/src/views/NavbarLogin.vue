@@ -7,13 +7,13 @@
                 </router-link>
                 <div id="navbarSite">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active mt-sm-2 mr-sm-2">Seja bem vindo(a), <strong>{{login}}</strong></li>
-                        <li class="nav-item active">
+                        <li class="nav-item active mt-sm-2 mr-sm-2">Bem vindo(a), <strong>{{login}}</strong></li>
+                        <li class="nav-item active text-right">
                             <div class="dropdown">
                                 <img style="width: 35px; cursor: pointer" src="../../public/assets/user.png" alt="" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu dropdown-menu-right" style="position: absolute" aria-labelledby="dropdownMenuButton">
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'menuPets', params: { name: 'menu-pets' } }"><img style="width: 30px" src="../../public/assets/cat.png" alt=""> Gerenciar Pets</router-link>
-                                    <router-link class="dropdown-item" v-bind:to="{ name: 'menuPerfil', params: { name: 'perfil' } }"><img style="width: 30px" src="../../public/assets/editar.png" alt=""> Editar Perfil</router-link>
+                                    <router-link class="dropdown-item" v-bind:to="{ name: 'paginaPerfil', params: { name: 'pagina-perfil' } }"><img style="width: 30px" src="../../public/assets/editar.png" alt=""> Perfil</router-link>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'painelPremium', params: { name: 'painel-premium' } }"><img style="width: 30px" src="../../public/assets/qr-code.png" alt=""> Premium</router-link>
                                     <div class="dropdown-divider"></div>
                                     <router-link class="dropdown-item" v-bind:to="{ name: 'comoUsar', params: { name: 'como-usar' } }"><img style="width: 30px" src="../../public/assets/comousar.png" alt=""> Como Usar</router-link>

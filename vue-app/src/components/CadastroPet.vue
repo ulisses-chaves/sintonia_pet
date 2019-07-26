@@ -67,7 +67,8 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="inputFiliacao">Filiação</label>
-                            <input type="text" class="form-control" id="inputFiliacao" v-model="petWrapper.pet.filiação" maxlength="60" required placeholder="Pais do Pet">
+                            <input type="text" class="form-control" id="inputFiliacao" v-model="petWrapper.pet.filiação" maxlength="60" placeholder="Pais do Pet">
+                            <span style="color: red; font-size: 11px">Caso não saiba o nome dos pais, deixe esse campo em branco.</span>
                         </div>
                     </div>
                 </div>
@@ -115,7 +116,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="form-group mt-4 text-right text-sm-center">
+                        <div class="form-group mt-4 text-left text-sm-center">
                             <label class="mr-4" for="inputFoto">Escolha uma foto</label>
                             <input type="file" accept="image/png, image/jpeg" v-on:change="fotoSelecionada">
                         </div>
@@ -223,6 +224,9 @@ export default {
         cadastro () {
             this.petWrapper.pet.data_exp = Date.now();
             let vm = this;
+            if (this.petWrapper.pet.filiação == null) {
+                this.petWrapper.pet.filiação = 'Desconhecido'
+            }
             http.post ('pet/add/' + getLogin(), this.petWrapper, {
                 auth: {
                     username: getLogin(),

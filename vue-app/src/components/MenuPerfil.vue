@@ -2,9 +2,9 @@
     <div class="container my-5">
         <div class="row mb-5">
             <div class="col-sm-6 text-center text-sm-right" >
-                <img src="../../public/assets/perfil.png" alt="" >
+                <img src="../../public/assets/editar.png" alt="" >
             </div>
-            <div style="vertical-align: middle" class="col-sm-06 text-center text-sm-left pl-0 mt-3">
+            <div class="col-sm-6 text-center text-sm-left pl-0 mt-3">
                 <h1>Perfil</h1>
             </div>
         </div>
